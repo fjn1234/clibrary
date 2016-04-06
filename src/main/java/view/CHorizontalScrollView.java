@@ -1,0 +1,79 @@
+package view;
+
+import android.content.Context;
+import android.util.AttributeSet;
+import android.widget.HorizontalScrollView;
+
+import interfaces.IView;
+import obj.CustomAttrs;
+import utils.ViewUtil;
+
+/**
+ * Created by Hugh on 2015/5/19.
+ */
+public class CHorizontalScrollView extends HorizontalScrollView implements IView.ICustomAttrs {
+    private CustomAttrs mAttrs = new CustomAttrs();
+    private boolean initCustomAttrs = true;
+
+    public CHorizontalScrollView(Context context) {
+        super(context);
+    }
+
+    public CHorizontalScrollView(Context context, AttributeSet attrs) {
+        super(context, attrs);
+        setCustomAttr(context, attrs);
+    }
+
+    public CHorizontalScrollView(Context context, AttributeSet attrs, int defStyle) {
+        super(context, attrs, defStyle);
+        setCustomAttr(context, attrs);
+    }
+
+    private void setCustomAttr(Context context, AttributeSet attrs) {
+        mAttrs = ViewUtil.initCustomAttrs(context, attrs, this);
+    }
+
+    public void loadCustomAttrs() {
+        ViewUtil.loadCustomAttrs(this, mAttrs);
+    }
+
+    public CustomAttrs getCustomAttrs() {
+        return mAttrs;
+    }
+
+    public void setCustomAttrs(CustomAttrs mAttrs) {
+        this.mAttrs = mAttrs;
+        loadCustomAttrs();
+    }
+
+    @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+        if (initCustomAttrs) {
+            initCustomAttrs = false;
+            ViewUtil.getParentScreenAttr(mAttrs, this);
+            loadCustomAttrs();
+        }
+    }
+
+    //--------------------------------------------------------------------
+//
+//    private InterceptTouchListener interceptTouchListener;
+//
+//    public void setInterceptTouchListener(InterceptTouchListener interceptTouchListener) {
+//        this.interceptTouchListener = interceptTouchListener;
+//    }
+//
+//    @Override
+//    public boolean onInterceptTouchEvent(MotionEvent ev) {
+//        if (interceptTouchListener != null) {
+//            interceptTouchListener.onInterceptTouch(ev);
+//            return false;
+//        } else
+//            return super.onInterceptTouchEvent(ev);
+//    }
+//
+//    public interface InterceptTouchListener {
+//        void onInterceptTouch(MotionEvent event);
+//    }
+}

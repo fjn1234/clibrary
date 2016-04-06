@@ -1,0 +1,43 @@
+<resources>
+    <string name="app_name">CustomLibrary</string>
+
+    <string name="pull_to_refresh_pull_label">拉动刷新</string>
+    <string name="pull_to_refresh_release_label">松开刷新</string>
+    <string name="pull_to_refresh_refreshing_label">正在载入…</string>
+    <string name="pull_to_refresh_more">加载更多</string>
+    <string name="pull_to_refresh_no_more">已经加载全部数据</string>
+    <string name="pull_to_refresh_loading_more">正在加载更多</string>
+    <string name="pull_to_refresh_click_to_load_more">点击加载更多</string>
+
+    <string name="validate_idcard_error1">身份证号码长度应该为15位或18位。</string>
+    <string name="validate_idcard_error2">身份证15位号码都应为数字 ; 18位号码除最后一位外，都应为数字。</string>
+    <string name="validate_idcard_error3">身份证生日无效。</string>
+    <string name="validate_idcard_error4">身份证生日不在有效范围。</string>
+    <string name="validate_idcard_error5">身份证月份无效</string>
+    <string name="validate_idcard_error6">身份证日期无效</string>
+    <string name="validate_idcard_error7">身份证地区编码错误</string>
+    <string name="validate_idcard_error8">身份证无效，不是合法的身份证号码</string>
+
+    <string-array name="week_chinese1">
+        <item>周日</item>
+        <item>周一</item>
+        <item>周二</item>
+        <item>周三</item>
+        <item>周四</item>
+        <item>周五</item>
+        <item>周六</item>
+    </string-array>
+    <string-array name="week_chinese2">
+        <item>Calendar的Week由1开始</item>
+        <item>星期一</item>
+        <item>星期二</item>
+        <item>星期三</item>
+        <item>星期四</item>
+        <item>星期五</item>
+        <item>星期六</item>
+        <item>星期日</item>
+    </string-array>
+
+
+
+</resources>

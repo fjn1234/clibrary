@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="CSlidingTab">
+        <attr name="cindicatorColor" format="color" />
+        <attr name="cunderlineColor" format="color" />
+        <attr name="cdividerColor" format="color" />
+        <attr name="ctextColor" format="color" />
+        <attr name="cchoiceTextSize" format="string" />
+        <attr name="cchoiceTextColor" format="color" />
+        <attr name="ctabChoicedColor" format="color" />
+        <attr name="ctabColor" format="color" />
+        <attr name="cindicatorHeight" format="dimension" />
+        <attr name="cunderlineHeight" format="dimension" />
+        <attr name="cdividerPadding" format="dimension" />
+        <attr name="ctabPaddingLeftRight" format="dimension" />
+        <attr name="cscrollOffset" format="dimension" />
+        <attr name="ctabBackground" format="reference" />
+        <attr name="cshouldExpand" format="boolean" />
+        <attr name="ctextAllCaps" format="boolean" />
+        <attr name="ctextBold" format="boolean" />
+        <attr name="cdesignScreenWidth" />
+        <attr name="cdesignScreenHeight" />
+        <attr name="cwidthPx" />
+        <attr name="cheightPx" />
+        <attr name="cmarginPx" />
+        <attr name="cmarginLeftPx" />
+        <attr name="cmarginRightPx" />
+        <attr name="cmarginTopPx" />
+        <attr name="cmarginBottomPx" />
+        <attr name="cpaddingPx" />
+        <attr name="cpaddingLeftPx" />
+        <attr name="cpaddingRightPx" />
+        <attr name="cpaddingTopPx" />
+        <attr name="cpaddingBottomPx" />
+        <attr name="cwidth" />
+        <attr name="cheight" />
+        <attr name="cmarginLeft" />
+        <attr name="cmarginRight" />
+        <attr name="cmarginTop" />
+        <attr name="cmarginTopByWidth" />
+        <attr name="cmarginBottom" />
+        <attr name="cmarginBottomByWidth" />
+        <attr name="cmarginByWidth" />
+        <attr name="cmarginByHeight" />
+        <attr name="cpaddingLeft" />
+        <attr name="cpaddingRight" />
+        <attr name="cpaddingTop" />
+        <attr name="cpaddingTopByWidth" />
+        <attr name="cpaddingBottom" />
+        <attr name="cpaddingBottomByWidth" />
+        <attr name="cminWidth" />
+        <attr name="cmaxWidth" />
+        <attr name="cminHeight" />
+        <attr name="cmaxHeight" />
+        <attr name="ctoSquare" />
+        <attr name="cheightByWidth" />
+        <attr name="cwidthByHeight" />
+        <attr name="ccorner" />
+        <attr name="ctextSize" />
+        <attr name="ccornerDirection" />
+        <attr name="onClickBackground" />
+    </declare-styleable>
+
+</resources>

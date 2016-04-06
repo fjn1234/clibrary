@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="CTableLayout">
+        <attr name="cdesignScreenWidth" />
+        <attr name="cdesignScreenHeight" />
+        <attr name="entityMapping" />
+        <attr name="selectMapping" />
+        <attr name="visibleMapping" />
+        <attr name="hideMode" />
+        <attr name="cwidthPx" />
+        <attr name="cheightPx" />
+        <attr name="cmarginPx" />
+        <attr name="cmarginLeftPx" />
+        <attr name="cmarginRightPx" />
+        <attr name="cmarginTopPx" />
+        <attr name="cmarginBottomPx" />
+        <attr name="cpaddingPx" />
+        <attr name="cpaddingLeftPx" />
+        <attr name="cpaddingRightPx" />
+        <attr name="cpaddingTopPx" />
+        <attr name="cpaddingBottomPx" />
+        <attr name="cwidth" />
+        <attr name="cheight" />
+        <attr name="cmarginLeft" />
+        <attr name="cmarginRight" />
+        <attr name="cmarginTop" />
+        <attr name="cmarginTopByWidth" />
+        <attr name="cmarginBottom" />
+        <attr name="cmarginBottomByWidth" />
+        <attr name="cmarginByWidth" />
+        <attr name="cmarginByHeight" />
+        <attr name="cpaddingLeft" />
+        <attr name="cpaddingRight" />
+        <attr name="cpaddingTop" />
+        <attr name="cpaddingTopByWidth" />
+        <attr name="cpaddingBottom" />
+        <attr name="cpaddingBottomByWidth" />
+        <attr name="cminWidth" />
+        <attr name="cmaxWidth" />
+        <attr name="cminHeight" />
+        <attr name="cmaxHeight" />
+        <attr name="ctoSquare" />
+        <attr name="cheightByWidth" />
+        <attr name="cwidthByHeight" />
+        <attr name="ccorner" />
+        <attr name="ccornerDirection" />
+        <attr name="onClickBackground" />
+    </declare-styleable>
+</resources>

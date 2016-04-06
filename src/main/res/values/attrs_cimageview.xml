@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="CImageView">
+        <!--ImageView Attrs-->
+        <attr name="ccacheToMemory" format="boolean"></attr>
+        <attr name="ctoCircleImg" format="boolean"></attr>
+        <attr name="ctoSquareImg" format="boolean"></attr>
+        <attr name="ccornerImg" format="float"></attr>
+        <attr name="ccacheToDisk" format="string"></attr>
+        <attr name="ctempFilePath" format="string"></attr>
+        <attr name="cautoScale" format="integer"></attr>
+        <attr name="cautoScaleRatio" format="string"></attr>
+        <attr name="cscaleByWidth" format="integer"></attr>
+        <attr name="cscaleByHeight" format="integer"></attr>
+        <attr name="czoom" format="float"></attr>
+        <attr name="cautoUpdate" format="integer"></attr>
+        <attr name="ccustomSize" format="string"></attr>     <!--value=300,400-->
+        <attr name="cmatrixMode" format="boolean"></attr>
+        <attr name="cmaxCustomScale" format="integer"></attr>
+        <attr name="loadType">
+            <flag name="disk" value="0x00000001" />
+            <flag name="url" value="0x00000002" />
+            <flag name="oss" value="0x00000003" />
+        </attr>
+        <attr name="cdesignScreenWidth" />
+        <attr name="cdesignScreenHeight" />
+        <attr name="entityMapping" />
+        <attr name="getMapping" />
+        <attr name="setMapping" />
+        <attr name="selectMapping" />
+        <attr name="visibleMapping" />
+        <attr name="hideMode" />
+        <attr name="cwidthPx" />
+        <attr name="cheightPx" />
+        <attr name="cmarginPx" />
+        <attr name="cmarginLeftPx" />
+        <attr name="cmarginRightPx" />
+        <attr name="cmarginTopPx" />
+        <attr name="cmarginBottomPx" />
+        <attr name="cpaddingPx" />
+        <attr name="cpaddingLeftPx" />
+        <attr name="cpaddingRightPx" />
+        <attr name="cpaddingTopPx" />
+        <attr name="cpaddingBottomPx" />
+        <attr name="cwidth" />
+        <attr name="cheight" />
+        <attr name="cmarginLeft" />
+        <attr name="cmarginRight" />
+        <attr name="cmarginTop" />
+        <attr name="cmarginTopByWidth" />
+        <attr name="cmarginBottom" />
+        <attr name="cmarginBottomByWidth" />
+        <attr name="cmarginByWidth" />
+        <attr name="cmarginByHeight" />
+        <attr name="cpaddingLeft" />
+        <attr name="cpaddingRight" />
+        <attr name="cpaddingTop" />
+        <attr name="cpaddingTopByWidth" />
+        <attr name="cpaddingBottom" />
+        <attr name="cpaddingBottomByWidth" />
+        <attr name="cminWidth" />
+        <attr name="cmaxWidth" />
+        <attr name="cminHeight" />
+        <attr name="cmaxHeight" />
+        <attr name="ctoSquare" />
+        <attr name="cheightByWidth" />
+        <attr name="cwidthByHeight" />
+        <attr name="ccorner" />
+        <attr name="ccornerDirection" />
+    </declare-styleable>
+</resources>

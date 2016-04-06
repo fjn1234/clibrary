@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr name="citemPerRow" format="integer" />
+    <attr name="ccellViewId" format="reference" />
+    <attr name="cmode">
+        <flag name="grid" value="0x00000001" />
+        <flag name="vertical" value="0x00000002" />
+        <flag name="horizontal" value="0x00000003" />
+    </attr>
+    <attr name="cdesignScreenWidth" format="integer" />
+    <attr name="cdesignScreenHeight" format="integer" />
+    <attr name="cdrawableLeft" format="reference"></attr>
+    <attr name="cdrawableRight" format="reference"></attr>
+    <attr name="cdrawableTop" format="reference"></attr>
+    <attr name="cdrawableBottom" format="reference"></attr>
+    <attr name="cdrawableLeftWidth" format="string"></attr>
+    <attr name="cdrawableLeftHeight" format="string"></attr>
+    <attr name="cdrawableRightWidth" format="string"></attr>
+    <attr name="cdrawableRightHeight" format="string"></attr>
+    <attr name="cdrawableTopWidth" format="string"></attr>
+    <attr name="cdrawableTopHeight" format="string"></attr>
+    <attr name="cdrawableBottomWidth" format="string"></attr>
+    <attr name="cdrawableBottomHeight" format="string"></attr>
+    <attr name="cdrawablePadding" format="string"></attr>
+
+    <attr name="entityMapping" format="string"></attr>
+    <attr name="getMapping" format="string"></attr>
+    <attr name="setMapping" format="string"></attr>
+    <attr name="selectMapping" format="string"></attr>
+    <attr name="visibleMapping" format="string"></attr>
+    <attr name="hideMode">
+        <flag name="invisible" value="0x00000004" />
+        <flag name="gone" value="0x00000008" />
+    </attr>
+    <attr name="cwidthPx" format="integer"></attr>
+    <attr name="cheightPx" format="integer"></attr>
+    <attr name="cmarginPx" format="integer"></attr>
+    <attr name="cmarginLeftPx" format="integer"></attr>
+    <attr name="cmarginRightPx" format="integer"></attr>
+    <attr name="cmarginTopPx" format="integer"></attr>
+    <attr name="cmarginBottomPx" format="integer"></attr>
+    <attr name="cpaddingPx" format="integer"></attr>
+    <attr name="cpaddingLeftPx" format="integer"></attr>
+    <attr name="cpaddingRightPx" format="integer"></attr>
+    <attr name="cpaddingTopPx" format="integer"></attr>
+    <attr name="cpaddingBottomPx" format="integer"></attr>
+    <attr name="cwidth" format="string"></attr>
+    <attr name="cheight" format="string"></attr>
+    <attr name="cmarginLeft" format="string"></attr>
+    <attr name="cmarginRight" format="string"></attr>
+    <attr name="cmarginTop" format="string"></attr>
+    <attr name="cmarginBottom" format="string"></attr>
+    <attr name="cmarginTopByWidth" format="string"></attr>
+    <attr name="cmarginBottomByWidth" format="string"></attr>
+    <attr name="cmarginByWidth" format="string"></attr>
+    <attr name="cmarginByHeight" format="string"></attr>
+    <attr name="cpaddingLeft" format="string"></attr>
+    <attr name="cpaddingRight" format="string"></attr>
+    <attr name="cpaddingTop" format="string"></attr>
+    <attr name="cpaddingBottom" format="string"></attr>
+    <attr name="cpaddingTopByWidth" format="string"></attr>
+    <attr name="cpaddingBottomByWidth" format="string"></attr>
+    <attr name="cminWidth" format="string"></attr>
+    <attr name="cmaxWidth" format="string"></attr>
+    <attr name="cminHeight" format="string"></attr>
+    <attr name="cmaxHeight" format="string"></attr>
+    <attr name="ctoSquare" format="boolean"></attr>
+    <attr name="cheightByWidth" format="string"></attr>
+    <attr name="cwidthByHeight" format="string"></attr>
+    <attr name="ccorner" format="string"></attr>
+    <attr name="ctextSize" format="string"></attr>
+    <attr name="ccornerDirection">
+        <flag name="none" value="0x0" />
+        <flag name="left" value="0x9" />
+        <flag name="right" value="0x6" />
+        <flag name="top" value="0xc" />
+        <flag name="bottom" value="0x3" />
+        <flag name="leftTop" value="0x8" />
+        <flag name="leftBottom" value="0x1" />
+        <flag name="rightTop" value="0x4" />
+        <flag name="rightBottom" value="0x2" />
+        <flag name="all" value="0xf" />
+    </attr>
+    <attr name="onClickBackground" format="reference|color"></attr>
+
+    <declare-styleable name="CustomAttrs">
+        <attr name="cdesignScreenWidth" />
+        <attr name="cdesignScreenHeight" />
+        <attr name="entityMapping" />
+        <attr name="getMapping" />
+        <attr name="setMapping" />
+        <attr name="selectMapping" />
+        <attr name="visibleMapping" />
+        <attr name="hideMode" />
+        <attr name="cwidthPx" />
+        <attr name="cheightPx" />
+        <attr name="cmarginPx" />
+        <attr name="cmarginLeftPx" />
+        <attr name="cmarginRightPx" />
+        <attr name="cmarginTopPx" />
+        <attr name="cmarginBottomPx" />
+        <attr name="cpaddingPx" />
+        <attr name="cpaddingLeftPx" />
+        <attr name="cpaddingRightPx" />
+        <attr name="cpaddingTopPx" />
+        <attr name="cpaddingBottomPx" />
+        <attr name="cwidth" />
+        <attr name="cheight" />
+        <attr name="cmarginLeft" />
+        <attr name="cmarginRight" />
+        <attr name="cmarginTop" />
+        <attr name="cmarginTopByWidth" />
+        <attr name="cmarginBottom" />
+        <attr name="cmarginBottomByWidth" />
+        <attr name="cmarginByWidth" />
+        <attr name="cmarginByHeight" />
+        <attr name="cpaddingLeft" />
+        <attr name="cpaddingRight" />
+        <attr name="cpaddingTop" />
+        <attr name="cpaddingTopByWidth" />
+        <attr name="cpaddingBottom" />
+        <attr name="cpaddingBottomByWidth" />
+        <attr name="cminWidth" />
+        <attr name="cmaxWidth" />
+        <attr name="cminHeight" />
+        <attr name="cmaxHeight" />
+        <attr name="ctoSquare" />
+        <attr name="cheightByWidth" />
+        <attr name="cwidthByHeight" />
+        <attr name="ccorner" />
+        <attr name="ctextSize" />
+        <attr name="ccornerDirection" />
+        <attr name="onClickBackground" />
+    </declare-styleable>
+
+
+</resources>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item type="id" name="slider_main">0x7f080000</item>
+    <item type="id" name="slider_left_menu">0x7f080001</item>
+    <item name="root" type="id"/>
+
+    <!-- Pull Refresh -->
+    <item name="gridview" type="id"/>
+    <item name="webview" type="id"/>
+    <item name="scrollview" type="id"/>
+    <item name="iv_bg" type="id"/>
+    <item name="iv_img" type="id"/>
+    <item name="btn_check" type="id"/>
+    <item name="tv_check" type="id"/>
+    <item name="tv_info2" type="id"/>
+    <item name="lyo_root" type="id"/>
+</resources>

@@ -26,18 +26,24 @@ public abstract class CApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        initRootApplication();
         applicationContext = this;
+        try {
+            initRootApplication();
+            initScreenSize();
+        }
+        catch (Exception ex){
+            ex.printStackTrace();
+        }
     }
 
     protected abstract void initRootApplication();
 
-    public static Context getGolbalContext() {
+    public static Context getContext() {
         return applicationContext;
     }
 
     public static boolean isAppInBackgroud() {
-        return SystemUtil.isBackground(getGolbalContext());
+        return SystemUtil.isBackground(getContext());
     }
 
     public static String getEntityDB() {
@@ -46,5 +52,14 @@ public abstract class CApplication extends Application {
 
     public static void setEntityDB(String entityDB) {
         CApplication.entityDB = entityDB;
+    }
+
+
+    private void initScreenSize() {
+        try {
+            CustomAttrs.init(getContext());
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }
 }

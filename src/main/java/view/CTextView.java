@@ -22,6 +22,7 @@ public class CTextView extends TextView implements IView.ICustomAttrs, IView.IMa
     private boolean initCustomAttrs = true;
     private int selectOnTextColor = 0, selectOffTextColor = 0;
     private String selectOnText, selectOffText;
+    private int defualt = Integer.MAX_VALUE;
 
     public CTextView(Context context) {
         super(context);
@@ -45,8 +46,8 @@ public class CTextView extends TextView implements IView.ICustomAttrs, IView.IMa
         if (ta.getBoolean(R.styleable.CTextView_tv_flags, false))
             getPaint().setFlags(Paint.UNDERLINE_TEXT_FLAG); //下划线
         getPaint().setAntiAlias(ta.getBoolean(R.styleable.CTextView_tv_antiAlias, true));//抗锯齿
-        selectOnTextColor = ta.getColor(R.styleable.CTextView_tv_selectOnTextColor, -1);
-        selectOffTextColor = ta.getColor(R.styleable.CTextView_tv_selectOffTextColor, -1);
+        selectOnTextColor = ta.getColor(R.styleable.CTextView_tv_selectOnTextColor, defualt);
+        selectOffTextColor = ta.getColor(R.styleable.CTextView_tv_selectOffTextColor, defualt);
         selectOnText = ta.getString(R.styleable.CTextView_tv_selectOnText);
         selectOffText = ta.getString(R.styleable.CTextView_tv_selectOffText);
         mAttrs.setDrawableLeftResId(ta.getResourceId(R.styleable.CTextView_cdrawableLeft, 0));
@@ -137,12 +138,12 @@ public class CTextView extends TextView implements IView.ICustomAttrs, IView.IMa
     public void setSelected(boolean selected) {
         super.setSelected(selected);
         if (isSelected()) {
-            if (selectOnTextColor != -1)
+            if (selectOnTextColor < defualt)
                 setTextColor(selectOnTextColor);
             if (selectOnText != null)
                 setText(selectOnText);
         } else {
-            if (selectOffTextColor != -1)
+            if (selectOffTextColor < defualt)
                 setTextColor(selectOffTextColor);
             if (selectOffText != null)
                 setText(selectOffText);

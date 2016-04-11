@@ -58,15 +58,16 @@ public class CImageView extends ImageView implements IView.ICustomAttrs, IView.I
 
     private void setCustomAttr(Context context, AttributeSet attrs) {
         mAttrs = ViewUtil.initCustomAttrs(context, attrs, this);
-        if(isInEditMode()) return;
+        if (isInEditMode()) return;
         imageAttrs = new CImageAttrs();
+        String cachePath = context.getExternalCacheDir().getAbsolutePath();
         TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.CImageView);
         imageAttrs.setCacheToMemory(ta.getBoolean(R.styleable.CImageView_ccacheToMemory, false));
         imageAttrs.setToCircle(ta.getBoolean(R.styleable.CImageView_ctoCircleImg, false));
         imageAttrs.setToSquare(ta.getBoolean(R.styleable.CImageView_ctoSquareImg, false));
         imageAttrs.setMatrixMode(ta.getBoolean(R.styleable.CImageView_cmatrixMode, false));
-        imageAttrs.setCachePath(ta.getString(R.styleable.CImageView_ccacheToDisk));
-        imageAttrs.setTempFilePath(ta.getString(R.styleable.CImageView_ctempFilePath));
+        imageAttrs.setCachePath(cachePath + ta.getString(R.styleable.CImageView_ccacheToDisk));
+        imageAttrs.setTempFilePath(cachePath + ta.getString(R.styleable.CImageView_ctempFilePath));
         imageAttrs.setCustomSize(ta.getString(R.styleable.CImageView_ccustomSize));
         imageAttrs.setAutoScaleRatio(ta.getString(R.styleable.CImageView_cautoScaleRatio));
         imageAttrs.setAutoScalePx(ta.getInt(R.styleable.CImageView_cautoScale, 0));
@@ -302,11 +303,8 @@ public class CImageView extends ImageView implements IView.ICustomAttrs, IView.I
                     final CFile file = new CFile(imageAttrs.getCachePath(), imageAttrs.getFilenameMd5());
                     final String pathMd5 = DecodeUtil.getMD5(file.getAbsolutePath());
                     String tempFile = imageAttrs.getTempFilePath() + System.currentTimeMillis();
-                    System.out.println("loadFromNet3:" + tempFile);
-                    System.out.println("loadFromNet3:" + imageAttrs.getLoadPath());
                     bitmap = ImageUtil.getBitmap(imageAttrs.getLoadPath(), tempFile, imageAttrs.getAutoScalePx());
                     if (bitmap != null) {
-                        System.out.println("loadFromNet3:success");
                         doAjust = false;
                         bitmap = adjustBitmap(bitmap);
                         doAjust = true;
@@ -315,8 +313,6 @@ public class CImageView extends ImageView implements IView.ICustomAttrs, IView.I
                         if (!TextUtils.isEmpty(imageAttrs.getCachePath())) {
                             cacheToDisk(bitmap, file);
                         }
-                    } else {
-                        System.out.println("loadFromNet3:error");
                     }
                 }
                 setAnycLoadBitmap(bitmap);

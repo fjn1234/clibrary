@@ -23,7 +23,7 @@ public class CButton extends Button implements IView.ICustomAttrs, IView.IMappin
     private boolean initCustomAttrs = true;
     private int selectOnTextColor, selectOffTextColor, enableTextColor, disableTextColor;
     private String selectOnText, selectOffText, enableText, disableText;
-    private int defualt = 16777216;
+    private int defualt = Integer.MAX_VALUE;
 
     public CButton(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);

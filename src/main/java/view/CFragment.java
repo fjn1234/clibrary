@@ -4,9 +4,11 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Context;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.provider.Settings;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +23,7 @@ import java.util.HashMap;
 
 import entities.NotifyUpdateEntity;
 import obj.CustomAttrs;
+import utils.SystemUtil;
 import utils.ViewUtil;
 
 public class CFragment extends Fragment {
@@ -69,7 +72,7 @@ public class CFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        sendNotifyUpdate(this.getClass(),NOTIFY_RESUME);
+        sendNotifyUpdate(this.getClass(), NOTIFY_RESUME);
         int responseCode = -1;
         if (resultBundle != null && resultBundle.containsKey(FRAGMENT_REPLY_RESPONSE_CODE))
             responseCode = resultBundle.getInt(FRAGMENT_REPLY_RESPONSE_CODE, -1);
@@ -156,6 +159,31 @@ public class CFragment extends Fragment {
     protected void onFragmentResult(int responseCode, Result result, Bundle bundle) {
     }
 
+    private OnRequestPermissionsResultListener onRequestPermissionsResultListener;
+
+    public interface OnRequestPermissionsResultListener {
+        void requestPermissionsResult(int requestCode, String[] permissions, int[] grantResults);
+    }
+
+    public void checkRequestPermissions(String[] permissions, int requestCode, OnRequestPermissionsResultListener requestPermissionsResultListener) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (!Settings.System.canWrite(getActivity())) {
+                requestPermissions(permissions, requestCode);
+                this.onRequestPermissionsResultListener = requestPermissionsResultListener;
+            }
+        } else {
+            int[] grantResults = SystemUtil.getGrantResults(getActivity(), permissions);
+            if (requestPermissionsResultListener != null)
+                requestPermissionsResultListener.requestPermissionsResult(requestCode, permissions, grantResults);
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+//        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (onRequestPermissionsResultListener != null)
+            onRequestPermissionsResultListener.requestPermissionsResult(requestCode, permissions, grantResults);
+    }
 
     public void setContentView(int layoutResID) {
         this.contentId = layoutResID;

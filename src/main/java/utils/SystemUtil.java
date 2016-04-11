@@ -163,4 +163,13 @@ public final class SystemUtil {
         }
         return false;
     }
+
+    public static int[] getGrantResults(Context context, String[] permission) {
+        int[] grantResults = new int[permission.length];
+        PackageManager pm = context.getPackageManager();
+        for (int i = 0; i < permission.length; i++) {
+            grantResults[i] = pm.checkPermission(permission[i], "packageName");
+        }
+        return grantResults;
+    }
 }

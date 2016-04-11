@@ -31,18 +31,23 @@ public class CFile extends File {
     }
 
     public void createNewFileAndDirectory() {
-        boolean b;
-        File dir = new File(this.getAbsolutePath().substring(0,
-                this.getAbsolutePath().lastIndexOf("/")));
-        if (!dir.exists()) {
-            dir.mkdirs();
-        }
-        if (!this.exists()) {
-            try {
-                this.createNewFile();
-            } catch (IOException e) {
-                e.printStackTrace();
+        try {
+            boolean b;
+            File dir = new File(this.getAbsolutePath().substring(0,
+                    this.getAbsolutePath().lastIndexOf("/")));
+            if (!dir.exists()) {
+                dir.mkdirs();
             }
+            if (!this.exists()) {
+                try {
+                    this.createNewFile();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        catch (Exception ex){
+            ex.printStackTrace();
         }
     }
 

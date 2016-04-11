@@ -1,6 +1,6 @@
 package obj;
 
-import android.os.Environment;
+import android.content.Context;
 import android.text.TextUtils;
 
 import java.util.Hashtable;
@@ -209,9 +209,9 @@ public class CImageAttrs {
 
     public void setCachePath(String cachePath) {
         if (cachePath == null || TextUtils.isEmpty(cachePath)) return;
-        CFile file = new CFile(Environment.getExternalStorageDirectory().getAbsolutePath(), cachePath);
+        CFile file = new CFile(cachePath);
         file.mkdirs();
-        this.cachePath = file.getAbsolutePath();
+        this.cachePath = cachePath;
     }
 
     public String getCacheFilePath() {
@@ -224,10 +224,9 @@ public class CImageAttrs {
 
     public void setTempFilePath(String tempFilePath) {
         if (TextUtils.isEmpty(tempFilePath)) return;
-        String path = Environment.getExternalStorageDirectory().getAbsolutePath() + tempFilePath;
-        CFile file = new CFile(path);
+        CFile file = new CFile(tempFilePath);
         file.mkdirs();
-        this.tempFilePath = path;
+        this.tempFilePath = tempFilePath;
     }
 
     public String getPathMd5() {

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="CRatingbarView">
+        <attr name="is_touch" format="boolean"/>
+        <attr name="bar_max" format="integer"/>
+        <attr name="bar_rating" format="float"/>
+        <attr name="bar_margin" format="integer"/>
+        <attr name="bar_offImage" format="reference"/>
+        <attr name="bar_onImage" format="reference"/>
+        <attr name="bar_imageWidth" format="integer"/>
+        <attr name="cbar_imageWidth" format="string"/>
+        <attr name="cbar_margin"  format="string"/>
+
+        <attr name="bar_type" format="enum">
+            <enum name="all" value="1"/>
+            <enum name="half" value="2"/>
+            <enum name="decimal" value="3"/>
+        </attr>
+    </declare-styleable>
+</resources>

@@ -8,7 +8,7 @@ import interfaces.IView;
 import obj.CustomAttrs;
 import utils.ViewUtil;
 
-public class CViewPager extends ViewPager implements IView.ICustomAttrs {
+public class CViewPager extends LazyViewPager implements IView.ICustomAttrs {
 
     private CustomAttrs mAttrs = new CustomAttrs();
     private boolean initCustomAttrs = true;

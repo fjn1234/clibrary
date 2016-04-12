@@ -66,7 +66,7 @@ public class CSlidingTab extends CHorizontalScrollView {
     public OnPageChangeListener delegatePageListener;
 
     private LinearLayout tabsContainer;
-    private ViewPager pager;
+    private CViewPager pager;
 
     private int tabCount;
 
@@ -190,7 +190,7 @@ public class CSlidingTab extends CHorizontalScrollView {
         }
     }
 
-    public void setViewPager(ViewPager pager) {
+    public void setViewPager(CViewPager pager) {
         this.pager = pager;
 
         if (pager.getAdapter() == null) {

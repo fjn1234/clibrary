@@ -38,12 +38,12 @@ public abstract class CApplication extends Application {
 
     protected abstract void initRootApplication();
 
-    public static Context getContext() {
+    public static Context getGolbalContext() {
         return applicationContext;
     }
 
     public static boolean isAppInBackgroud() {
-        return SystemUtil.isBackground(getContext());
+        return SystemUtil.isBackground(getGolbalContext());
     }
 
     public static String getEntityDB() {
@@ -57,7 +57,7 @@ public abstract class CApplication extends Application {
 
     private void initScreenSize() {
         try {
-            CustomAttrs.init(getContext());
+            CustomAttrs.init(getGolbalContext());
         } catch (Exception ex) {
             ex.printStackTrace();
         }

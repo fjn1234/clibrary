@@ -40,7 +40,7 @@ public class CImageView extends ImageView implements IView.ICustomAttrs, IView.I
     private CustomAttrs mAttrs = new CustomAttrs();
     private boolean initCustomAttrs = true;
     protected static List<String> queues = Collections.synchronizedList(new ArrayList());
-    private static int threadCount = 1;
+    private static int threadCount = 2;
 
     public CImageView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
@@ -242,6 +242,11 @@ public class CImageView extends ImageView implements IView.ICustomAttrs, IView.I
     public static void clearThread() {
         if (!threadPool.isShutdown())
             threadPool.shutdownNow();
+        if (queues.size() > 0)
+            queues.clear();
+    }
+
+    public static void clearThreadQueues() {
         if (queues.size() > 0)
             queues.clear();
     }

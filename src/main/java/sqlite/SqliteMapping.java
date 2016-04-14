@@ -3,6 +3,7 @@ package sqlite;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.text.TextUtils;
+import android.util.Log;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -333,17 +334,21 @@ public class SqliteMapping {
         T entity;
         Field[] fields;
         int index;
-        SqliteHandler sqliteHandler = null;
+        SqliteHandler sqliteHandler = new SqliteHandler(CApplication.getGolbalContext(), CApplication.getEntityDB());
         try {
-            StringBuilder sqlQuery = new StringBuilder("select * from " + SqliteMapping.getTableName(clazz));
+            String table = SqliteMapping.getTableName(clazz);
+            if (!sqliteHandler.exsitTable(table)) {
+                Log.i("sqlite", table + " table no exist");
+                return list;
+            }
+            StringBuilder sqlQuery = new StringBuilder("select * from " + table);
             if (!TextUtils.isEmpty(where)) {
                 sqlQuery.append(" where " + where);
             }
             if (!TextUtils.isEmpty(orderBy))
                 sqlQuery.append(" order by " + orderBy);
-            sqliteHandler = new SqliteHandler(CApplication.getGolbalContext(), CApplication.getEntityDB());
             Cursor cursor = sqliteHandler.select(sqlQuery.toString());
-            if (cursor.getCount() == 0) return list;
+            if (cursor == null || cursor.getCount() == 0) return list;
             fields = clazz.getFields();
             for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
                 entity = (T) clazz.newInstance();

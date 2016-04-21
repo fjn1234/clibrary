@@ -68,6 +68,8 @@ public class CTextView extends TextView implements IView.ICustomAttrs, IView.IMa
 
     public void loadCustomAttrs() {
         ViewUtil.loadCustomAttrs(this, mAttrs);
+        if (mAttrs.getMaxWidth() > 0)
+            setMaxWidth(mAttrs.getMaxWidth());
     }
 
     public void loadDrawable() {

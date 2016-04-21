@@ -59,6 +59,7 @@
         <attr name="cpaddingBottomByWidth" />
         <attr name="cminWidth" />
         <attr name="cmaxWidth" />
+        <attr name="cmaxWidthPx" />
         <attr name="cminHeight" />
         <attr name="cmaxHeight" />
         <attr name="ctoSquare" />

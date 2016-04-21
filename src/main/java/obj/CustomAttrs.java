@@ -68,7 +68,7 @@ public class CustomAttrs {
             cornerRatio, textSizeRatio, drawableLeftWidthRatio, drawableLeftHeightRatio, drawableRightWidthRatio, drawableRightHeightRatio,
             drawableTopWidthRatio, drawableTopHeightRatio, drawableBottomWidthRatio, drawableBottomHeightRatio, drawablePaddingRatio;
     private int direction, hideMode, drawableLeftResId, drawableRightResId, drawableTopResId, drawableBottomResId;
-    private int widthPx, heightPx, marginLeftPx, marginRightPx, marginTopPx, marginBottomPx, paddingLeftPx, paddingRightPx, paddingTopPx, paddingBottomPx;
+    private int widthPx, heightPx, marginLeftPx, marginRightPx, marginTopPx, marginBottomPx, paddingLeftPx, paddingRightPx, paddingTopPx, paddingBottomPx,maxWidthPx;
     private Drawable onClickBackground;
     private boolean toSquare = false;
     private String entityMapping = "", getMapping = "", setMapping = "", selectMapping = "", visibleMapping = "";
@@ -369,6 +369,31 @@ public class CustomAttrs {
     public void setMinWidthRatio(String minWidthRatio) {
         this.minWidthRatio = ViewUtil.getFloat(minWidthRatio);
     }
+
+    public int getMaxWidth() {
+        return (int) Math.ceil(maxWidthRatio * screenWidth);
+    }
+
+    public void setMaxWidthRatio(String maxWidthRatio) {
+        this.maxWidthRatio = ViewUtil.getFloat(maxWidthRatio);
+    }
+
+    public float getMaxWidthRatio() {
+        return maxWidthRatio;
+    }
+
+    public void setMaxWidthPxRatio(int maxWidth) {
+        this.maxWidthRatio = getPxToWidthRatio(maxWidth);
+    }
+
+    public int getMaxWidthPx() {
+        return maxWidthPx;
+    }
+
+    public void setMaxWidthPx(int maxWidthPx) {
+        this.maxWidthPx = maxWidthPx;
+    }
+
 
     public int getMinHeight() {
         return (int) Math.ceil(minHeightRatio * screenHeight);

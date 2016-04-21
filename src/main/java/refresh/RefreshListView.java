@@ -525,7 +525,7 @@ public class RefreshListView extends RefreshAdapterViewBase<ListView> {
         return isScrolling;
     }
 
-    List<View> headerView = new ArrayList<>();
+    List<View> headerView = new ArrayList<>(3);
 
     public void addHead(View view) {
         headerView.add(view);
@@ -535,6 +535,11 @@ public class RefreshListView extends RefreshAdapterViewBase<ListView> {
     public void addSingleHead(View view) {
         removeHead();
         addHead(view);
+    }
+
+    public void addSingleHeadIfNoExsit(View view) {
+        if (headerView.size() == 0)
+            addHead(view);
     }
 
     public void removeHead() {

@@ -136,6 +136,7 @@ public class ViewUtil {
 
     public static CustomAttrs initCustomAttrs(Context context, AttributeSet attrs, View v) {
         CustomAttrs mAttrs = new CustomAttrs();
+        if (v.isInEditMode()) return mAttrs;
         TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.CustomAttrs);
         mAttrs.setScreenDesignWidth(ta.getInt(R.styleable.CButton_cdesignScreenWidth, 0));
         mAttrs.setScreenDesignHeight(ta.getInt(R.styleable.CButton_cdesignScreenHeight, 0));
@@ -162,6 +163,8 @@ public class ViewUtil {
         mAttrs.setPaddingBottomRatio(ta.getString(R.styleable.CustomAttrs_cpaddingBottom));
         mAttrs.setPaddingBottomPx(padding != 0 ? padding : ta.getInt(R.styleable.CustomAttrs_cpaddingBottomPx, 0));
         mAttrs.setMinWidthRatio(ta.getString(R.styleable.CustomAttrs_cminWidth));
+        mAttrs.setMaxWidthRatio(ta.getString(R.styleable.CustomAttrs_cmaxWidth));
+        mAttrs.setMaxWidthPx(ta.getInt(R.styleable.CustomAttrs_cmaxWidthPx, 0));
         mAttrs.setMinHeightRatio(ta.getString(R.styleable.CustomAttrs_cminHeight));
         mAttrs.setHeightByWidthRatio(ta.getString(R.styleable.CustomAttrs_cheightByWidth));
         mAttrs.setWidthByHeightRatio(ta.getString(R.styleable.CustomAttrs_cwidthByHeight));
@@ -213,6 +216,8 @@ public class ViewUtil {
             mAttrs.setPaddingTopPxRatio(mAttrs.getPaddingTopPx());
         if (mAttrs.getPaddingBottomRatio() == 0)
             mAttrs.setPaddingBottomPxRatio(mAttrs.getPaddingBottomPx());
+        if (mAttrs.getMaxWidthRatio() == 0)
+            mAttrs.setMaxWidthPxRatio(mAttrs.getMaxWidthPx());
     }
 
     public static int getParentScreenWidth(View v) {

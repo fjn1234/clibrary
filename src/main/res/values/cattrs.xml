@@ -32,18 +32,6 @@
         <flag name="invisible" value="0x00000004" />
         <flag name="gone" value="0x00000008" />
     </attr>
-    <attr name="cwidthPx" format="integer"></attr>
-    <attr name="cheightPx" format="integer"></attr>
-    <attr name="cmarginPx" format="integer"></attr>
-    <attr name="cmarginLeftPx" format="integer"></attr>
-    <attr name="cmarginRightPx" format="integer"></attr>
-    <attr name="cmarginTopPx" format="integer"></attr>
-    <attr name="cmarginBottomPx" format="integer"></attr>
-    <attr name="cpaddingPx" format="integer"></attr>
-    <attr name="cpaddingLeftPx" format="integer"></attr>
-    <attr name="cpaddingRightPx" format="integer"></attr>
-    <attr name="cpaddingTopPx" format="integer"></attr>
-    <attr name="cpaddingBottomPx" format="integer"></attr>
     <attr name="cwidth" format="string"></attr>
     <attr name="cheight" format="string"></attr>
     <attr name="cmarginLeft" format="string"></attr>
@@ -93,18 +81,6 @@
         <attr name="selectMapping" />
         <attr name="visibleMapping" />
         <attr name="hideMode" />
-        <attr name="cwidthPx" />
-        <attr name="cheightPx" />
-        <attr name="cmarginPx" />
-        <attr name="cmarginLeftPx" />
-        <attr name="cmarginRightPx" />
-        <attr name="cmarginTopPx" />
-        <attr name="cmarginBottomPx" />
-        <attr name="cpaddingPx" />
-        <attr name="cpaddingLeftPx" />
-        <attr name="cpaddingRightPx" />
-        <attr name="cpaddingTopPx" />
-        <attr name="cpaddingBottomPx" />
         <attr name="cwidth" />
         <attr name="cheight" />
         <attr name="cmarginLeft" />

@@ -20,18 +20,6 @@
         <attr name="ctextBold" format="boolean" />
         <attr name="cdesignScreenWidth" />
         <attr name="cdesignScreenHeight" />
-        <attr name="cwidthPx" />
-        <attr name="cheightPx" />
-        <attr name="cmarginPx" />
-        <attr name="cmarginLeftPx" />
-        <attr name="cmarginRightPx" />
-        <attr name="cmarginTopPx" />
-        <attr name="cmarginBottomPx" />
-        <attr name="cpaddingPx" />
-        <attr name="cpaddingLeftPx" />
-        <attr name="cpaddingRightPx" />
-        <attr name="cpaddingTopPx" />
-        <attr name="cpaddingBottomPx" />
         <attr name="cwidth" />
         <attr name="cheight" />
         <attr name="cmarginLeft" />

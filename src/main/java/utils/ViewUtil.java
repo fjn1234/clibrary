@@ -59,7 +59,7 @@ public class ViewUtil {
 
     /**
      * 将px值转换为sp值，保证文字大小不变
-     * <p/>
+     * <p>
      * （DisplayMetrics类中属性scaledDensity）
      *
      * @return
@@ -71,7 +71,7 @@ public class ViewUtil {
 
     /**
      * 将sp值转换为px值，保证文字大小不变
-     * <p/>
+     * <p>
      * （DisplayMetrics类中属性scaledDensity）
      *
      * @return
@@ -137,31 +137,66 @@ public class ViewUtil {
     public static CustomAttrs initCustomAttrs(Context context, AttributeSet attrs, View v) {
         CustomAttrs mAttrs = new CustomAttrs();
         if (v.isInEditMode()) return mAttrs;
-        TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.CustomAttrs);
+        TypedArray ta, ta2;
+        ta = context.obtainStyledAttributes(attrs, R.styleable.CustomAttrs);
         mAttrs.setScreenDesignWidth(ta.getInt(R.styleable.CButton_cdesignScreenWidth, 0));
         mAttrs.setScreenDesignHeight(ta.getInt(R.styleable.CButton_cdesignScreenHeight, 0));
         mAttrs.setWidthRatio(ta.getString(R.styleable.CustomAttrs_cwidth));
-        mAttrs.setWidthPx(ta.getInt(R.styleable.CustomAttrs_cwidthPx, 0));
+//        mAttrs.setWidthPx(ta.getInt(R.styleable.CustomAttrs_cwidthPx, 0));
         mAttrs.setHeightRatio(ta.getString(R.styleable.CustomAttrs_cheight));
-        mAttrs.setHeightPx(ta.getInt(R.styleable.CustomAttrs_cheightPx, 0));
-        int margin = ta.getInt(R.styleable.CustomAttrs_cmarginPx, 0);
+//        mAttrs.setHeightPx(ta.getInt(R.styleable.CustomAttrs_cheightPx, 0));
         mAttrs.setMarginLeftRatio(ta.getString(R.styleable.CustomAttrs_cmarginLeft));
-        mAttrs.setMarginLeftPx(margin != 0 ? margin : ta.getInt(R.styleable.CustomAttrs_cmarginLeftPx, 0));
         mAttrs.setMarginRightRatio(ta.getString(R.styleable.CustomAttrs_cmarginRight));
-        mAttrs.setMarginRightPx(margin != 0 ? margin : ta.getInt(R.styleable.CustomAttrs_cmarginRightPx, 0));
         mAttrs.setMarginTopRatio(ta.getString(R.styleable.CustomAttrs_cmarginTop));
-        mAttrs.setMarginTopPx(margin != 0 ? margin : ta.getInt(R.styleable.CustomAttrs_cmarginTopPx, 0));
         mAttrs.setMarginBottomRatio(ta.getString(R.styleable.CustomAttrs_cmarginBottom));
-        mAttrs.setMarginBottomPx(margin != 0 ? margin : ta.getInt(R.styleable.CustomAttrs_cmarginBottomPx, 0));
-        int padding = ta.getInt(R.styleable.CustomAttrs_cpaddingPx, 0);
+        ta2 = context.obtainStyledAttributes(attrs, new int[]{android.R.attr.layout_margin});
+        int margin = ta2.getDimensionPixelOffset(0, 0);
+        ta2.recycle();
+        if (margin == 0) {
+            ta2 = context.obtainStyledAttributes(attrs, new int[]{android.R.attr.layout_marginLeft});
+            mAttrs.setMarginLeftPx(ta2.getDimensionPixelOffset(0, 0));
+            ta2.recycle();
+            ta2 = context.obtainStyledAttributes(attrs, new int[]{android.R.attr.layout_marginRight});
+            mAttrs.setMarginRightPx(ta2.getDimensionPixelOffset(0, 0));
+            ta2.recycle();
+            ta2 = context.obtainStyledAttributes(attrs, new int[]{android.R.attr.layout_marginTop});
+            mAttrs.setMarginTopPx(ta2.getDimensionPixelOffset(0, 0));
+            ta2.recycle();
+            ta2 = context.obtainStyledAttributes(attrs, new int[]{android.R.attr.layout_marginBottom});
+            mAttrs.setMarginBottomPx(ta2.getDimensionPixelOffset(0, 0));
+            ta2.recycle();
+        } else {
+            mAttrs.setMarginLeftPx(margin);
+            mAttrs.setMarginRightPx(margin);
+            mAttrs.setMarginTopPx(margin);
+            mAttrs.setMarginBottomPx(margin);
+        }
         mAttrs.setPaddingLeftRatio(ta.getString(R.styleable.CustomAttrs_cpaddingLeft));
-        mAttrs.setPaddingLeftPx(padding != 0 ? padding : ta.getInt(R.styleable.CustomAttrs_cpaddingLeftPx, 0));
         mAttrs.setPaddingRightRatio(ta.getString(R.styleable.CustomAttrs_cpaddingRight));
-        mAttrs.setPaddingRightPx(padding != 0 ? padding : ta.getInt(R.styleable.CustomAttrs_cpaddingRightPx, 0));
         mAttrs.setPaddingTopRatio(ta.getString(R.styleable.CustomAttrs_cpaddingTop));
-        mAttrs.setPaddingTopPx(padding != 0 ? padding : ta.getInt(R.styleable.CustomAttrs_cpaddingTopPx, 0));
         mAttrs.setPaddingBottomRatio(ta.getString(R.styleable.CustomAttrs_cpaddingBottom));
-        mAttrs.setPaddingBottomPx(padding != 0 ? padding : ta.getInt(R.styleable.CustomAttrs_cpaddingBottomPx, 0));
+        ta2 = context.obtainStyledAttributes(attrs, new int[]{android.R.attr.padding});
+        int padding = ta2.getDimensionPixelOffset(0, 0);
+        ta2.recycle();
+        if (padding > 0) {
+            ta2 = context.obtainStyledAttributes(attrs, new int[]{android.R.attr.paddingLeft});
+            mAttrs.setPaddingLeftPx(ta2.getDimensionPixelOffset(0, 0));
+            ta2.recycle();
+            ta2 = context.obtainStyledAttributes(attrs, new int[]{android.R.attr.paddingRight});
+            mAttrs.setPaddingRightPx(ta2.getDimensionPixelOffset(0, 0));
+            ta2.recycle();
+            ta2 = context.obtainStyledAttributes(attrs, new int[]{android.R.attr.paddingTop});
+            mAttrs.setPaddingTopPx(ta2.getDimensionPixelOffset(0, 0));
+            ta2.recycle();
+            ta2 = context.obtainStyledAttributes(attrs, new int[]{android.R.attr.paddingBottom});
+            mAttrs.setPaddingBottomPx(ta2.getDimensionPixelOffset(0, 0));
+            ta2.recycle();
+        } else {
+            mAttrs.setPaddingLeftPx(padding);
+            mAttrs.setPaddingRightPx(padding);
+            mAttrs.setPaddingTopPx(padding);
+            mAttrs.setPaddingBottomPx(padding);
+        }
         mAttrs.setMinWidthRatio(ta.getString(R.styleable.CustomAttrs_cminWidth));
         mAttrs.setMaxWidthRatio(ta.getString(R.styleable.CustomAttrs_cmaxWidth));
         mAttrs.setMaxWidthPx(ta.getInt(R.styleable.CustomAttrs_cmaxWidthPx, 0));
@@ -197,9 +232,9 @@ public class ViewUtil {
         if (mAttrs.getScreenDesignHeight() == 0)
             mAttrs.setScreenDesignHeight(getParentScreenHeight(v));
         if (mAttrs.getWidthRatio() == 0)
-            mAttrs.setWidthPxRatio(mAttrs.getWidthPx());
+            mAttrs.setWidthPxRatio(v.getLayoutParams() == null ? 0 : v.getLayoutParams().width);
         if (mAttrs.getHeightRatio() == 0)
-            mAttrs.setHeightPxRatio(mAttrs.getHeightPx());
+            mAttrs.setHeightPxRatio(v.getLayoutParams() == null ? 0 : v.getLayoutParams().height);
         if (mAttrs.getMarginLeftRatio() == 0)
             mAttrs.setMarginLeftPxRatio(mAttrs.getMarginLeftPx());
         if (mAttrs.getMarginRightRatio() == 0)

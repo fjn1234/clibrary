@@ -58,7 +58,7 @@ public class ViewUtil {
 
     /**
      * 将px值转换为sp值，保证文字大小不变
-     * <p/>
+     * <p>
      * （DisplayMetrics类中属性scaledDensity）
      *
      * @return
@@ -70,7 +70,7 @@ public class ViewUtil {
 
     /**
      * 将sp值转换为px值，保证文字大小不变
-     * <p/>
+     * <p>
      * （DisplayMetrics类中属性scaledDensity）
      *
      * @return
@@ -229,6 +229,7 @@ public class ViewUtil {
             mAttrs.setScreenDesignWidth(getParentScreenWidth(v));
         if (mAttrs.getScreenDesignHeight() == 0)
             mAttrs.setScreenDesignHeight(getParentScreenHeight(v));
+        if (mAttrs.getScreenDesignWidth() == 0 || mAttrs.getScreenDesignHeight() == 0) return;
         if (mAttrs.getWidthRatio() == 0)
             mAttrs.setWidthPxRatio(v.getLayoutParams() == null ? 0 : v.getLayoutParams().width);
         if (mAttrs.getHeightRatio() == 0)

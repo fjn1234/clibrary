@@ -41,6 +41,7 @@ public class CButton extends Button implements IView.ICustomAttrs, IView.IMappin
 
     private void setCustomAttr(Context context, AttributeSet attrs) {
         mAttrs = ViewUtil.initCustomAttrs(context, attrs, this);
+        mAttrs.setTextSizePx((int) getTextSize());
         TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.CButton);
         selectOnTextColor = ta.getColor(R.styleable.CButton_cselectOnTextColor, defualt);
         selectOffTextColor = ta.getColor(R.styleable.CButton_cselectOffTextColor, defualt);

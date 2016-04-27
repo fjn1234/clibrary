@@ -54,7 +54,6 @@
         <attr name="cheightByWidth" />
         <attr name="cwidthByHeight" />
         <attr name="ccorner" />
-        <attr name="ctextSize" />
         <attr name="ccornerDirection" />
         <attr name="onClickBackground" />
     </declare-styleable>

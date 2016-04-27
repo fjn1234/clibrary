@@ -263,7 +263,7 @@ public class SqliteMapping {
     }
 
 
-    public static boolean openSqlConnection() {
+    public synchronized static boolean openSqlConnection() {
         try {
             if (sqliteHandler == null) {
                 sqliteHandler = new SqliteHandler(CApplication.getGolbalContext(), CApplication.getEntityDB());
@@ -275,7 +275,7 @@ public class SqliteMapping {
         }
     }
 
-    public static boolean closeSqlConnection() {
+    public synchronized static boolean closeSqlConnection() {
         try {
             if (sqliteHandler != null) {
                 sqliteHandler.release();
@@ -301,7 +301,7 @@ public class SqliteMapping {
     }
 
 
-    public static void run(SqlOperation sqlOperation) {
+    public synchronized static void run(SqlOperation sqlOperation) {
         try {
             openSqlConnection();
             sqlOperation.run();

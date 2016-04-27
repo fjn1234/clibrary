@@ -38,8 +38,7 @@ import view.CTextView;
 public class ViewUtil {
 
     // 默认字体大小--对应标注图24px
-    private static final float
-            DEFAULT_TEXT_SIZE = 0.0375f * CustomAttrs.getScreenWidth();
+    private static final float DEFAULT_TEXT_SIZE = 0.0375f * CustomAttrs.getScreenWidth();
 
     /**
      * 根据手机的分辨率从 dp 的单位 转成为 px(像素)
@@ -59,7 +58,7 @@ public class ViewUtil {
 
     /**
      * 将px值转换为sp值，保证文字大小不变
-     * <p>
+     * <p/>
      * （DisplayMetrics类中属性scaledDensity）
      *
      * @return
@@ -71,7 +70,7 @@ public class ViewUtil {
 
     /**
      * 将sp值转换为px值，保证文字大小不变
-     * <p>
+     * <p/>
      * （DisplayMetrics类中属性scaledDensity）
      *
      * @return
@@ -213,7 +212,6 @@ public class ViewUtil {
         mAttrs.setCornerDirection(ta.getInt(R.styleable.CustomAttrs_ccornerDirection, 0xf));
         mAttrs.toSquare(ta.getBoolean(R.styleable.CustomAttrs_ctoSquare, false));
         mAttrs.setOnClickBackground(ta.getDrawable(R.styleable.CustomAttrs_onClickBackground));
-        mAttrs.setTextSizeRatio(ta.getString(R.styleable.CustomAttrs_ctextSize));
         mAttrs.setEntityMapping(ta.getString(R.styleable.CustomAttrs_entityMapping));
         mAttrs.setGetMapping(ta.getString(R.styleable.CustomAttrs_getMapping));
         mAttrs.setSetMapping(ta.getString(R.styleable.CustomAttrs_setMapping));
@@ -253,6 +251,8 @@ public class ViewUtil {
             mAttrs.setPaddingBottomPxRatio(mAttrs.getPaddingBottomPx());
         if (mAttrs.getMaxWidthRatio() == 0)
             mAttrs.setMaxWidthPxRatio(mAttrs.getMaxWidthPx());
+        if (mAttrs.getTextSizePx() > 0)
+            mAttrs.setTextSizePxRatio(mAttrs.getTextSizePx());
     }
 
     public static int getParentScreenWidth(View v) {

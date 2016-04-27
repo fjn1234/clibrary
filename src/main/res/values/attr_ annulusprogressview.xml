@@ -1,25 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <declare-styleable name="CEditText">
+    <declare-styleable name="AnnulusProgressView">
+        <attr name="apv_percent" format="float"/>
+        <attr name="apv_startAngle" format="float"/>
+        <attr name="apv_sweepAngle" format="float"/>
+        <attr name="apv_strokeWidth" format="float"/>
+        <attr name="apv_strokeProgressWidth" format="float"/>
+        <attr name="apv_touchArea" format="float"/>
+        <attr name="apv_dotRadius" format="float"/>
+        <attr name="apv_strokeColor" format="reference"/>
+        <attr name="apv_strokeProgressColor" format="reference"/>
+        <attr name="apv_dotColor" format="reference"/>
+
         <attr name="cdesignScreenWidth" />
         <attr name="cdesignScreenHeight" />
-        <attr name="cdisableEmoji" format="boolean" />
-        <attr name="cmaxLength" format="integer" />
-        <attr name="cmaxAsciiElseLength" format="integer" />
-        <attr name="cmaxAsciiLength" format="integer" />
-        <attr name="cdrawableLeft" />
-        <attr name="cdrawableRight" />
-        <attr name="cdrawableTop" />
-        <attr name="cdrawableBottom" />
-        <attr name="cdrawableLeftWidth" />
-        <attr name="cdrawableLeftHeight" />
-        <attr name="cdrawableRightWidth" />
-        <attr name="cdrawableRightHeight" />
-        <attr name="cdrawableTopWidth" />
-        <attr name="cdrawableTopHeight" />
-        <attr name="cdrawableBottomWidth" />
-        <attr name="cdrawableBottomHeight" />
-        <attr name="cdrawablePadding" />
         <attr name="entityMapping" />
         <attr name="getMapping" />
         <attr name="setMapping" />

@@ -164,10 +164,8 @@ public class CSlidingTab extends CHorizontalScrollView {
         scrollOffset = a.getDimensionPixelSize(R.styleable.CSlidingTab_cscrollOffset, scrollOffset);
         textAllCaps = a.getBoolean(R.styleable.CSlidingTab_ctextAllCaps, textAllCaps);
         tabTypefaceStyle = a.getBoolean(R.styleable.CSlidingTab_ctextBold, false) ? Typeface.BOLD : Typeface.NORMAL;
-        String ctextSize = a.getString(R.styleable.CSlidingTab_ctextSize);
-        tabTextSize = (int) (ViewUtil.getFloat(ctextSize) * CustomAttrs.getScreenWidth());
-        ctextSize = a.getString(R.styleable.CSlidingTab_cchoiceTextSize);
-        tabChoicedTextSize = (int) (ViewUtil.getFloat(ctextSize) * CustomAttrs.getScreenWidth());
+        tabTextSize = (int) (a.getInteger(R.styleable.CSlidingTab_ctextSize, 0) * 1f / getCustomAttrs().getScreenDesignWidth() * CustomAttrs.getScreenWidth());
+        tabChoicedTextSize = (int) (a.getInteger(R.styleable.CSlidingTab_cchoiceTextSize, 0) * 1f / getCustomAttrs().getScreenDesignWidth() * CustomAttrs.getScreenWidth());
         if (tabChoicedTextSize <= 0) {
             tabChoicedTextSize = tabTextSize;
         }

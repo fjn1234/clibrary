@@ -6,13 +6,14 @@ import android.os.Build;
 import android.util.AttributeSet;
 import android.view.View;
 
+import interfaces.IView;
 import obj.CustomAttrs;
 import utils.ViewUtil;
 
 /**
  * Created by Hugh on 2016/4/22.
  */
-public class CView extends View {
+public class CView extends View implements IView.ICustomAttrs {
 
     private CustomAttrs mAttrs = new CustomAttrs();
     private boolean initCustomAttrs=true;

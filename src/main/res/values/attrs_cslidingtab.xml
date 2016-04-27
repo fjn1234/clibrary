@@ -5,7 +5,7 @@
         <attr name="cunderlineColor" format="color" />
         <attr name="cdividerColor" format="color" />
         <attr name="ctextColor" format="color" />
-        <attr name="cchoiceTextSize" format="string" />
+        <attr name="cchoiceTextSize" format="integer" />
         <attr name="cchoiceTextColor" format="color" />
         <attr name="ctabChoicedColor" format="color" />
         <attr name="ctabColor" format="color" />
@@ -18,6 +18,7 @@
         <attr name="cshouldExpand" format="boolean" />
         <attr name="ctextAllCaps" format="boolean" />
         <attr name="ctextBold" format="boolean" />
+        <attr name="ctextSize" format="integer" />
         <attr name="cdesignScreenWidth" />
         <attr name="cdesignScreenHeight" />
         <attr name="cwidth" />
@@ -44,7 +45,6 @@
         <attr name="cheightByWidth" />
         <attr name="cwidthByHeight" />
         <attr name="ccorner" />
-        <attr name="ctextSize" />
         <attr name="ccornerDirection" />
         <attr name="onClickBackground" />
     </declare-styleable>

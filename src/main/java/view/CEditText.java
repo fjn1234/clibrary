@@ -50,6 +50,7 @@ public class CEditText extends EditText implements IView.ICustomAttrs, IView.IMa
 
     private void setCustomAttr(Context context, AttributeSet attrs) {
         mAttrs = ViewUtil.initCustomAttrs(context, attrs, this);
+        mAttrs.setTextSizePx((int) getTextSize());
         addTextChangedListener(textChangeListener);
         TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.CEditText);
         mAttrs.setDrawableLeftResId(ta.getResourceId(R.styleable.CEditText_cdrawableLeft, 0));

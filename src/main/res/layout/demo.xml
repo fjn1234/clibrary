@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <view.AnnulusProgressView
+        android:id="@+id/c1"
+        android:layout_width="240px"
+        android:layout_height="0px"
+        android:layout_centerInParent="true"
+        android:background="#000"
+        app:apv_dotColor="@android:color/holo_green_dark"
+        app:apv_dotRadius="18"
+        app:apv_percent="0.3"
+        app:apv_startAngle="225"
+        app:apv_strokeColor="@android:color/holo_blue_bright"
+        app:apv_strokeProgressColor="@android:color/holo_green_dark"
+        app:apv_strokeWidth="5"
+        app:apv_strokeProgressWidth="15"
+        app:apv_sweepAngle="-270"
+        app:cdesignScreenHeight="800"
+        app:cdesignScreenWidth="480" />
+</RelativeLayout>

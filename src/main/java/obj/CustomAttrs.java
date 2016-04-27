@@ -68,7 +68,7 @@ public class CustomAttrs {
             cornerRatio, textSizeRatio, drawableLeftWidthRatio, drawableLeftHeightRatio, drawableRightWidthRatio, drawableRightHeightRatio,
             drawableTopWidthRatio, drawableTopHeightRatio, drawableBottomWidthRatio, drawableBottomHeightRatio, drawablePaddingRatio;
     private int direction, hideMode, drawableLeftResId, drawableRightResId, drawableTopResId, drawableBottomResId;
-    private int widthPx, heightPx, marginLeftPx, marginRightPx, marginTopPx, marginBottomPx, paddingLeftPx, paddingRightPx, paddingTopPx, paddingBottomPx,maxWidthPx;
+    private int marginLeftPx, marginRightPx, marginTopPx, marginBottomPx, paddingLeftPx, paddingRightPx, paddingTopPx, paddingBottomPx,maxWidthPx,textSizePx;
     private Drawable onClickBackground;
     private boolean toSquare = false;
     private String entityMapping = "", getMapping = "", setMapping = "", selectMapping = "", visibleMapping = "";
@@ -238,8 +238,16 @@ public class CustomAttrs {
         return (int) Math.ceil(textSizeRatio * screenWidth);
     }
 
-    public void setTextSizeRatio(String textSizeRatio) {
-        this.textSizeRatio = ViewUtil.getFloat(textSizeRatio);
+    public void setTextSizePx(int textSizePx) {
+        this.textSizePx = textSizePx;
+    }
+
+    public int getTextSizePx() {
+        return textSizePx;
+    }
+
+    public void setTextSizePxRatio(int textSize) {
+        this.textSizeRatio = getPxToWidthRatio(textSize);
     }
 
     public int getHeightByWidth() {
@@ -280,22 +288,6 @@ public class CustomAttrs {
 
     public void setHeightPxRatio(int height) {
         this.heightRatio = getPxToHeightRatio(height);
-    }
-
-    public int getWidthPx() {
-        return widthPx;
-    }
-
-    public void setWidthPx(int widthPx) {
-        this.widthPx = widthPx;
-    }
-
-    public int getHeightPx() {
-        return heightPx;
-    }
-
-    public void setHeightPx(int heightPx) {
-        this.heightPx = heightPx;
     }
 
     public int getMarginLeftPx() {

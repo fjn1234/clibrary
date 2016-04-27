@@ -57,7 +57,7 @@
     <attr name="cheightByWidth" format="string"></attr>
     <attr name="cwidthByHeight" format="string"></attr>
     <attr name="ccorner" format="string"></attr>
-    <attr name="ctextSize" format="string"></attr>
+    <!--<attr name="ctextSize" format="string"></attr>-->
     <attr name="ccornerDirection">
         <flag name="none" value="0x0" />
         <flag name="left" value="0x9" />
@@ -106,7 +106,7 @@
         <attr name="cheightByWidth" />
         <attr name="cwidthByHeight" />
         <attr name="ccorner" />
-        <attr name="ctextSize" />
+        <!--<attr name="ctextSize" />-->
         <attr name="ccornerDirection" />
         <attr name="onClickBackground" />
     </declare-styleable>

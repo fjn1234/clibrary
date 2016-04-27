@@ -41,6 +41,7 @@ public class CTextView extends TextView implements IView.ICustomAttrs, IView.IMa
 
     private void setCustomAttr(Context context, AttributeSet attrs) {
         mAttrs = ViewUtil.initCustomAttrs(context, attrs, this);
+        mAttrs.setTextSizePx((int) getTextSize());
         TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.CTextView);
         getPaint().setFakeBoldText(ta.getBoolean(R.styleable.CTextView_tv_fakeBlod, false));
         if (ta.getBoolean(R.styleable.CTextView_tv_flags, false))

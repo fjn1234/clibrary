@@ -82,6 +82,11 @@ public class CEditText extends EditText implements IView.ICustomAttrs, IView.IMa
         ViewUtil.loadCustomAttrs(this, mAttrs);
     }
 
+    public void loadScreenArr() {
+        ViewUtil.getParentScreenAttr(mAttrs, this);
+        loadCustomAttrs();
+    }
+
     public CustomAttrs getCustomAttrs() {
         return mAttrs;
     }
@@ -96,8 +101,7 @@ public class CEditText extends EditText implements IView.ICustomAttrs, IView.IMa
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         if (initCustomAttrs) {
             initCustomAttrs = false;
-            ViewUtil.getParentScreenAttr(mAttrs, this);
-            loadCustomAttrs();
+            loadScreenArr();
             loadDrawable();
         }
     }

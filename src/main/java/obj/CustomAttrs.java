@@ -238,6 +238,10 @@ public class CustomAttrs {
         return (int) Math.ceil(textSizeRatio * screenWidth);
     }
 
+    public void setTextSizeRatio(String textSizeRatio) {
+        this.textSizeRatio = ViewUtil.getFloat(textSizeRatio);
+    }
+
     public void setTextSizePx(int textSizePx) {
         this.textSizePx = textSizePx;
     }

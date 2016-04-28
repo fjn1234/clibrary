@@ -41,6 +41,11 @@ public class CRelativeLayout extends RelativeLayout implements IView.ICustomAttr
         ViewUtil.loadCustomAttrs(this, mAttrs);
     }
 
+    public void loadScreenArr() {
+        ViewUtil.getParentScreenAttr(mAttrs, this);
+        loadCustomAttrs();
+    }
+
     public CustomAttrs getCustomAttrs() {
         return mAttrs;
     }
@@ -55,8 +60,7 @@ public class CRelativeLayout extends RelativeLayout implements IView.ICustomAttr
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         if (initCustomAttrs) {
             initCustomAttrs = false;
-            ViewUtil.getParentScreenAttr(mAttrs, this);
-            loadCustomAttrs();
+            loadScreenArr();
         }
     }
 }

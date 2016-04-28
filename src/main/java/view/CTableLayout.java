@@ -31,6 +31,11 @@ public class CTableLayout extends TableLayout implements IView.ICustomAttrs {
         ViewUtil.loadCustomAttrs(this, mAttrs);
     }
 
+    public void loadScreenArr(){
+        ViewUtil.getParentScreenAttr(mAttrs, this);
+        loadCustomAttrs();
+    }
+
     public CustomAttrs getCustomAttrs() {
         return mAttrs;
     }
@@ -45,8 +50,7 @@ public class CTableLayout extends TableLayout implements IView.ICustomAttrs {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         if (initCustomAttrs) {
             initCustomAttrs = false;
-            ViewUtil.getParentScreenAttr(mAttrs, this);
-            loadCustomAttrs();
+            loadScreenArr();
         }
     }
 }

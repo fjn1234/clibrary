@@ -37,6 +37,11 @@ public class CHorizontalScrollView extends HorizontalScrollView implements IView
         ViewUtil.loadCustomAttrs(this, mAttrs);
     }
 
+    public void loadScreenArr() {
+        ViewUtil.getParentScreenAttr(mAttrs, this);
+        loadCustomAttrs();
+    }
+
     public CustomAttrs getCustomAttrs() {
         return mAttrs;
     }
@@ -51,8 +56,7 @@ public class CHorizontalScrollView extends HorizontalScrollView implements IView
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         if (initCustomAttrs) {
             initCustomAttrs = false;
-            ViewUtil.getParentScreenAttr(mAttrs, this);
-            loadCustomAttrs();
+            loadScreenArr();
         }
     }
 

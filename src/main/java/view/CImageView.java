@@ -85,6 +85,11 @@ public class CImageView extends ImageView implements IView.ICustomAttrs, IView.I
         ViewUtil.loadCustomAttrs(this, mAttrs);
     }
 
+    public void loadScreenArr(){
+        ViewUtil.getParentScreenAttr(mAttrs, this);
+        loadCustomAttrs();
+    }
+
     public CustomAttrs getCustomAttrs() {
         return mAttrs;
     }
@@ -99,8 +104,7 @@ public class CImageView extends ImageView implements IView.ICustomAttrs, IView.I
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         if (initCustomAttrs) {
             initCustomAttrs = false;
-            ViewUtil.getParentScreenAttr(mAttrs, this);
-            loadCustomAttrs();
+            loadScreenArr();
         }
     }
 

@@ -6,6 +6,7 @@ import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
 import android.text.Html;
 import android.util.AttributeSet;
+import android.view.View;
 import android.widget.TextView;
 
 import com.hugh.clibrary.R;
@@ -73,6 +74,11 @@ public class CTextView extends TextView implements IView.ICustomAttrs, IView.IMa
             setMaxWidth(mAttrs.getMaxWidth());
     }
 
+    public void loadScreenArr() {
+        ViewUtil.getParentScreenAttr(mAttrs, this);
+        loadCustomAttrs();
+    }
+
     public void loadDrawable() {
         Drawable[] drawables = ViewUtil.loadDrawable(getResources(), mAttrs);
         setCompoundDrawables(drawables[0], drawables[1], drawables[2], drawables[3]);
@@ -93,8 +99,7 @@ public class CTextView extends TextView implements IView.ICustomAttrs, IView.IMa
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         if (initCustomAttrs) {
             initCustomAttrs = false;
-            ViewUtil.getParentScreenAttr(mAttrs, this);
-            loadCustomAttrs();
+            loadScreenArr();
             loadDrawable();
         }
     }
@@ -154,10 +159,11 @@ public class CTextView extends TextView implements IView.ICustomAttrs, IView.IMa
     }
 
     public int getWidthAtSingleLine() {
-        final int paddingLeft = getCustomAttrs().getPaddingLeft();
-        final int paddingRight = getCustomAttrs().getPaddingRight();
-        final int textSize = getCustomAttrs().getTextSize();
-        int width = getText().length() * textSize + paddingLeft + paddingRight;
-        return width;
+        int w = View.MeasureSpec.makeMeasureSpec(0,
+                View.MeasureSpec.UNSPECIFIED);
+        int h = View.MeasureSpec.makeMeasureSpec(0,
+                View.MeasureSpec.UNSPECIFIED);
+        measure(w, h);
+        return getMeasuredWidth();
     }
 }

@@ -27,8 +27,7 @@ public class CProgressBar extends ProgressBar implements IView.ICustomAttrs {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         if (initCustomAttrs) {
             initCustomAttrs = false;
-            ViewUtil.getParentScreenAttr(mAttrs, this);
-            loadCustomAttrs();
+            loadScreenArr();
         }
     }
 
@@ -42,6 +41,11 @@ public class CProgressBar extends ProgressBar implements IView.ICustomAttrs {
 
     public void loadCustomAttrs() {
         ViewUtil.loadCustomAttrs(this, mAttrs);
+    }
+
+    public void loadScreenArr(){
+        ViewUtil.getParentScreenAttr(mAttrs, this);
+        loadCustomAttrs();
     }
 
     public CustomAttrs getCustomAttrs() {

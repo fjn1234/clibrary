@@ -18,7 +18,7 @@
         <attr name="cshouldExpand" format="boolean" />
         <attr name="ctextAllCaps" format="boolean" />
         <attr name="ctextBold" format="boolean" />
-        <attr name="ctextSize" format="integer" />
+        <attr name="st_textSize" format="integer" />
         <attr name="cdesignScreenWidth" />
         <attr name="cdesignScreenHeight" />
         <attr name="cwidth" />

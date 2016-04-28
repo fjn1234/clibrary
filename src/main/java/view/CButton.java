@@ -87,13 +87,17 @@ public class CButton extends Button implements IView.ICustomAttrs, IView.IMappin
         loadCustomAttrs();
     }
 
+    public void loadScreenArr(){
+        ViewUtil.getParentScreenAttr(mAttrs, this);
+        loadCustomAttrs();
+    }
+
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         if (initCustomAttrs) {
             initCustomAttrs = false;
-            ViewUtil.getParentScreenAttr(mAttrs, this);
-            loadCustomAttrs();
+            loadScreenArr();
             loadDrawable();
         }
     }

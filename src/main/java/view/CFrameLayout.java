@@ -11,7 +11,7 @@ import utils.ViewUtil;
 
 public class CFrameLayout extends FrameLayout implements IView.ICustomAttrs {
     private CustomAttrs mAttrs = new CustomAttrs();
-    private boolean initCustomAttrs=true;
+    private boolean initCustomAttrs = true;
 
     public CFrameLayout(Context context) {
         super(context);
@@ -35,6 +35,11 @@ public class CFrameLayout extends FrameLayout implements IView.ICustomAttrs {
         ViewUtil.loadCustomAttrs(this, mAttrs);
     }
 
+    public void loadScreenArr() {
+        ViewUtil.getParentScreenAttr(mAttrs, this);
+        loadCustomAttrs();
+    }
+
     public CustomAttrs getCustomAttrs() {
         return mAttrs;
     }
@@ -49,8 +54,7 @@ public class CFrameLayout extends FrameLayout implements IView.ICustomAttrs {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         if (initCustomAttrs) {
             initCustomAttrs = false;
-            ViewUtil.getParentScreenAttr(mAttrs, this);
-            loadCustomAttrs();
+            loadScreenArr();
         }
     }
 }

@@ -58,7 +58,7 @@ public class ViewUtil {
 
     /**
      * 将px值转换为sp值，保证文字大小不变
-     * <p>
+     * <p/>
      * （DisplayMetrics类中属性scaledDensity）
      *
      * @return
@@ -70,7 +70,7 @@ public class ViewUtil {
 
     /**
      * 将sp值转换为px值，保证文字大小不变
-     * <p>
+     * <p/>
      * （DisplayMetrics类中属性scaledDensity）
      *
      * @return
@@ -177,7 +177,7 @@ public class ViewUtil {
         ta2 = context.obtainStyledAttributes(attrs, new int[]{android.R.attr.padding});
         int padding = ta2.getDimensionPixelOffset(0, 0);
         ta2.recycle();
-        if (padding > 0) {
+        if (padding == 0) {
             ta2 = context.obtainStyledAttributes(attrs, new int[]{android.R.attr.paddingLeft});
             mAttrs.setPaddingLeftPx(ta2.getDimensionPixelOffset(0, 0));
             ta2.recycle();
@@ -212,6 +212,7 @@ public class ViewUtil {
         mAttrs.setCornerDirection(ta.getInt(R.styleable.CustomAttrs_ccornerDirection, 0xf));
         mAttrs.toSquare(ta.getBoolean(R.styleable.CustomAttrs_ctoSquare, false));
         mAttrs.setOnClickBackground(ta.getDrawable(R.styleable.CustomAttrs_onClickBackground));
+        mAttrs.setTextSizeRatio(ta.getString(R.styleable.CustomAttrs_ctextSize));
         mAttrs.setEntityMapping(ta.getString(R.styleable.CustomAttrs_entityMapping));
         mAttrs.setGetMapping(ta.getString(R.styleable.CustomAttrs_getMapping));
         mAttrs.setSetMapping(ta.getString(R.styleable.CustomAttrs_setMapping));
@@ -227,9 +228,10 @@ public class ViewUtil {
             return;
         if (mAttrs.getScreenDesignWidth() == 0)
             mAttrs.setScreenDesignWidth(getParentScreenWidth(v));
+        if (mAttrs.getScreenDesignWidth() == 0) return;
         if (mAttrs.getScreenDesignHeight() == 0)
             mAttrs.setScreenDesignHeight(getParentScreenHeight(v));
-        if (mAttrs.getScreenDesignWidth() == 0 || mAttrs.getScreenDesignHeight() == 0) return;
+        if (mAttrs.getScreenDesignHeight() == 0) return;
         if (mAttrs.getWidthRatio() == 0)
             mAttrs.setWidthPxRatio(v.getLayoutParams() == null ? 0 : v.getLayoutParams().width);
         if (mAttrs.getHeightRatio() == 0)
@@ -317,6 +319,8 @@ public class ViewUtil {
             loadRelativeLayoutAttrs(v, attrs);
         if (v.getLayoutParams() instanceof FrameLayout.LayoutParams)
             loadFrameLayoutAttrs(v, attrs);
+        if (v.getLayoutParams() == null)
+            loadLayoutAttrs(v, attrs);
     }
 
     public static void loadCustomAttrs(View view) {
@@ -380,6 +384,33 @@ public class ViewUtil {
             lp.bottomMargin = attrs.getMarginBottomByWidth();
         if (attrs.getMarginBottom() != 0) {
             lp.bottomMargin = attrs.getMarginBottom();
+        }
+        v.setLayoutParams(lp);
+        loadCommonAttrs(v, attrs);
+    }
+
+    private static void loadLayoutAttrs(View v, CustomAttrs attrs) {
+        ViewGroup.LayoutParams lp = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        if (attrs.getWidth() > 0)
+            lp.width = attrs.getWidth();
+        if (attrs.getHeight() > 0)
+            lp.height = attrs.getHeight();
+        if (attrs.getWidthByHeight() > 0) {
+            lp.width = attrs.getWidthByHeight();
+            attrs.setWidthRatio(lp.width * 100f / CustomAttrs.getScreenWidth() + "%");
+        }
+        if (attrs.getHeightByWidth() > 0) {
+            lp.height = attrs.getHeightByWidth();
+            attrs.setHeightRatio(lp.height * 100f / CustomAttrs.getScreenHeight() + "%");
+        }
+        if (attrs.isToSquare()) {
+            if (lp.width >= lp.height) {
+                lp.height = lp.width;
+                attrs.setHeightRatio(lp.height * 100f / CustomAttrs.getScreenHeight() + "%");
+            } else {
+                lp.width = lp.height;
+                attrs.setWidthRatio(lp.width * 100f / CustomAttrs.getScreenWidth() + "%");
+            }
         }
         v.setLayoutParams(lp);
         loadCommonAttrs(v, attrs);

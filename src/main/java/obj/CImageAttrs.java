@@ -1,6 +1,5 @@
 package obj;
 
-import android.content.Context;
 import android.text.TextUtils;
 
 import java.util.Hashtable;
@@ -11,9 +10,10 @@ import utils.ViewUtil;
 
 public class CImageAttrs {
 
+    public static int maxGolbalScale = 250;
     private boolean toCircle = false, cacheToMemory = false, matrixMode = false, toSquare = false;
     private float zoom = 1.0f, corner = -1.0f, autoScaleRatio = 0f;
-    private int width = 0, height = 0, autoScalePx = 0, scaleByHeightPx = 0, scaleByWidthPx = 0, autoUpdateSpace = -1, customWidth = 0, customHeight = 0, maxCustomScale = 0;
+    private int  autoScalePx = 0, scaleByHeightPx = 0, scaleByWidthPx = 0, autoUpdateSpace = -1, customWidth = 0, customHeight = 0, maxCustomScale = 0;
     private String cachePath = "", tempFilePath = "", pathMd5 = "", loadPath = "", customSize = "0,0";
     private LoadType loadType = LoadType.None;
 
@@ -105,19 +105,16 @@ public class CImageAttrs {
     }
 
     public int getAutoScalePx() {
-        if (getAutoScaleRatio() > 0) {
-            int scale = (int) Math.ceil(getAutoScaleRatio() * CustomAttrs.getScreenWidth());
-            if (scale > getMaxCustomScale()) {
-                return getMaxCustomScale();
-            } else {
-                if (scale < autoScalePx) {
-                    return autoScalePx;
-                } else {
-                    return scale;
-                }
-            }
-        } else
-            return autoScalePx;
+        //autoScaleRatio根据屏幕计算出调整比例
+        int autoScale = (int) Math.ceil(getAutoScaleRatio() * CustomAttrs.getScreenWidth());
+        //如果在大屏低分辨率下，为避免计算值过低，使用autoScalePx
+        autoScale = Math.max(autoScale, autoScalePx);
+        //没有设置autoScaleRatio或autoScalePx则不进行缩放
+        if (autoScale == 0) return 0;
+        //如果没有设置最大值则取默认的最大值,防止oom
+        int maxScale = maxCustomScale == 0 ? maxGolbalScale : maxCustomScale;
+        //如果在高分辨率下，为避免计算值过高，maxScale
+        return Math.min(maxScale,autoScale);
     }
 
     public void setAutoScalePx(int autoScalePx) {
@@ -177,22 +174,6 @@ public class CImageAttrs {
 
     public void setMaxCustomScale(int maxCustomScale) {
         this.maxCustomScale = maxCustomScale;
-    }
-
-    public int getWidth() {
-        return width;
-    }
-
-    public void setWidth(int width) {
-        this.width = width;
-    }
-
-    public int getHeight() {
-        return height;
-    }
-
-    public void setHeight(int height) {
-        this.height = height;
     }
 
     public int getAutoUpdateSpace() {

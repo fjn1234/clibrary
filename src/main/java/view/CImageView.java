@@ -78,6 +78,7 @@ public class CImageView extends ImageView implements IView.ICustomAttrs, IView.I
         imageAttrs.setCorner(ta.getFloat(R.styleable.CImageView_ccornerImg, 0));
         imageAttrs.setMaxCustomScale(ta.getInteger(R.styleable.CImageView_cmaxCustomScale, 0));
         imageAttrs.setLoadType(ta.getInteger(R.styleable.CImageView_loadType, -1));
+        imageAttrs.setBitmapConfig(ta.getInteger(R.styleable.CImageView_bitmapConfig, 4));
         ta.recycle();
     }
 
@@ -85,7 +86,7 @@ public class CImageView extends ImageView implements IView.ICustomAttrs, IView.I
         ViewUtil.loadCustomAttrs(this, mAttrs);
     }
 
-    public void loadScreenArr(){
+    public void loadScreenArr() {
         ViewUtil.getParentScreenAttr(mAttrs, this);
         loadCustomAttrs();
     }
@@ -154,19 +155,19 @@ public class CImageView extends ImageView implements IView.ICustomAttrs, IView.I
     private Bitmap adjustBitmap(Bitmap bm) {
         try {
             if (imageAttrs.isToCircle() && doAjust) {
-                bm = ImageUtil.getRoundedCornerBitmap(bm, imageAttrs.getZoom());
+                bm = ImageUtil.getRoundedCornerBitmap(bm, imageAttrs.getZoom(), imageAttrs.getBitmapConfig());
             }
             if (imageAttrs.isToSquare() && doAjust) {
-                bm = ImageUtil.getSquareBitmap(bm, imageAttrs.getZoom());
+                bm = ImageUtil.getSquareBitmap(bm, imageAttrs.getZoom(), imageAttrs.getBitmapConfig());
             }
             if (imageAttrs.getAutoScalePx() > 0) {
                 bm = ImageUtil.scaleByAuto(bm, imageAttrs.getAutoScalePx());
             }
             if (imageAttrs.getCustomWidth() > 0 && imageAttrs.getCustomHeight() > 0) {
-                bm = ImageUtil.getCustomSizeBitmap(bm, imageAttrs.getCustomWidth(), imageAttrs.getCustomHeight());
+                bm = ImageUtil.getCustomSizeBitmap(bm, imageAttrs.getCustomWidth(), imageAttrs.getCustomHeight(), imageAttrs.getBitmapConfig());
             }
             if (imageAttrs.getCorner() > 0 && doAjust) {
-                bm = ImageUtil.getCornerBitmap(bm, imageAttrs.getCorner());
+                bm = ImageUtil.getCornerBitmap(bm, imageAttrs.getCorner(), imageAttrs.getBitmapConfig());
             }
         } catch (Exception ex) {
             ex.printStackTrace();

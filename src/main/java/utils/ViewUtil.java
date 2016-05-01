@@ -312,15 +312,57 @@ public class ViewUtil {
     }
 
     public static void loadCustomAttrs(View v, CustomAttrs attrs) {
-        if (v == null) return;
-        if (v.getLayoutParams() instanceof LinearLayout.LayoutParams)
-            loadLinearLayoutAttrs(v, attrs);
-        if (v.getLayoutParams() instanceof RelativeLayout.LayoutParams)
-            loadRelativeLayoutAttrs(v, attrs);
-        if (v.getLayoutParams() instanceof FrameLayout.LayoutParams)
-            loadFrameLayoutAttrs(v, attrs);
-        if (v.getLayoutParams() == null)
-            loadLayoutAttrs(v, attrs);
+        try {
+            ViewGroup.MarginLayoutParams lp;
+            if (v.getLayoutParams() == null)
+                lp = new ViewGroup.MarginLayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            else
+                lp = (ViewGroup.MarginLayoutParams) v.getLayoutParams();
+            if (attrs.getWidth() > 0)
+                lp.width = attrs.getWidth();
+            if (attrs.getHeight() > 0)
+                lp.height = attrs.getHeight();
+            if (attrs.getWidthByHeight() > 0) {
+                lp.width = attrs.getWidthByHeight();
+                attrs.setWidthRatio(lp.width * 100f / CustomAttrs.getScreenWidth() + "%");
+            }
+            if (attrs.getHeightByWidth() > 0) {
+                lp.height = attrs.getHeightByWidth();
+                attrs.setHeightRatio(lp.height * 100f / CustomAttrs.getScreenHeight() + "%");
+            }
+            if (attrs.isToSquare()) {
+                if (lp.width >= lp.height) {
+                    lp.height = lp.width;
+                    attrs.setHeightRatio(lp.height * 100f / CustomAttrs.getScreenHeight() + "%");
+                } else {
+                    lp.width = lp.height;
+                    attrs.setWidthRatio(lp.width * 100f / CustomAttrs.getScreenWidth() + "%");
+                }
+            }
+            if (attrs.getMarginByWidth() != 0)
+                lp.setMargins(attrs.getMarginByWidth(), attrs.getMarginByWidth(),
+                        attrs.getMarginByWidth(), attrs.getMarginByWidth());
+            if (attrs.getMarginByHeight() != 0)
+                lp.setMargins(attrs.getMarginByHeight(), attrs.getMarginByHeight(),
+                        attrs.getMarginByHeight(), attrs.getMarginByHeight());
+            if (attrs.getMarginLeft() != 0)
+                lp.leftMargin = attrs.getMarginLeft();
+            if (attrs.getMarginRight() != 0)
+                lp.rightMargin = attrs.getMarginRight();
+            if (attrs.getMarginTopByWidth() != 0)
+                lp.topMargin = attrs.getMarginTopByWidth();
+            if (attrs.getMarginTop() != 0)
+                lp.topMargin = attrs.getMarginTop();
+            if (attrs.getMarginBottomByWidth() != 0)
+                lp.bottomMargin = attrs.getMarginBottomByWidth();
+            if (attrs.getMarginBottom() != 0) {
+                lp.bottomMargin = attrs.getMarginBottom();
+            }
+            v.setLayoutParams(lp);
+            loadCommonAttrs(v, attrs);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }
 
     public static void loadCustomAttrs(View view) {
@@ -341,169 +383,6 @@ public class ViewUtil {
                 loadSubViewCustomAttrs(viewGroup.getChildAt(i));
             }
         }
-    }
-
-    private static void loadFrameLayoutAttrs(View v, CustomAttrs attrs) {
-        FrameLayout.LayoutParams lp = (FrameLayout.LayoutParams) v.getLayoutParams();
-        if (attrs.getWidth() > 0)
-            lp.width = attrs.getWidth();
-        if (attrs.getHeight() > 0)
-            lp.height = attrs.getHeight();
-        if (attrs.getWidthByHeight() > 0) {
-            lp.width = attrs.getWidthByHeight();
-            attrs.setWidthRatio(lp.width * 100f / CustomAttrs.getScreenWidth() + "%");
-        }
-        if (attrs.getHeightByWidth() > 0) {
-            lp.height = attrs.getHeightByWidth();
-            attrs.setHeightRatio(lp.height * 100f / CustomAttrs.getScreenHeight() + "%");
-        }
-        if (attrs.isToSquare()) {
-            if (lp.width >= lp.height) {
-                lp.height = lp.width;
-                attrs.setHeightRatio(lp.height * 100f / CustomAttrs.getScreenHeight() + "%");
-            } else {
-                lp.width = lp.height;
-                attrs.setWidthRatio(lp.width * 100f / CustomAttrs.getScreenWidth() + "%");
-            }
-        }
-        if (attrs.getMarginByWidth() != 0)
-            lp.setMargins(attrs.getMarginByWidth(), attrs.getMarginByWidth(),
-                    attrs.getMarginByWidth(), attrs.getMarginByWidth());
-        if (attrs.getMarginByHeight() != 0)
-            lp.setMargins(attrs.getMarginByHeight(), attrs.getMarginByHeight(),
-                    attrs.getMarginByHeight(), attrs.getMarginByHeight());
-        if (attrs.getMarginLeft() != 0)
-            lp.leftMargin = attrs.getMarginLeft();
-        if (attrs.getMarginRight() != 0)
-            lp.rightMargin = attrs.getMarginRight();
-        if (attrs.getMarginTopByWidth() != 0)
-            lp.topMargin = attrs.getMarginTopByWidth();
-        if (attrs.getMarginTop() != 0)
-            lp.topMargin = attrs.getMarginTop();
-        if (attrs.getMarginBottomByWidth() != 0)
-            lp.bottomMargin = attrs.getMarginBottomByWidth();
-        if (attrs.getMarginBottom() != 0) {
-            lp.bottomMargin = attrs.getMarginBottom();
-        }
-        v.setLayoutParams(lp);
-        loadCommonAttrs(v, attrs);
-    }
-
-    private static void loadLayoutAttrs(View v, CustomAttrs attrs) {
-        ViewGroup.LayoutParams lp = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        if (attrs.getWidth() > 0)
-            lp.width = attrs.getWidth();
-        if (attrs.getHeight() > 0)
-            lp.height = attrs.getHeight();
-        if (attrs.getWidthByHeight() > 0) {
-            lp.width = attrs.getWidthByHeight();
-            attrs.setWidthRatio(lp.width * 100f / CustomAttrs.getScreenWidth() + "%");
-        }
-        if (attrs.getHeightByWidth() > 0) {
-            lp.height = attrs.getHeightByWidth();
-            attrs.setHeightRatio(lp.height * 100f / CustomAttrs.getScreenHeight() + "%");
-        }
-        if (attrs.isToSquare()) {
-            if (lp.width >= lp.height) {
-                lp.height = lp.width;
-                attrs.setHeightRatio(lp.height * 100f / CustomAttrs.getScreenHeight() + "%");
-            } else {
-                lp.width = lp.height;
-                attrs.setWidthRatio(lp.width * 100f / CustomAttrs.getScreenWidth() + "%");
-            }
-        }
-        v.setLayoutParams(lp);
-        loadCommonAttrs(v, attrs);
-    }
-
-    private static void loadRelativeLayoutAttrs(View v, CustomAttrs attrs) {
-        RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) v.getLayoutParams();
-        if (attrs.getWidth() > 0)
-            lp.width = attrs.getWidth();
-        if (attrs.getHeight() > 0)
-            lp.height = attrs.getHeight();
-        if (attrs.getWidthByHeight() > 0) {
-            lp.width = attrs.getWidthByHeight();
-            attrs.setWidthRatio(lp.width * 100f / CustomAttrs.getScreenWidth() + "%");
-        }
-        if (attrs.getHeightByWidth() > 0) {
-            lp.height = attrs.getHeightByWidth();
-            attrs.setHeightRatio(lp.height * 100f / CustomAttrs.getScreenHeight() + "%");
-        }
-        if (attrs.isToSquare()) {
-            if (lp.width >= lp.height) {
-                lp.height = lp.width;
-                attrs.setHeightRatio(lp.height * 100f / CustomAttrs.getScreenHeight() + "%");
-            } else {
-                lp.width = lp.height;
-                attrs.setWidthRatio(lp.width * 100f / CustomAttrs.getScreenWidth() + "%");
-            }
-        }
-        if (attrs.getMarginByWidth() != 0)
-            lp.setMargins(attrs.getMarginByWidth(), attrs.getMarginByWidth(),
-                    attrs.getMarginByWidth(), attrs.getMarginByWidth());
-        if (attrs.getMarginByHeight() != 0)
-            lp.setMargins(attrs.getMarginByHeight(), attrs.getMarginByHeight(),
-                    attrs.getMarginByHeight(), attrs.getMarginByHeight());
-        if (attrs.getMarginLeft() != 0)
-            lp.leftMargin = attrs.getMarginLeft();
-        if (attrs.getMarginRight() != 0)
-            lp.rightMargin = attrs.getMarginRight();
-        if (attrs.getMarginTopByWidth() != 0)
-            lp.topMargin = attrs.getMarginTopByWidth();
-        if (attrs.getMarginTop() != 0)
-            lp.topMargin = attrs.getMarginTop();
-        if (attrs.getMarginBottomByWidth() != 0)
-            lp.bottomMargin = attrs.getMarginBottomByWidth();
-        if (attrs.getMarginBottom() != 0)
-            lp.bottomMargin = attrs.getMarginBottom();
-        v.setLayoutParams(lp);
-        loadCommonAttrs(v, attrs);
-    }
-
-    private static void loadLinearLayoutAttrs(View v, CustomAttrs attrs) {
-        LinearLayout.LayoutParams lp = (LinearLayout.LayoutParams) v.getLayoutParams();
-        if (attrs.getWidth() > 0)
-            lp.width = attrs.getWidth();
-        if (attrs.getHeight() > 0)
-            lp.height = attrs.getHeight();
-        if (attrs.getWidthByHeight() > 0) {
-            lp.width = attrs.getWidthByHeight();
-            attrs.setWidthRatio(lp.width * 100f / CustomAttrs.getScreenWidth() + "%");
-        }
-        if (attrs.getHeightByWidth() > 0) {
-            lp.height = attrs.getHeightByWidth();
-            attrs.setHeightRatio(lp.height * 100f / CustomAttrs.getScreenHeight() + "%");
-        }
-        if (attrs.isToSquare()) {
-            if (lp.width >= lp.height) {
-                lp.height = lp.width;
-                attrs.setHeightRatio(lp.height * 100f / CustomAttrs.getScreenHeight() + "%");
-            } else {
-                lp.width = lp.height;
-                attrs.setWidthRatio(lp.width * 100f / CustomAttrs.getScreenWidth() + "%");
-            }
-        }
-        if (attrs.getMarginByWidth() != 0)
-            lp.setMargins(attrs.getMarginByWidth(), attrs.getMarginByWidth(),
-                    attrs.getMarginByWidth(), attrs.getMarginByWidth());
-        if (attrs.getMarginByHeight() != 0)
-            lp.setMargins(attrs.getMarginByHeight(), attrs.getMarginByHeight(),
-                    attrs.getMarginByHeight(), attrs.getMarginByHeight());
-        if (attrs.getMarginLeft() != 0)
-            lp.leftMargin = attrs.getMarginLeft();
-        if (attrs.getMarginRight() != 0)
-            lp.rightMargin = attrs.getMarginRight();
-        if (attrs.getMarginTopByWidth() != 0)
-            lp.topMargin = attrs.getMarginTopByWidth();
-        if (attrs.getMarginTop() != 0)
-            lp.topMargin = attrs.getMarginTop();
-        if (attrs.getMarginBottomByWidth() != 0)
-            lp.bottomMargin = attrs.getMarginBottomByWidth();
-        if (attrs.getMarginBottom() != 0)
-            lp.bottomMargin = attrs.getMarginBottom();
-        v.setLayoutParams(lp);
-        loadCommonAttrs(v, attrs);
     }
 
     public static Drawable[] loadDrawable(Resources resources, CustomAttrs attrs) {

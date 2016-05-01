@@ -265,9 +265,9 @@ public class ImageUtil {
         return result;
     }
 
-    public static Bitmap getRoundedCornerBitmap(Bitmap bitmap, float zoom) {
+    public static Bitmap getRoundedCornerBitmap(Bitmap bitmap, float zoom, Config config) {
         int width = Math.min(bitmap.getWidth(), bitmap.getHeight());
-        Bitmap output = Bitmap.createBitmap(width, width, Config.ARGB_8888);
+        Bitmap output = Bitmap.createBitmap(width, width, config);
         Canvas canvas = new Canvas(output);
         final Paint paint = new Paint();
         int radius = (int) (width * zoom);
@@ -285,9 +285,9 @@ public class ImageUtil {
         return output;
     }
 
-    public static Bitmap getSquareBitmap(Bitmap bitmap, float zoom) {
+    public static Bitmap getSquareBitmap(Bitmap bitmap, float zoom, Config config) {
         int width = Math.min(bitmap.getWidth(), bitmap.getHeight());
-        Bitmap output = Bitmap.createBitmap(width, width, Config.ARGB_8888);
+        Bitmap output = Bitmap.createBitmap(width, width, config);
         Canvas canvas = new Canvas(output);
         final Paint paint = new Paint();
         int radius = (int) (width * zoom);
@@ -302,10 +302,9 @@ public class ImageUtil {
         return output;
     }
 
-    public static Bitmap getRoundedCornerBitmap(Bitmap bitmap, float corner,
-                                                float zoom) {
+    public static Bitmap getRoundedCornerBitmap(Bitmap bitmap, float corner, float zoom, Config config) {
         int width = Math.min(bitmap.getWidth(), bitmap.getHeight());
-        Bitmap output = Bitmap.createBitmap(width, width, Config.ARGB_8888);
+        Bitmap output = Bitmap.createBitmap(width, width, config);
         Canvas canvas = new Canvas(output);
         final Paint paint = new Paint();
         int radius = (int) (width * zoom);
@@ -323,8 +322,8 @@ public class ImageUtil {
         return output;
     }
 
-    public static Bitmap getCornerBitmap(Bitmap bitmap, float corner) {
-        Bitmap output = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight(), Config.ARGB_8888);
+    public static Bitmap getCornerBitmap(Bitmap bitmap, float corner, Config config) {
+        Bitmap output = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight(), config);
         Canvas canvas = new Canvas(output);
         final Paint paint = new Paint();
         final Rect rect = new Rect(0, 0, bitmap.getWidth(), bitmap.getHeight());
@@ -337,13 +336,10 @@ public class ImageUtil {
         return output;
     }
 
-    public static Bitmap getCustomSizeBitmap(Bitmap bitmap, int customwidth,
-                                             int customheight) {
-
+    public static Bitmap getCustomSizeBitmap(Bitmap bitmap, int customwidth, int customheight, Config config) {
         int width = Math.min(bitmap.getWidth(), customwidth);
         int height = Math.min(bitmap.getHeight(), customheight);
-        Bitmap output = Bitmap.createBitmap(width, customheight,
-                Config.ARGB_8888);
+        Bitmap output = Bitmap.createBitmap(width, customheight, config);
         Canvas canvas = new Canvas(output);
         final Paint paint = new Paint();
         final Rect rect = new Rect(0, 0, width, height);
@@ -432,7 +428,7 @@ public class ImageUtil {
     }
 
     public static Bitmap getBoli(Bitmap bm, float radius) {
-        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.JELLY_BEAN_MR1){
+        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.JELLY_BEAN_MR1) {
             return null;
         }
 

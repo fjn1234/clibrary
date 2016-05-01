@@ -1,5 +1,6 @@
 package obj;
 
+import android.graphics.Bitmap;
 import android.text.TextUtils;
 
 import java.util.Hashtable;
@@ -13,9 +14,31 @@ public class CImageAttrs {
     public static int maxGolbalScale = 250;
     private boolean toCircle = false, cacheToMemory = false, matrixMode = false, toSquare = false;
     private float zoom = 1.0f, corner = -1.0f, autoScaleRatio = 0f;
-    private int  autoScalePx = 0, scaleByHeightPx = 0, scaleByWidthPx = 0, autoUpdateSpace = -1, customWidth = 0, customHeight = 0, maxCustomScale = 0;
+    private int autoScalePx = 0, scaleByHeightPx = 0, scaleByWidthPx = 0, autoUpdateSpace = -1, customWidth = 0, customHeight = 0, maxCustomScale = 0;
     private String cachePath = "", tempFilePath = "", pathMd5 = "", loadPath = "", customSize = "0,0";
     private LoadType loadType = LoadType.None;
+    private Bitmap.Config bitmapConfig;
+
+    public void setBitmapConfig(int bitmapConfig) {
+        switch (bitmapConfig) {
+            case 1:
+                this.bitmapConfig = Bitmap.Config.ALPHA_8;
+                break;
+            case 3:
+                this.bitmapConfig = Bitmap.Config.RGB_565;
+                break;
+            case 5:
+                this.bitmapConfig = Bitmap.Config.ARGB_8888;
+                break;
+            default:
+                this.bitmapConfig = Bitmap.Config.ARGB_4444;
+                break;
+        }
+    }
+
+    public Bitmap.Config getBitmapConfig() {
+        return bitmapConfig;
+    }
 
     public enum LoadType {
         Disk, Url, Oss, None
@@ -114,7 +137,7 @@ public class CImageAttrs {
         //如果没有设置最大值则取默认的最大值,防止oom
         int maxScale = maxCustomScale == 0 ? maxGolbalScale : maxCustomScale;
         //如果在高分辨率下，为避免计算值过高，maxScale
-        return Math.min(maxScale,autoScale);
+        return Math.min(maxScale, autoScale);
     }
 
     public void setAutoScalePx(int autoScalePx) {

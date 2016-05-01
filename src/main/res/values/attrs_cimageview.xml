@@ -22,6 +22,12 @@
             <flag name="url" value="0x00000002" />
             <flag name="oss" value="0x00000003" />
         </attr>
+        <attr name="bitmapConfig">
+            <flag name="alpha_8" value="0x00000001" />
+            <flag name="rgb_565" value="0x00000003" />
+            <flag name="argb_4444" value="0x00000004" />
+            <flag name="argb_8888" value="0x00000005" />
+        </attr>
         <attr name="cdesignScreenWidth" />
         <attr name="cdesignScreenHeight" />
         <attr name="entityMapping" />

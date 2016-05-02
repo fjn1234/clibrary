@@ -2,7 +2,11 @@ package net;
 
 public class NetParams {
 
-	public static final String NET_ERROR = "net error";
+	public static final String NET_ERROR = "net_error";
+	public static final String CONNECT_FAIL = "connect_fail";
+	public static final String OPERATE_SUCCESS = "operate_success";
+	public static final String OPERATE_FAIL = "operate_fail";
+	public static final String RESPONSE_ERROR = "response_error";
 
 	public enum HttpMethod {
 		Post,

@@ -1,5 +1,10 @@
 package interfaces;
 
+import net.Result;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.net.URLConnection;
 
 /**
@@ -11,18 +16,14 @@ public class NetConnectionInterface {
     }
 
     public interface iConnectListener {
-        void onSuccess(String result);
-        void onFail(String result);
-    }
-    public interface iConnectListener2 extends iConnectListener {
         void onStart();
         void onFinish();
-        void onSuccess(String result);
-        void onFail(String result);
+        void onSuccess(Result result);
+        void onFail(Result result);
     }
 
-    public interface iUpdateConnectListener extends iConnectListener {
-        void onNoChange(String result);
-    }
+//    public interface iUpdateConnectListenerString extends iConnectListener {
+//        void onNoChange(String resultData);
+//    }
 
 }

@@ -5,13 +5,12 @@ import android.util.Log;
 import java.io.RandomAccessFile;
 
 import io.CFile;
+import obj.CApplication;
 
 
 public class LogUtil {
     private LogUtil() {
     }
-
-    ;
 
     public static void write(Class<?> clazz, String msg) {
         System.out.println("----------------------------");
@@ -37,8 +36,17 @@ public class LogUtil {
     }
 
     public static void loge(Class c, String... msg) {
-        for (String s : msg) {
-            Log.e(c.getClass().getName(), s);
+        if (CApplication.getDebugMode() != CApplication.DebugMode.Release) {
+            for (String s : msg) {
+                Log.e(c.getClass().getName(), s);
+            }
+        }
+    }
+
+    public static void printStackTrace(Class c, Exception ex) {
+        if (CApplication.getDebugMode() != CApplication.DebugMode.Release) {
+            System.out.println(c.getClass().getName());
+            ex.printStackTrace();
         }
     }
 }

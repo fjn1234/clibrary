@@ -9,8 +9,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import uicontrols.linkagepicker.DefaultValueEntity;
-
 /**
  * Created by Hugh on 2016/1/21.
  */

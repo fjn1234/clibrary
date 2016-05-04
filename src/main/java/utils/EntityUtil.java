@@ -17,7 +17,7 @@ import interfaces.IEntity;
 import obj.CArrayList;
 import obj.CBaseEntity;
 import obj.CHashMap;
-import uicontrols.linkagepicker.ValueEntity;
+import uicontrols.obj.ValueEntity;
 
 
 public class EntityUtil {

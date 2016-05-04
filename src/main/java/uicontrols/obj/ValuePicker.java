@@ -1,4 +1,4 @@
-package uicontrols.linkagepicker;
+package uicontrols.obj;
 
 import android.annotation.SuppressLint;
 import android.content.Context;

@@ -55,12 +55,22 @@ public class ValuePicker extends NumberPicker {
                 }
 
                 @Override
+                public Object getObject() {
+                    return null;
+                }
+
+                @Override
                 public void setKey(Object key) {
 
                 }
 
                 @Override
                 public void setValue(Object value) {
+
+                }
+
+                @Override
+                public void setObject(Object obj) {
 
                 }
 

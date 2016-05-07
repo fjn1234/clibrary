@@ -28,7 +28,7 @@ public class ValidateUtil {
         String Ai = "";
         // ================ 号码的长度 15位或18位 ================
         if (TextUtils.isEmpty(IDStr) || IDStr.length() != 15 && IDStr.length() != 18) {
-            errorInfo = CApplication.getGolbalContext().getString(R.string.validate_idcard_error1);
+            errorInfo = CApplication.getAppContext().getString(R.string.validate_idcard_error1);
             return errorInfo;
         }
         IDStr = IDStr.toLowerCase();
@@ -41,7 +41,7 @@ public class ValidateUtil {
             Ai = IDStr.substring(0, 6) + "19" + IDStr.substring(6, 15);
         }
         if (isNumeric(Ai) == false) {
-            errorInfo = CApplication.getGolbalContext().getString(R.string.validate_idcard_error2);
+            errorInfo = CApplication.getAppContext().getString(R.string.validate_idcard_error2);
             return errorInfo;
         }
         // =======================(end)========================
@@ -51,7 +51,7 @@ public class ValidateUtil {
         String strMonth = Ai.substring(10, 12);// 月份
         String strDay = Ai.substring(12, 14);// 月份
         if (isDate(strYear + "-" + strMonth + "-" + strDay) == false) {
-            errorInfo = CApplication.getGolbalContext().getString(R.string.validate_idcard_error3);
+            errorInfo = CApplication.getAppContext().getString(R.string.validate_idcard_error3);
             return errorInfo;
         }
         GregorianCalendar gc = new GregorianCalendar();
@@ -60,18 +60,18 @@ public class ValidateUtil {
             if ((gc.get(Calendar.YEAR) - Integer.parseInt(strYear)) > 150
                     || (gc.getTime().getTime() - s.parse(
                     strYear + "-" + strMonth + "-" + strDay).getTime()) < 0) {
-                errorInfo = CApplication.getGolbalContext().getString(R.string.validate_idcard_error4);
+                errorInfo = CApplication.getAppContext().getString(R.string.validate_idcard_error4);
                 return errorInfo;
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
         if (Integer.parseInt(strMonth) > 12 || Integer.parseInt(strMonth) == 0) {
-            errorInfo = CApplication.getGolbalContext().getString(R.string.validate_idcard_error5);
+            errorInfo = CApplication.getAppContext().getString(R.string.validate_idcard_error5);
             return errorInfo;
         }
         if (Integer.parseInt(strDay) > 31 || Integer.parseInt(strDay) == 0) {
-            errorInfo = CApplication.getGolbalContext().getString(R.string.validate_idcard_error6);
+            errorInfo = CApplication.getAppContext().getString(R.string.validate_idcard_error6);
             return errorInfo;
         }
         // =====================(end)=====================
@@ -79,7 +79,7 @@ public class ValidateUtil {
         // ================ 地区码时候有效 ================
         SparseArray h = GetAreaCode();
         if (h.get(Integer.parseInt(Ai.substring(0, 2))) == null) {
-            errorInfo = CApplication.getGolbalContext().getString(R.string.validate_idcard_error7);
+            errorInfo = CApplication.getAppContext().getString(R.string.validate_idcard_error7);
             return errorInfo;
         }
         // ==============================================
@@ -97,7 +97,7 @@ public class ValidateUtil {
 
         if (IDStr.length() == 18) {
             if (Ai.equals(IDStr) == false) {
-                errorInfo = CApplication.getGolbalContext().getString(R.string.validate_idcard_error8);
+                errorInfo = CApplication.getAppContext().getString(R.string.validate_idcard_error8);
                 return errorInfo;
             }
         } else {

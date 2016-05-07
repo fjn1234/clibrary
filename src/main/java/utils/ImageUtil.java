@@ -433,7 +433,7 @@ public class ImageUtil {
         }
 
         Bitmap bitmap = bm.copy(bm.getConfig(), true);
-        final RenderScript rs = RenderScript.create(CApplication.getGolbalContext());
+        final RenderScript rs = RenderScript.create(CApplication.getAppContext());
         final Allocation input = Allocation.createFromBitmap(rs, bm, Allocation.MipmapControl.MIPMAP_NONE,
                 Allocation.USAGE_SCRIPT);
         final Allocation output = Allocation.createTyped(rs, input.getType());

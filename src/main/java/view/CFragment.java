@@ -18,6 +18,7 @@ import android.widget.EditText;
 
 import com.hugh.clibrary.R;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -304,11 +305,11 @@ public class CFragment extends Fragment {
     private Handler notifyUpdateHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
-            notifyUpdate((NotifyUpdateEntity) msg.obj);
+            onNotifyUpdate((NotifyUpdateEntity) msg.obj);
         }
     };
 
-    protected void notifyUpdate(NotifyUpdateEntity notifyUpdateEntity) {
+    protected void onNotifyUpdate(NotifyUpdateEntity notifyUpdateEntity) {
     }
 
     private static HashMap<String, HashMap<Integer, Handler>> notifyUpdateMap = new HashMap<>(20, 10);

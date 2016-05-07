@@ -14,7 +14,7 @@ import view.ViewMapping;
 
 public class CBaseEntity implements Serializable, IMapping.ISQLiteMapping, IMapping.IObjectMapping {
 
-    private Context context = CApplication.getGolbalContext();
+    private Context context = CApplication.getAppContext();
 
     public Context getContext() {
         return context;

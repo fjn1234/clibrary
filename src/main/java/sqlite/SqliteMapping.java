@@ -5,9 +5,6 @@ import android.database.Cursor;
 import android.text.TextUtils;
 import android.util.Log;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -266,7 +263,7 @@ public class SqliteMapping {
     public synchronized static boolean openSqlConnection() {
         try {
             if (sqliteHandler == null) {
-                sqliteHandler = new SqliteHandler(CApplication.getGolbalContext(), CApplication.getEntityDB());
+                sqliteHandler = new SqliteHandler(CApplication.getAppContext(), CApplication.getEntityDB());
             }
             return true;
         } catch (Exception ex) {
@@ -334,7 +331,7 @@ public class SqliteMapping {
         T entity;
         Field[] fields;
         int index;
-        SqliteHandler sqliteHandler = new SqliteHandler(CApplication.getGolbalContext(), CApplication.getEntityDB());
+        SqliteHandler sqliteHandler = new SqliteHandler(CApplication.getAppContext(), CApplication.getEntityDB());
         try {
             String table = SqliteMapping.getTableName(clazz);
             if (!sqliteHandler.exsitTable(table)) {

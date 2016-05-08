@@ -17,7 +17,7 @@ public class FragmentActivity extends BaseActivity {
         return fragment;
     }
 
-    public static Fragment activity_fragment;
+    protected static Fragment activity_fragment;
 
     public void startFragmentActivity(Fragment fragment) {
         activity_fragment = fragment;

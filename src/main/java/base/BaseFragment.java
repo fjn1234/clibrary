@@ -4,31 +4,19 @@ import android.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.view.animation.Animation;
-
 
 import db.CacheDB;
 import entities.CacheEntity;
-import entities.NotifyUpdateEntity;
 import obj.CApplication;
 import obj.CException;
-import utils.AnimUtil;
 import utils.SystemUtil;
 import utils.ToastUtil;
 import view.CFragment;
-import view.CImageView;
-import view.CRelativeLayout;
-import view.CTextView;
 
 public abstract class BaseFragment extends CFragment {
 
-
-    protected CRelativeLayout mLyoReturn, mLyoMenu;
-    protected CTextView mTvTitle, mTvMsg, mBtnOperate;
-    private CImageView mCivLoading;
 
     protected boolean loadingNet = false, startingActivity = false, cancelAction = false;
 
@@ -46,62 +34,6 @@ public abstract class BaseFragment extends CFragment {
         getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        try {
-            startingActivity = cancelAction = false;
-            if (!checkNetConnect() && mTvMsg != null) {
-                mTvMsg.setVisibility(View.VISIBLE);
-                mTvMsg.setText("net can't connect");
-            } else if (mTvMsg != null) {
-                mTvMsg.setVisibility(View.GONE);
-                mTvMsg.setText("");
-            }
-        } catch (Exception ex) {
-            throwEx(ex);
-        }
-    }
-
-    public synchronized void setLoadingNet(boolean loadingNet) {
-        this.loadingNet = loadingNet;
-        sendNotifyUpdate(this.getClass(),NOTIFY_NET_LOADING);
-    }
-
-    public void showLoading() {
-        if (mCivLoading == null) return;
-        mCivLoading.setVisibility(View.VISIBLE);
-        Animation anim = AnimUtil.getLoopRotate(1000);
-        mCivLoading.startAnimation(anim);
-    }
-
-    public void hideLoading() {
-        if (mCivLoading == null) return;
-        mCivLoading.clearAnimation();
-        mCivLoading.setVisibility(View.GONE);
-    }
-
-    private View.OnClickListener btnReturnClickListener = new View.OnClickListener() {
-
-        @Override
-        public void onClick(View v) {
-            finish();
-        }
-    };
-
-    private View.OnClickListener btnOperateClickListener = new View.OnClickListener() {
-
-        @Override
-        public void onClick(View v) {
-
-        }
-    };
-
-    protected void setTitle(String title) {
-        if (mTvTitle != null)
-            mTvTitle.setText(title);
-    }
-
     protected ViewGroup getFgmLayout() {
         return ((BaseActivity) getActivity()).getFgmLayout();
     }
@@ -114,24 +46,8 @@ public abstract class BaseFragment extends CFragment {
         ((FragmentActivity) getActivity()).startFragmentActivity(fragment);
     }
 
-    //-------------------------------------------------------------------
-    private static final String NOTIFY_NET_LOADING="notify_net_loading";
-    @Override
-    protected void onNotifyUpdate(NotifyUpdateEntity notifyUpdateEntity) {
-        super.onNotifyUpdate(notifyUpdateEntity);
-        switch (notifyUpdateEntity.getNotifyTag()){
-            case NOTIFY_NET_LOADING:
-                if (loadingNet)
-                    showLoading();
-                else
-                    hideLoading();
-                break;
-        }
-    }
 
     //---------------------------------------------------------------------------
-
-
     protected boolean checkNetConnect() {
         if (!SystemUtil.isConnect(getActivity())) {
             return false;
@@ -175,11 +91,6 @@ public abstract class BaseFragment extends CFragment {
     public void setBackPressedListener(BaseActivity.OnBackPressedListener backPressedListener) {
         BaseActivity activity = (BaseActivity) getActivity();
         activity.setBackPressedListener(backPressedListener);
-    }
-
-    protected void showMenu() {
-        if (mLyoMenu != null)
-            mLyoMenu.setVisibility(View.VISIBLE);
     }
 
     public Context getAppContext(){

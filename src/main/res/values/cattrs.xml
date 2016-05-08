@@ -2,6 +2,7 @@
 <resources>
     <attr name="citemPerRow" format="integer" />
     <attr name="ccellViewId" format="reference" />
+    <attr name="emptyViewId" format="reference" />
     <attr name="cmode">
         <flag name="grid" value="0x00000001" />
         <flag name="vertical" value="0x00000002" />

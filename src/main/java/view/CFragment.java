@@ -18,7 +18,6 @@ import android.widget.EditText;
 
 import com.hugh.clibrary.R;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -154,6 +153,8 @@ public class CFragment extends Fragment {
         if (getFragmentManager().getBackStackEntryCount() > 0) {
             isStartingFragment = true;
             getFragmentManager().popBackStack();
+        } else {
+            getActivity().onBackPressed();
         }
     }
 

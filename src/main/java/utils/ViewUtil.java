@@ -361,7 +361,7 @@ public class ViewUtil {
             v.setLayoutParams(lp);
             loadCommonAttrs(v, attrs);
         } catch (Exception ex) {
-            ex.printStackTrace();
+//            ex.printStackTrace();
         }
     }
 

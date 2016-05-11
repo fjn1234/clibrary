@@ -104,69 +104,9 @@ public abstract class BaseFragment extends CFragment {
         super.finish();
     }
 
-    //----------------------------------加载block---------------------------
-//    public Confirm_Block getConfirmBlock() {
-//        if (contentView instanceof BaseRelativeLayout)
-//            return ((BaseRelativeLayout) contentView).getConfirmBlock();
-//        else
-//            throw new NullPointerException();
-//    }
-//
-//    public AppUpdate_Block getAppUpdateBlock() {
-//        if (contentView instanceof BaseRelativeLayout)
-//            return ((BaseRelativeLayout) contentView).getAppUpdateBlock();
-//        else
-//            throw new NullPointerException();
-//    }
-//
-//    public Edit_Block getEditBlock() {
-//        if (contentView instanceof BaseRelativeLayout)
-//            return ((BaseRelativeLayout) contentView).getEditBlock();
-//        else
-//            throw new NullPointerException();
-//    }
-//
-//    public Info_Block getInfoBlock() {
-//        if (contentView instanceof BaseRelativeLayout)
-//            return ((BaseRelativeLayout) contentView).getInfoBlock();
-//        else
-//            throw new NullPointerException();
-//    }
-//
-//    public Loading_Block getLoadingBlock() {
-//        if (contentView instanceof BaseRelativeLayout)
-//            return ((BaseRelativeLayout) contentView).getLoadingBlock();
-//        else
-//            throw new NullPointerException();
-//    }
-//
-//    public Pay_Block getPayBlock() {
-//        if (contentView instanceof BaseRelativeLayout)
-//            return ((BaseRelativeLayout) contentView).getPayBlock();
-//        else
-//            throw new NullPointerException();
-//    }
-//
-//    public Pay_PassWord_Block getPassWordBlock() {
-//        if (contentView instanceof BaseRelativeLayout)
-//            return ((BaseRelativeLayout) contentView).getPassWordBlock();
-//        else
-//            throw new NullPointerException();
-//    }
-//
-//    public Upload_Block getUploadBlock() {
-//        if (contentView instanceof BaseRelativeLayout)
-//            return ((BaseRelativeLayout) contentView).getUploadBlock();
-//        else
-//            throw new NullPointerException();
-//    }
-//
-//    public Share_Block getShareBlock() {
-//        if (contentView instanceof BaseRelativeLayout)
-//            return ((BaseRelativeLayout) contentView).getShareBlock();
-//        else
-//            throw new NullPointerException();
-//    }
+    public void finishActivity(){
+        getActivity().finish();
+    }
 
     //----------------------------------缓存--------------------------------
 

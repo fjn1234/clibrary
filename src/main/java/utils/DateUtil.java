@@ -391,6 +391,19 @@ public class DateUtil {
         return dateArr;
     }
 
+    public static List<Date> getDatesBeforeDate(Date date, int after) {
+        Calendar c = Calendar.getInstance();
+        c.setTime(date);
+        after += 1;
+        List<Date> dateArr = new ArrayList<>(after);
+        dateArr.add(date);
+        for (int i = 1; i <= after; i++) {
+            c.add(Calendar.DATE, -1);
+            dateArr.add(c.getTime());
+        }
+        return dateArr;
+    }
+
     public static boolean notInTimeSpace(Date date,Date dateStart,Date dateEnd){
         Calendar begin = Calendar.getInstance();
         Calendar end = Calendar.getInstance();

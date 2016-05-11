@@ -1,30 +1,36 @@
 package view;
 
 import android.content.Context;
-import android.support.v4.view.ViewPager;
+import android.support.v4.widget.DrawerLayout;
 import android.util.AttributeSet;
 
-import interfaces.IView;
 import obj.CustomAttrs;
 import utils.ViewUtil;
 
-public class CViewPager extends ViewPager implements IView.ICustomAttrs {
+/**
+ * Created by Hugh on 2016/5/9.
+ */
+public class CDrawerLayout extends DrawerLayout {
 
     private CustomAttrs mAttrs = new CustomAttrs();
-    private boolean initCustomAttrs = true;
+    private boolean initCustomAttrs=true;
 
-    public CViewPager(Context context, AttributeSet attrs) {
+    public CDrawerLayout(Context context) {
+        super(context);
+    }
+
+    public CDrawerLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
         setCustomAttr(context, attrs);
     }
 
-    public CViewPager(Context context) {
-        super(context);
+    public CDrawerLayout(Context context, AttributeSet attrs, int defStyle) {
+        super(context, attrs, defStyle);
+        setCustomAttr(context, attrs);
     }
 
     private void setCustomAttr(Context context, AttributeSet attrs) {
         mAttrs = ViewUtil.initCustomAttrs(context, attrs, this);
-
     }
 
     public void loadCustomAttrs() {
@@ -47,6 +53,10 @@ public class CViewPager extends ViewPager implements IView.ICustomAttrs {
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        widthMeasureSpec = MeasureSpec.makeMeasureSpec(
+                MeasureSpec.getSize(widthMeasureSpec), MeasureSpec.EXACTLY);
+        heightMeasureSpec = MeasureSpec.makeMeasureSpec(
+                MeasureSpec.getSize(heightMeasureSpec), MeasureSpec.EXACTLY);
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         if (initCustomAttrs) {
             initCustomAttrs = false;

@@ -47,6 +47,7 @@ public class AnnulusProgressView extends CView implements View.OnClickListener {
             strokeColor = ta.getColor(R.styleable.AnnulusProgressView_apv_strokeColor, Color.BLUE);
             strokeProgressColor = ta.getColor(R.styleable.AnnulusProgressView_apv_strokeProgressColor, Color.GREEN);
             dotColor = ta.getColor(R.styleable.AnnulusProgressView_apv_dotColor, Color.RED);
+            showDot = ta.getBoolean(R.styleable.AnnulusProgressView_apv_showDot, true);
             ta.recycle();
         }
         setOnClickListener(this);
@@ -93,6 +94,7 @@ public class AnnulusProgressView extends CView implements View.OnClickListener {
     private RectF oval;
     Paint paint1, paint2, paintDot;
     private float percent;
+    private boolean showDot;
     private boolean once = true;
 
     @Override
@@ -100,11 +102,13 @@ public class AnnulusProgressView extends CView implements View.OnClickListener {
         super.onDraw(canvas);
         canvas.drawColor(Color.TRANSPARENT);                  //透明背景
         canvas.drawArc(oval, startAngle, sweepAngle, false, paint1);    //绘制圆弧
-        canvas.drawArc(oval, startAngle, sweepAngle * percent, false, paint2);    //绘制圆弧
-        float angle = getAngle(percent);
-        float x = getX(angle);
-        float y = getY(x, angle);
-        canvas.drawCircle(getOffset(x), getOffset(y), dotRadius, paintDot);
+        canvas.drawArc(oval, startAngle, sweepAngle * percent, false, paint2);    //绘制进度圆弧
+        if (showDot) {
+            float angle = getAngle(percent);
+            float x = getX(angle);
+            float y = getY(x, angle);
+            canvas.drawCircle(getOffset(x), getOffset(y), dotRadius, paintDot);    //绘制进度圆点
+        }
     }
 
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
@@ -229,6 +233,7 @@ public class AnnulusProgressView extends CView implements View.OnClickListener {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
+        if (!isEnabled()) return super.onTouchEvent(event);
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 clickX = getAdjustX(event.getX());
@@ -268,5 +273,10 @@ public class AnnulusProgressView extends CView implements View.OnClickListener {
 
     public interface OnChangeListener {
         void onChange(float percent);
+    }
+
+    public void setShowDot(boolean showDot) {
+        this.showDot = showDot;
+        invalidate();
     }
 }

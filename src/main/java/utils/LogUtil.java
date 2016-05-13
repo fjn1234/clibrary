@@ -45,6 +45,7 @@ public class LogUtil {
 
     public static void printStackTrace(Class c, Exception ex) {
         if (CApplication.getDebugMode() != CApplication.DebugMode.Release) {
+            ToastUtil.MakeShortToast(CApplication.getAppContext(),"crash");
             System.out.println(c.getClass().getName());
             ex.printStackTrace();
         }

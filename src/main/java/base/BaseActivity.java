@@ -7,6 +7,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.RelativeLayout;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import utils.SystemUtil;
 import utils.ToastUtil;
 import view.CFragment;
@@ -16,6 +19,7 @@ public abstract class BaseActivity extends Activity {
     private CRelativeLayout fgmLayout;
     private boolean loadingNet = false, startingActivity = false, cancelAction = false, loadingVisible = true;
     protected boolean moveTaskToBack = false;
+    private static List<Activity> activityList=new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +27,7 @@ public abstract class BaseActivity extends Activity {
         super.onCreate(savedInstanceState);
         init();
         setFragment(setFragment());
+        activityList.add(this);
     }
 
     @Override
@@ -45,6 +50,18 @@ public abstract class BaseActivity extends Activity {
         cancelAction = true;
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        activityList.remove(this);
+    }
+
+    public void finishAllActivity(){
+        for (Activity activity:activityList){
+            activity.finish();
+        }
+        activityList.clear();
+    }
 
     private void init() {
         RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT);

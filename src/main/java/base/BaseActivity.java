@@ -140,11 +140,11 @@ public abstract class BaseActivity extends Activity {
     }
 
     protected void makeLongToast(String msg) {
-        ToastUtil.MakeLongToast(this, msg);
+        ToastUtil.makeLongToast(this, msg);
     }
 
     protected void makeShortToast(String msg) {
-        ToastUtil.MakeShortToast(this, msg);
+        ToastUtil.makeShortToast(this, msg);
     }
 
 

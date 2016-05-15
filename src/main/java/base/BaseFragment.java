@@ -38,7 +38,7 @@ public abstract class BaseFragment extends CFragment {
         return ((BaseActivity) getActivity()).getFgmLayout();
     }
 
-    public void setMoveTaskToBack(boolean b){
+    public void setMoveTaskToBack(boolean b) {
         ((BaseActivity) getActivity()).setMoveTaskToBack(b);
     }
 
@@ -93,7 +93,7 @@ public abstract class BaseFragment extends CFragment {
         activity.setBackPressedListener(backPressedListener);
     }
 
-    public Context getAppContext(){
+    public Context getAppContext() {
         return CApplication.getAppContext();
     }
 
@@ -104,7 +104,7 @@ public abstract class BaseFragment extends CFragment {
         super.finish();
     }
 
-    public void finishActivity(){
+    public void finishActivity() {
         getActivity().finish();
     }
 
@@ -158,19 +158,19 @@ public abstract class BaseFragment extends CFragment {
     //-------------------other----------------------------
 
     public void makeLongToast(String msg) {
-        ToastUtil.MakeLongToast(CApplication.getAppContext(), msg);
+        ToastUtil.makeLongSnackbar(contentView, msg);
     }
 
     public void makeShortToast(String msg) {
-        ToastUtil.MakeShortToast(CApplication.getAppContext(), msg);
+        ToastUtil.makeLongSnackbar(contentView, msg);
     }
 
     public void makeShortToast(int resId) {
-        ToastUtil.MakeShortToast(CApplication.getAppContext(), resId);
+        makeShortToast(getString(resId));
     }
 
     public void makeLongToast(int resId) {
-        ToastUtil.MakeLongToast(CApplication.getAppContext(), resId);
+        makeLongToast(getString(resId));
     }
 
     public void throwEx(Exception e) {

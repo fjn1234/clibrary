@@ -314,10 +314,7 @@ public class ViewUtil {
     public static void loadCustomAttrs(View v, CustomAttrs attrs) {
         try {
             ViewGroup.MarginLayoutParams lp;
-            if (v.getLayoutParams() == null)
-                lp = new ViewGroup.MarginLayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-            else
-                lp = (ViewGroup.MarginLayoutParams) v.getLayoutParams();
+            lp = (ViewGroup.MarginLayoutParams) v.getLayoutParams();
             if (attrs.getWidth() > 0)
                 lp.width = attrs.getWidth();
             if (attrs.getHeight() > 0)

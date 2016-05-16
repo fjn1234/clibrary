@@ -134,7 +134,7 @@ public class NetConnection {
                 else
                     paramsBuffer.append(kvs[i] + "=" + kvs[i + 1]);
             }
-            paramsBuffer.append("&t=" + DateUtil.getCurrentDate().getTime());
+//            paramsBuffer.append("&t=" + DateUtil.getCurrentDate().getTime());
             URL newUrl;
             switch (method) {
                 case Post:

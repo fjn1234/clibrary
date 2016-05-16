@@ -1,23 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <declare-styleable name="AnnulusProgressView">
-        <attr name="apv_percent" format="float"/>
-        <attr name="apv_startAngle" format="float"/>
-        <attr name="apv_sweepAngle" format="float"/>
-        <attr name="apv_strokeWidth" format="float"/>
-        <attr name="apv_strokeProgressWidth" format="float"/>
-        <attr name="apv_touchArea" format="float"/>
-        <attr name="apv_dotRadius" format="float"/>
-        <attr name="apv_showDot" format="boolean"/>
-        <attr name="apv_strokeColor" format="reference"/>
-        <attr name="apv_strokeProgressColor" format="reference"/>
-        <attr name="apv_dotColor" format="reference"/>
-
+    <declare-styleable name="CView">
         <attr name="cdesignScreenWidth" />
         <attr name="cdesignScreenHeight" />
         <attr name="entityMapping" />
-        <attr name="getMapping" />
-        <attr name="setMapping" />
         <attr name="selectMapping" />
         <attr name="visibleMapping" />
         <attr name="hideMode" />
@@ -46,5 +32,6 @@
         <attr name="cwidthByHeight" />
         <attr name="ccorner" />
         <attr name="ccornerDirection" />
+        <attr name="onClickBackground" />
     </declare-styleable>
 </resources>

@@ -4,6 +4,7 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -18,7 +19,6 @@ import android.widget.EditText;
 
 import com.hugh.clibrary.R;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -125,6 +125,11 @@ public class CFragment extends Fragment {
         transaction.replace(ACTIVITY_ROOT_ID + 0, fragment).commitAllowingStateLoss();
     }
 
+    public void startSingleTopActivity(Intent intent) {
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+    }
+
     public void startFragementForResult(Fragment fragment, int responseCode) {
         isStartingFragment = true;
         closeSoftInput();
@@ -154,6 +159,8 @@ public class CFragment extends Fragment {
         if (getFragmentManager().getBackStackEntryCount() > 0) {
             isStartingFragment = true;
             getFragmentManager().popBackStack();
+        } else {
+            getActivity().onBackPressed();
         }
     }
 

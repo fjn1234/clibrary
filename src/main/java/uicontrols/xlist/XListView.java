@@ -30,6 +30,8 @@ import com.hugh.clibrary.R;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import view.CTextView;
+
 
 public class XListView extends ListView implements OnScrollListener {
 
@@ -387,14 +389,17 @@ public class XListView extends ListView implements OnScrollListener {
         void onLoadMore();
     }
 
-    //--------------	hugh add
+    //--------------	hugh add --------------------------------
+    private TextView mTvEmpty;
     private boolean once = true;
     int emptyViewId;
+    public String strEmpty;
     public int pageIndex = 0;
 
     private void initAttribute(Context context, AttributeSet attrs) {
         TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.XListView);
         emptyViewId = ta.getResourceId(R.styleable.XListView_emptyViewId, -1);
+        strEmpty = ta.getString(R.styleable.XListView_emptyText);
         ta.recycle();
     }
 
@@ -406,9 +411,17 @@ public class XListView extends ListView implements OnScrollListener {
     public void setEmptyView(View emptyView) {
         ViewGroup viewGroup = (ViewGroup) getParent();
         viewGroup.addView(emptyView, viewGroup.getChildCount());
+        mTvEmpty = (TextView) emptyView.findViewById(R.id.tv_empty);
+        setEmptyText(strEmpty);
         super.setEmptyView(emptyView);
     }
 
+    public void setEmptyText(String s) {
+        if (mTvEmpty != null) {
+            mTvEmpty.setText(s);
+            strEmpty = s;
+        }
+    }
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {

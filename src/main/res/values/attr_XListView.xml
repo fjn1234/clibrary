@@ -2,5 +2,6 @@
 <resources>
     <declare-styleable name="XListView">
         <attr name="emptyViewId" />
+        <attr name="emptyText" format="string" />
     </declare-styleable>
 </resources>

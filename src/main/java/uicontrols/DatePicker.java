@@ -35,7 +35,7 @@ public class DatePicker {
         return this;
     }
 
-    public static DatePicker instance(Context context) {
+    public static DatePicker build(Context context) {
         return  new DatePicker(context);
     }
 

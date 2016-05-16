@@ -2,35 +2,43 @@ package obj;
 
 import android.content.Context;
 import android.support.v4.view.PagerAdapter;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import java.lang.reflect.Constructor;
 import java.util.ArrayList;
+import java.util.List;
 
 
-public abstract class CPagerAdapter<T extends View> extends PagerAdapter {
+public abstract class CPagerAdapter<T> extends PagerAdapter {
 
-    private ArrayList<T> list;
+    private List<T> list = new ArrayList<>();
+    private List<View> vlist = new ArrayList<>();
+    private int contentViewId;
     private Context context;
     private boolean keepOne = false, autoClear = true;
+    private LayoutInflater inflater;
 
-    public CPagerAdapter(Context context) {
-        this.list = new ArrayList<>();
+    public CPagerAdapter(Context context, int contentViewId) {
+        this.contentViewId = contentViewId;
         this.context = context;
+        inflater = LayoutInflater.from(context);
     }
 
     public boolean add(T obj) {
+        vlist.add(inflater.inflate(contentViewId, null));
         return list.add(obj);
     }
 
     public boolean remove(T obj) {
+        vlist.remove(list.indexOf(obj));
         return list.remove(obj);
     }
 
-    public boolean remove(int index) {
-        T obj = list.get(index);
-        return remove(obj);
+    public T remove(int index) {
+        vlist.remove(index);
+        return list.remove(index);
     }
 
     public T get(int index) {
@@ -52,21 +60,20 @@ public abstract class CPagerAdapter<T extends View> extends PagerAdapter {
         if (destroyItemListener != null)
             destroyItemListener.onDestroy(position, object);
         if (keepOne) {
-            container.removeView((View) object);
+            int index = position % list.size();
+            container.removeView(vlist.get(index));
+            vlist.remove(position);
+            vlist.add(position, inflater.inflate(contentViewId, null));
             return;
         }
         if (!autoClear) return;
 //      只保留当前与之前两张图片
         try {
             if (list.size() > 2) {
-                T view = list.get(position % list.size());
-                container.removeView(view);
-                list.remove(position);
-                Class clazz = Class.forName(object.getClass().getName());
-                Constructor c1 = clazz.getDeclaredConstructor(new Class[]{Context.class});
-                c1.setAccessible(true);
-                Object obj = c1.newInstance(new Object[]{this.context});
-                list.add(position, (T) obj);
+                int index = position % list.size();
+                container.removeView(vlist.get(index));
+                vlist.remove(position);
+                vlist.add(position, inflater.inflate(contentViewId, null));
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -74,12 +81,16 @@ public abstract class CPagerAdapter<T extends View> extends PagerAdapter {
     }
 
     @Override
-    public T instantiateItem(ViewGroup container, int position) {
+    public View instantiateItem(ViewGroup container, int position) {
 //      加载对应位置的视图
-        return instanceItem(container, list, position % list.size());
+        int index = position % list.size();
+        View view = vlist.get(index);
+        instanceItem(container, view, index);
+        container.addView(view, 0);
+        return view;
     }
 
-    public abstract T instanceItem(ViewGroup container, ArrayList<T> list, int position);
+    public abstract void instanceItem(ViewGroup container, View view, int position);
 
     public void setAutoClear(boolean autoClear) {
         this.autoClear = autoClear;

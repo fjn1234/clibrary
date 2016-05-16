@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.graphics.Point;
 import android.hardware.Camera;
 import android.net.ConnectivityManager;
@@ -22,11 +24,14 @@ import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.util.Enumeration;
 import java.util.List;
+import java.util.Locale;
+
+import obj.CApplication;
 
 /**
  * 系统操作工具类
  * Util of system.
- * <p/>
+ * <p>
  * 2015-03-26
  */
 public final class SystemUtil {
@@ -175,8 +180,8 @@ public final class SystemUtil {
     }
 
 
-    public static String getAppVersionName(Context context){
-        String versionName="";
+    public static String getAppVersionName(Context context) {
+        String versionName = "";
         try {
             PackageManager pm = context.getPackageManager();
             PackageInfo pi = pm.getPackageInfo(context.getPackageName(), 0);
@@ -187,7 +192,14 @@ public final class SystemUtil {
         } catch (Exception e) {
             Log.e("VersionInfo", "Exception", e);
         }
-        return "V"+versionName;
+        return "V" + versionName;
+    }
+
+    public static void changeLocale(Locale locale) {
+        Resources resources = CApplication.getAppContext().getResources();//获得res资源对象
+        Configuration config = resources.getConfiguration();//获得设置对象
+        config.locale = locale;
+        resources.updateConfiguration(config, resources.getDisplayMetrics());
     }
 
 }

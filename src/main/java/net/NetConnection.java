@@ -16,6 +16,9 @@ import java.security.KeyStore;
 import java.security.cert.Certificate;
 import java.security.cert.CertificateFactory;
 import java.security.cert.X509Certificate;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.HttpsURLConnection;
@@ -28,11 +31,26 @@ import utils.DateUtil;
 import utils.LogUtil;
 
 
-public class NetConnection {
+public abstract class NetConnection {
+
+    public NetConnection(final boolean sslMode, final boolean doEncode, final String charset,
+                         final String url, final NetParams.HttpMethod method, final NetConnectionInterface.iSetHeader headerInterface,
+                         final NetConnectionInterface.iConnectListener connectListener, final int timeOut, final List<String> kvs) {
+        newInstance(sslMode, doEncode, charset, url, method, headerInterface, connectListener, timeOut, kvs == null ? new ArrayList<String>() : kvs);
+    }
 
     public NetConnection(final boolean sslMode, final boolean doEncode, final String charset,
                          final String url, final NetParams.HttpMethod method, final NetConnectionInterface.iSetHeader headerInterface,
                          final NetConnectionInterface.iConnectListener connectListener, final int timeOut, final String... kvs) {
+        List<String> params = new ArrayList<>();
+        if (kvs != null)
+            Collections.addAll(params, kvs);
+        newInstance(sslMode, doEncode, charset, url, method, headerInterface, connectListener, timeOut, params);
+    }
+
+    private void newInstance(final boolean sslMode, final boolean doEncode, final String charset,
+                             final String url, final NetParams.HttpMethod method, final NetConnectionInterface.iSetHeader headerInterface,
+                             final NetConnectionInterface.iConnectListener connectListener, final int timeOut, final List<String> kvs) {
         if (sslMode && !isSSLInit()) throw new RuntimeException("SSL has not init");
         if (connectListener != null) connectListener.onStart();
         new AsyncTask<Void, Void, Result>() {
@@ -40,6 +58,7 @@ public class NetConnection {
             @Override
             protected Result doInBackground(Void... params) {
                 try {
+                    setDefaultParams(kvs);
                     String resultStr = sslMode ?
                             connectSSL(doEncode, charset, url, method, headerInterface, timeOut, kvs)
                             : connect(doEncode, charset, url, method, headerInterface, timeOut, kvs);
@@ -63,9 +82,9 @@ public class NetConnection {
         }.execute();
     }
 
-    protected Result getResult(String response) {
-        return null;
-    }
+    protected abstract Result getResult(String response);
+
+    protected abstract void setDefaultParams(List<String> params);
 
     private static boolean isSSLInit = false;
 
@@ -115,24 +134,22 @@ public class NetConnection {
 
     public static String connect(final boolean doEncode, final String charset,
                                  final String url, final NetParams.HttpMethod method, final NetConnectionInterface.iSetHeader headerInterface,
-                                 final int timeOut, final String... kvs)
+                                 final int timeOut, final List<String> kvs)
             throws Exception {
         HttpURLConnection uc = null;
         try {
             StringBuilder paramsBuffer = new StringBuilder();
-            for (int i = 0; i < kvs.length - 1; i += 2) {
-                if (kvs[i + 1] == null) {
-                    continue;
-                }
+            String k, v;
+            for (int i = 0, size = kvs.size() - 1; i < size; i += 2) {
+                k = kvs.get(i);
+                v = kvs.get(i + 1);
+                if (v == null) continue;
                 if (paramsBuffer.length() > 0)
                     paramsBuffer.append("&");
                 if (doEncode)
-                    paramsBuffer.append(kvs[i]
-                            + "="
-                            + URLEncoder.encode(kvs[i + 1],
-                            charset));
+                    paramsBuffer.append(k + "=" + URLEncoder.encode(v, charset));
                 else
-                    paramsBuffer.append(kvs[i] + "=" + kvs[i + 1]);
+                    paramsBuffer.append(k + "=" + v);
             }
 //            paramsBuffer.append("&t=" + DateUtil.getCurrentDate().getTime());
             URL newUrl;
@@ -182,24 +199,23 @@ public class NetConnection {
 
     public static String connectSSL(final boolean doEncode, final String charset,
                                     final String url, final NetParams.HttpMethod method, final NetConnectionInterface.iSetHeader headerInterface,
-                                    final int timeOut, final String... kvs)
+                                    final int timeOut, final List<String> kvs)
             throws Exception {
         HttpsURLConnection uc = null;
         try {
             StringBuilder paramsBuffer = new StringBuilder();
-            for (int i = 0; i < kvs.length - 1; i += 2) {
-                if (kvs[i + 1] == null) {
-                    continue;
-                }
+            String k, v;
+            for (int i = 0, size = kvs.size() - 1; i < size; i += 2) {
+                k = kvs.get(i);
+                v = kvs.get(i + 1);
+                if (v == null) continue;
                 if (paramsBuffer.length() > 0)
                     paramsBuffer.append("&");
+
                 if (doEncode)
-                    paramsBuffer.append(kvs[i]
-                            + "="
-                            + URLEncoder.encode(kvs[i + 1],
-                            charset));
+                    paramsBuffer.append(k + "=" + URLEncoder.encode(v, charset));
                 else
-                    paramsBuffer.append(kvs[i] + "=" + kvs[i + 1]);
+                    paramsBuffer.append(k + "=" + v);
             }
 //            paramsBuffer.append("&t=" + DateUtil.getCurrentDate().getTime());
             URL newUrl;

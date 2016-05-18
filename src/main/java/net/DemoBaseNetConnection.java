@@ -6,6 +6,7 @@ import android.util.Log;
 import org.json.JSONObject;
 
 import java.net.URLConnection;
+import java.util.List;
 
 import interfaces.NetConnectionInterface;
 import utils.EntityUtil;
@@ -86,5 +87,10 @@ public class DemoBaseNetConnection<T> extends NetConnection {
         } finally {
             return result;
         }
+    }
+
+    @Override
+    protected void setDefaultParams(List<String> params) {
+
     }
 }

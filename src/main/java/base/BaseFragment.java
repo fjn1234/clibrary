@@ -177,7 +177,7 @@ public abstract class BaseFragment extends CFragment {
         e.printStackTrace();
         switch (CApplication.getDebugMode()) {
             case Debug:
-                makeShortToast("crash");
+                ToastUtil.makeShortToast(getAppContext(), "crash");
                 break;
             case Test:
                 throw new CException(e.getMessage());

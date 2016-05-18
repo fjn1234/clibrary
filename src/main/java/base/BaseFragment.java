@@ -108,6 +108,11 @@ public abstract class BaseFragment extends CFragment {
         getActivity().finish();
     }
 
+    public void finishAllActivity() {
+        if (getActivity() instanceof BaseActivity)
+            ((BaseActivity) getActivity()).finishAllActivity();
+    }
+
     //----------------------------------缓存--------------------------------
 
     private CacheEntity cacheEntity;

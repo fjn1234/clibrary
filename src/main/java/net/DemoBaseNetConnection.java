@@ -93,4 +93,9 @@ public class DemoBaseNetConnection<T> extends NetConnection {
     protected void setDefaultParams(List<String> params) {
 
     }
+
+    @Override
+    protected void onResult(Result result) {
+
+    }
 }

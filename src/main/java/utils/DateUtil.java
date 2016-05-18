@@ -125,10 +125,6 @@ public class DateUtil {
         return getDistanceDays(new Date(), date);
     }
 
-    public static long getAgeFromBirthday(Date birthday) {
-        if (birthday == null || birthday.after(new Date())) return 0;
-        return getDistanceDaysToNow(birthday) / 365;
-    }
 
     /**
      * 两个时间相差距离多少天多少小时多少分多少秒 (经过计算，减去前面的单位)
@@ -412,5 +408,39 @@ public class DateUtil {
         end.setTime(dateEnd);
         now.setTime(date);
         return begin.before(end) ? now.before(begin) ? true : now.after(end) ? true : false : (now.before(begin) && now.after(end)) ? true : false;
+    }
+
+    /**
+     * 根据用户生日计算年龄
+     */
+    public static int birthdayToAge(Date birthday) {
+        Calendar cal = Calendar.getInstance();
+        if (cal.before(birthday)) {
+            throw new IllegalArgumentException(
+                    "The birthDay is before Now.It's unbelievable!");
+        }
+        int yearNow = cal.get(Calendar.YEAR);
+        int monthNow = cal.get(Calendar.MONTH) + 1;
+        int dayOfMonthNow = cal.get(Calendar.DAY_OF_MONTH);
+
+        cal.setTime(birthday);
+        int yearBirth = cal.get(Calendar.YEAR);
+        int monthBirth = cal.get(Calendar.MONTH) + 1;
+        int dayOfMonthBirth = cal.get(Calendar.DAY_OF_MONTH);
+
+        int age = yearNow - yearBirth;
+
+        if (monthNow <= monthBirth) {
+            if (monthNow == monthBirth) {
+                // monthNow==monthBirth
+                if (dayOfMonthNow < dayOfMonthBirth) {
+                    age--;
+                }
+            } else {
+                // monthNow>monthBirth
+                age--;
+            }
+        }
+        return age;
     }
 }

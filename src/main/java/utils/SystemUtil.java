@@ -202,4 +202,24 @@ public final class SystemUtil {
         resources.updateConfiguration(config, resources.getDisplayMetrics());
     }
 
+    /**
+     * 获取当前应用版本号(x.x.x)
+     *
+     * @return
+     */
+    public static String getVersionName(Context context, String appName) {
+        String versionName = "";
+        PackageManager packageManager = context.getPackageManager();
+        // getPackageName()是你当前类的包名，0代表是获取版本信息
+        PackageInfo packInfo = null;
+        try {
+            packInfo = packageManager.getPackageInfo(appName, 0);
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        if (packInfo != null)
+            versionName = packInfo.versionName;
+        return versionName;
+    }
+
 }

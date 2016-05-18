@@ -45,4 +45,10 @@
     <string name="xlistview_footer_hint_normal">查看更多</string>
     <string name="xlistview_footer_hint_ready">松开载入更多</string>
 
+
+    <string name="str_app_constant_male">男</string>
+    <string name="str_app_constant_female">女</string>
+    <string name="str_app_constant_submit">提交</string>
+    <string name="str_app_constant_confirm">确认</string>
+    <string name="str_app_constant_cancel">取消</string>
 </resources>

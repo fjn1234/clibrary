@@ -163,20 +163,37 @@ public abstract class BaseFragment extends CFragment {
     //-------------------other----------------------------
 
     public void makeLongToast(String msg) {
-        ToastUtil.makeLongSnackbar(contentView, msg);
+        ToastUtil.makeLongToast(getAppContext(), msg);
     }
 
     public void makeShortToast(String msg) {
+        ToastUtil.makeShortToast(getAppContext(), msg);
+    }
+
+    public void makeLongToast(int msgId) {
+        ToastUtil.makeLongToast(getAppContext(), getString(msgId));
+    }
+
+    public void makeShortToast(int msgId) {
+        ToastUtil.makeShortToast(getAppContext(), getString(msgId));
+    }
+
+    public void makeLongSnackbar(String msg) {
         ToastUtil.makeLongSnackbar(contentView, msg);
     }
 
-    public void makeShortToast(int resId) {
-        makeShortToast(getString(resId));
+    public void makeShortSnackbar(String msg) {
+        ToastUtil.makeShortSnackbar(contentView, msg);
     }
 
-    public void makeLongToast(int resId) {
-        makeLongToast(getString(resId));
+    public void makeLongSnackbar(int msgId) {
+        ToastUtil.makeLongSnackbar(contentView, getString(msgId));
     }
+
+    public void makeShortSnackbar(int msgId) {
+        ToastUtil.makeShortSnackbar(contentView, getString(msgId));
+    }
+
 
     public void throwEx(Exception e) {
         e.printStackTrace();

@@ -62,6 +62,7 @@ public abstract class NetConnection {
                     String resultStr = sslMode ?
                             connectSSL(doEncode, charset, url, method, headerInterface, timeOut, kvs)
                             : connect(doEncode, charset, url, method, headerInterface, timeOut, kvs);
+                    LogUtil.loge(NetConnection.class,resultStr);
                     return getResult(resultStr);
                 } catch (Exception e) {
                     LogUtil.printStackTrace(NetConnection.class, e);
@@ -70,6 +71,7 @@ public abstract class NetConnection {
             }
 
             protected void onPostExecute(Result result) {
+                onResult(result);
                 if (connectListener == null) return;
                 if (result.responseStatus.equals(NetParams.OPERATE_SUCCESS)) {
                     connectListener.onSuccess(result);
@@ -85,6 +87,8 @@ public abstract class NetConnection {
     protected abstract Result getResult(String response);
 
     protected abstract void setDefaultParams(List<String> params);
+
+    protected abstract void onResult(Result result);
 
     private static boolean isSSLInit = false;
 

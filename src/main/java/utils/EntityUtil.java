@@ -17,7 +17,7 @@ import interfaces.IEntity;
 import obj.CArrayList;
 import obj.CBaseEntity;
 import obj.CHashMap;
-import uicontrols.obj.ValueEntity;
+import interfaces.IKeyValue;
 
 
 public class EntityUtil {
@@ -184,10 +184,10 @@ public class EntityUtil {
 
     public static <T> List<T> createKeyValueEntityList(JSONObject json, JSONArray array, Class clazz) {
         try {
-            ValueEntity entity;
+            IKeyValue entity;
             List<T> list = new ArrayList<>();
             for (int i = 0, length = array.length(); i < length; i++) {
-                entity = (ValueEntity) clazz.newInstance();
+                entity = (IKeyValue) clazz.newInstance();
                 String key = array.getString(i);
                 String value = json.getString(key);
                 entity.setKey(key);

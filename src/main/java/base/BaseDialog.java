@@ -10,7 +10,7 @@ import android.widget.ImageView;
 import obj.CApplication;
 
 /**
- * Created by Administrator on 2016/5/10.
+ * Created by Hugh on 2016/5/10.
  */
 public abstract class BaseDialog {
 

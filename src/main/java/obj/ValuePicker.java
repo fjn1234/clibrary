@@ -1,4 +1,4 @@
-package uicontrols.obj;
+package obj;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -7,6 +7,8 @@ import android.widget.NumberPicker;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import interfaces.IKeyValue;
 
 /**
  * Created by Administrator on 2015/7/8.
@@ -32,10 +34,10 @@ public class ValuePicker extends NumberPicker {
         super(context, attrs, defStyleAttr, defStyleRes);
     }
 
-    List<ValueEntity> list;
+    List<IKeyValue> list;
     String[] displayVal;
 
-    public <T extends ValueEntity> void setData(List<T> list, int position) {
+    public <T extends IKeyValue> void setData(List<T> list, int position) {
         this.list = new ArrayList<>();
         if (list != null && list.size() > 0) {
             for (T entity : list) {
@@ -43,7 +45,7 @@ public class ValuePicker extends NumberPicker {
             }
         }
         if (this.list.size() == 0) {
-            this.list.add(new ValueEntity() {
+            this.list.add(new IKeyValue() {
                 @Override
                 public String getKey() {
                     return EMPTY_KEY;
@@ -93,12 +95,12 @@ public class ValuePicker extends NumberPicker {
         this.setWrapSelectorWheel(true);
     }
 
-    public ValueEntity getSelectedValue() {
+    public IKeyValue getSelectedValue() {
         if (list == null || list.size() == 0) return null;
         return list.get(this.getValue());
     }
 
-    public <T extends ValueEntity> void setList(List<T> list) {
+    public <T extends IKeyValue> void setList(List<T> list) {
         if (list == null || list.size() == 0) return;
         this.list = new ArrayList<>();
         for (T entity : list) {
@@ -106,7 +108,7 @@ public class ValuePicker extends NumberPicker {
         }
     }
 
-    public ValueEntity getValueEntity(int position) {
+    public IKeyValue getValueEntity(int position) {
         if (list == null || list.size() == 0 || position > list.size() - 1) return null;
         return list.get(position);
     }

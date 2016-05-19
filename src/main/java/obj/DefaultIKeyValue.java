@@ -1,17 +1,19 @@
-package uicontrols.obj;
+package obj;
 
 import java.util.List;
+
+import interfaces.IKeyValue;
 
 /**
  * Created by Hugh on 2015/7/8.
  */
-public class DefaultValueEntity implements ValueEntity {
+public class DefaultIKeyValue implements IKeyValue {
 
     private String key;
     private String value;
     private Object object;
 
-    public DefaultValueEntity(String key, String value) {
+    public DefaultIKeyValue(String key, String value) {
         this.key = key;
         this.value = value;
     }

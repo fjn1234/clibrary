@@ -20,7 +20,6 @@ import android.view.animation.DecelerateInterpolator;
 import android.widget.AbsListView;
 import android.widget.AbsListView.OnScrollListener;
 import android.widget.ListAdapter;
-import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.Scroller;
 import android.widget.TextView;
@@ -30,10 +29,10 @@ import com.hugh.clibrary.R;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import view.CTextView;
+import view.CListView;
 
 
-public class XListView extends ListView implements OnScrollListener {
+public class XListView extends CListView implements OnScrollListener {
 
     private float mLastY = -1; // save event y
     private Scroller mScroller; // used for scroll back

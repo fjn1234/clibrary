@@ -136,11 +136,7 @@ public class OptionView extends CRecyclerView {
     }
 
     private void initAdapter() {
-        adapter = new CRecyclerAdapter<OptionEntity>(getContext()) {
-            @Override
-            public View InitConvertView(ViewGroup parent) {
-                return LayoutInflater.from(getContext()).inflate(cellViewId, null);
-            }
+        adapter = new CRecyclerAdapter<OptionEntity>(getContext(),cellViewId) {
 
             @Override
             public void setData(final int position, CellView cell) {

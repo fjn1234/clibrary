@@ -1,9 +1,13 @@
 package base;
 
+import android.Manifest;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.util.Log;
 import android.widget.RelativeLayout;
 
@@ -62,6 +66,7 @@ public abstract class BaseActivity extends Activity {
         }
         activityList.clear();
     }
+
 
     private void init() {
         RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT);
@@ -147,8 +152,36 @@ public abstract class BaseActivity extends Activity {
         ToastUtil.makeShortToast(this, msg);
     }
 
+    //------------------------ permission ----------------------------
 
-    //-----------------------------------------------------------------------------------
+    private OnRequestPermissionsResultListener onRequestPermissionsResultListener;
+
+    public interface OnRequestPermissionsResultListener {
+        void requestPermissionsResult(int requestCode, String[] permissions, int[] grantResults);
+    }
+
+    public void checkRequestPermissions(String[] permissions, int requestCode, OnRequestPermissionsResultListener requestPermissionsResultListener) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (!Settings.System.canWrite(this)) {
+                requestPermissions(permissions, requestCode);
+                this.onRequestPermissionsResultListener = requestPermissionsResultListener;
+            }
+        } else {
+            int[] grantResults = SystemUtil.getGrantResults(this, permissions);
+            if (requestPermissionsResultListener != null)
+                requestPermissionsResultListener.requestPermissionsResult(requestCode, permissions, grantResults);
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (onRequestPermissionsResultListener != null)
+            onRequestPermissionsResultListener.requestPermissionsResult(requestCode, permissions, grantResults);
+    }
+
+
+    //-------------------------- object params -------------------------------------------
 //    private final static String OBJECT_PARAM = "object_param";
 //    private final String PARAM_TAG = this.getClass().getName() + this.hashCode();
 //    private HashMap<String, Object> paramsList = new HashMap<>(10);

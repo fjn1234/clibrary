@@ -1,12 +1,5 @@
 package utils;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
-
-import interfaces.NetConnectionInterface.iConnectListener;
-
 /**
  * Created by Hugh on 2015/12/31.
  */

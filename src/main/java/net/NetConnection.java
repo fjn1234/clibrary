@@ -26,22 +26,21 @@ import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSession;
 import javax.net.ssl.TrustManagerFactory;
 
-import interfaces.NetConnectionInterface;
-import utils.DateUtil;
+import interfaces.INetConnection;
 import utils.LogUtil;
 
 
 public abstract class NetConnection {
 
     public NetConnection(final boolean sslMode, final boolean doEncode, final String charset,
-                         final String url, final NetParams.HttpMethod method, final NetConnectionInterface.iSetHeader headerInterface,
-                         final NetConnectionInterface.iConnectListener connectListener, final int timeOut, final List<String> kvs) {
+                         final String url, final NetParams.HttpMethod method, final INetConnection.iSetHeader headerInterface,
+                         final INetConnection.iConnectListener connectListener, final int timeOut, final List<String> kvs) {
         newInstance(sslMode, doEncode, charset, url, method, headerInterface, connectListener, timeOut, kvs == null ? new ArrayList<String>() : kvs);
     }
 
     public NetConnection(final boolean sslMode, final boolean doEncode, final String charset,
-                         final String url, final NetParams.HttpMethod method, final NetConnectionInterface.iSetHeader headerInterface,
-                         final NetConnectionInterface.iConnectListener connectListener, final int timeOut, final String... kvs) {
+                         final String url, final NetParams.HttpMethod method, final INetConnection.iSetHeader headerInterface,
+                         final INetConnection.iConnectListener connectListener, final int timeOut, final String... kvs) {
         List<String> params = new ArrayList<>();
         if (kvs != null)
             Collections.addAll(params, kvs);
@@ -49,8 +48,8 @@ public abstract class NetConnection {
     }
 
     private void newInstance(final boolean sslMode, final boolean doEncode, final String charset,
-                             final String url, final NetParams.HttpMethod method, final NetConnectionInterface.iSetHeader headerInterface,
-                             final NetConnectionInterface.iConnectListener connectListener, final int timeOut, final List<String> kvs) {
+                             final String url, final NetParams.HttpMethod method, final INetConnection.iSetHeader headerInterface,
+                             final INetConnection.iConnectListener connectListener, final int timeOut, final List<String> kvs) {
         if (sslMode && !isSSLInit()) throw new RuntimeException("SSL has not init");
         if (connectListener != null) connectListener.onStart();
         new AsyncTask<Void, Void, Result>() {
@@ -137,7 +136,7 @@ public abstract class NetConnection {
     }
 
     public static String connect(final boolean doEncode, final String charset,
-                                 final String url, final NetParams.HttpMethod method, final NetConnectionInterface.iSetHeader headerInterface,
+                                 final String url, final NetParams.HttpMethod method, final INetConnection.iSetHeader headerInterface,
                                  final int timeOut, final List<String> kvs)
             throws Exception {
         HttpURLConnection uc = null;
@@ -202,7 +201,7 @@ public abstract class NetConnection {
 
 
     public static String connectSSL(final boolean doEncode, final String charset,
-                                    final String url, final NetParams.HttpMethod method, final NetConnectionInterface.iSetHeader headerInterface,
+                                    final String url, final NetParams.HttpMethod method, final INetConnection.iSetHeader headerInterface,
                                     final int timeOut, final List<String> kvs)
             throws Exception {
         HttpsURLConnection uc = null;

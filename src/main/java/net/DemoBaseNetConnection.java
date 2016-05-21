@@ -8,7 +8,7 @@ import org.json.JSONObject;
 import java.net.URLConnection;
 import java.util.List;
 
-import interfaces.NetConnectionInterface;
+import interfaces.INetConnection;
 import utils.EntityUtil;
 import utils.LogUtil;
 
@@ -23,20 +23,20 @@ public class DemoBaseNetConnection<T> extends NetConnection {
         Object, List, Map, None
     }
 
-    public DemoBaseNetConnection(boolean doEncode, String charset, String url, NetParams.HttpMethod method, NetConnectionInterface.iConnectListener connectListener, String... kvs) {
+    public DemoBaseNetConnection(boolean doEncode, String charset, String url, NetParams.HttpMethod method, INetConnection.iConnectListener connectListener, String... kvs) {
         this(null, EntityType.None, true, doEncode, charset, url, method, connectListener, NetParams.TIME_OUT, kvs);
     }
 
-    public DemoBaseNetConnection(Class<T> obj, EntityType entityType, boolean doEncode, String charset, String url, NetParams.HttpMethod method, NetConnectionInterface.iConnectListener connectListener, String... kvs) {
+    public DemoBaseNetConnection(Class<T> obj, EntityType entityType, boolean doEncode, String charset, String url, NetParams.HttpMethod method, INetConnection.iConnectListener connectListener, String... kvs) {
         this(obj, entityType, true, doEncode, charset, url, method, connectListener, NetParams.TIME_OUT, kvs);
     }
 
-    public DemoBaseNetConnection(Class<T> obj, EntityType entityType, boolean doEncode, String charset, String url, NetParams.HttpMethod method, NetConnectionInterface.iConnectListener connectListener, int timeOut, String... kvs) {
+    public DemoBaseNetConnection(Class<T> obj, EntityType entityType, boolean doEncode, String charset, String url, NetParams.HttpMethod method, INetConnection.iConnectListener connectListener, int timeOut, String... kvs) {
         this(obj, entityType, true, doEncode, charset, url, method, connectListener, timeOut, kvs);
     }
 
-    public DemoBaseNetConnection(Class<T> obj, EntityType entityType, boolean sslMode, boolean doEncode, String charset, String url, NetParams.HttpMethod method, NetConnectionInterface.iConnectListener connectListener, int timeOut, String... kvs) {
-        super(sslMode, doEncode, charset, url, method, new NetConnectionInterface.iSetHeader() {
+    public DemoBaseNetConnection(Class<T> obj, EntityType entityType, boolean sslMode, boolean doEncode, String charset, String url, NetParams.HttpMethod method, INetConnection.iConnectListener connectListener, int timeOut, String... kvs) {
+        super(sslMode, doEncode, charset, url, method, new INetConnection.iSetHeader() {
             @Override
             public void setHeader(URLConnection urlConnection) {
                 urlConnection.addRequestProperty("loginType", "R");

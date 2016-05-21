@@ -1,6 +1,7 @@
 package utils;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.Config;
@@ -16,6 +17,7 @@ import android.graphics.RectF;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.media.FaceDetector;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
 import android.renderscript.Allocation;
@@ -673,5 +675,14 @@ public class ImageUtil {
         bitmap.setPixels(pix, 0, w, 0, 0, w, h);
 
         return (bitmap);
+    }
+
+
+    public static Bitmap decodeBitmap(Context context,Uri uri) {
+        try {
+            return BitmapFactory.decodeStream(context.getContentResolver().openInputStream(uri));
+        } catch (Exception ex) {
+         return null;
+        }
     }
 }

@@ -18,6 +18,7 @@ import com.hugh.clibrary.R;
 
 import interfaces.IView;
 import obj.CustomAttrs;
+import utils.LogUtil;
 import utils.StringUtil;
 import utils.ViewUtil;
 
@@ -49,32 +50,36 @@ public class CEditText extends EditText implements IView.ICustomAttrs, IView.IMa
     }
 
     private void setCustomAttr(Context context, AttributeSet attrs) {
-        mAttrs = ViewUtil.initCustomAttrs(context, attrs, this);
-        mAttrs.setTextSizePx((int) getTextSize());
-        addTextChangedListener(textChangeListener);
-        TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.CEditText);
-        mAttrs.setDrawableLeftResId(ta.getResourceId(R.styleable.CEditText_cdrawableLeft, 0));
-        mAttrs.setDrawableRightResId(ta.getResourceId(R.styleable.CEditText_cdrawableRight, 0));
-        mAttrs.setDrawableTopResId(ta.getResourceId(R.styleable.CEditText_cdrawableTop, 0));
-        mAttrs.setDrawableBottomResId(ta.getResourceId(R.styleable.CEditText_cdrawableBottom, 0));
-        mAttrs.setDrawableLeftWidthRatio(ta.getString(R.styleable.CEditText_cdrawableLeftWidth));
-        mAttrs.setDrawableLeftHeightRatio(ta.getString(R.styleable.CEditText_cdrawableLeftHeight));
-        mAttrs.setDrawableRightWidthRatio(ta.getString(R.styleable.CEditText_cdrawableRightWidth));
-        mAttrs.setDrawableRightHeightRatio(ta.getString(R.styleable.CEditText_cdrawableRightHeight));
-        mAttrs.setDrawableTopWidthRatio(ta.getString(R.styleable.CEditText_cdrawableTopWidth));
-        mAttrs.setDrawableTopHeightRatio(ta.getString(R.styleable.CEditText_cdrawableTopHeight));
-        mAttrs.setDrawableBottomWidthRatio(ta.getString(R.styleable.CEditText_cdrawableBottomWidth));
-        mAttrs.setDrawableBottomHeightRatio(ta.getString(R.styleable.CEditText_cdrawableBottomHeight));
-        mAttrs.setDrawablePaddingRatio(ta.getString(R.styleable.CEditText_cdrawablePadding));
-        disableEmoji = ta.getBoolean(R.styleable.CEditText_cdisableEmoji, true);
-        maxLength = ta.getInteger(R.styleable.CEditText_cmaxLength, -1);   //不限制的中文和英文或者其他特殊符号总数不能超过的字节（例如：“优秘123”就是7个长度）
-        maxNotAsciiLength = ta.getInteger(R.styleable.CEditText_cmaxAsciiElseLength, -1); //中文和英文或者其他特殊符号总数不能超过的字节（例如：“优秘123”就是5个长度）
-        int maxAsciiLength = ta.getInteger(R.styleable.CEditText_cmaxAsciiLength, -1);
-        ta.recycle();
-        if (maxAsciiLength > 0) {
-            setMaxAsciiLength(maxAsciiLength);
-        } else if (maxLength >= 0) {
-            setMaxLength(maxLength);
+        try {
+            mAttrs = ViewUtil.initCustomAttrs(context, attrs, this);
+            mAttrs.setTextSizePx((int) getTextSize());
+            addTextChangedListener(textChangeListener);
+            TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.CEditText);
+            mAttrs.setDrawableLeftResId(ta.getResourceId(R.styleable.CEditText_cdrawableLeft, 0));
+            mAttrs.setDrawableRightResId(ta.getResourceId(R.styleable.CEditText_cdrawableRight, 0));
+            mAttrs.setDrawableTopResId(ta.getResourceId(R.styleable.CEditText_cdrawableTop, 0));
+            mAttrs.setDrawableBottomResId(ta.getResourceId(R.styleable.CEditText_cdrawableBottom, 0));
+            mAttrs.setDrawableLeftWidthRatio(ta.getString(R.styleable.CEditText_cdrawableLeftWidth));
+            mAttrs.setDrawableLeftHeightRatio(ta.getString(R.styleable.CEditText_cdrawableLeftHeight));
+            mAttrs.setDrawableRightWidthRatio(ta.getString(R.styleable.CEditText_cdrawableRightWidth));
+            mAttrs.setDrawableRightHeightRatio(ta.getString(R.styleable.CEditText_cdrawableRightHeight));
+            mAttrs.setDrawableTopWidthRatio(ta.getString(R.styleable.CEditText_cdrawableTopWidth));
+            mAttrs.setDrawableTopHeightRatio(ta.getString(R.styleable.CEditText_cdrawableTopHeight));
+            mAttrs.setDrawableBottomWidthRatio(ta.getString(R.styleable.CEditText_cdrawableBottomWidth));
+            mAttrs.setDrawableBottomHeightRatio(ta.getString(R.styleable.CEditText_cdrawableBottomHeight));
+            mAttrs.setDrawablePaddingRatio(ta.getString(R.styleable.CEditText_cdrawablePadding));
+            disableEmoji = ta.getBoolean(R.styleable.CEditText_cdisableEmoji, true);
+            maxLength = ta.getInteger(R.styleable.CEditText_cmaxLength, -1);   //不限制的中文和英文或者其他特殊符号总数不能超过的字节（例如：“优秘123”就是7个长度）
+            maxNotAsciiLength = ta.getInteger(R.styleable.CEditText_cmaxAsciiElseLength, -1); //中文和英文或者其他特殊符号总数不能超过的字节（例如：“优秘123”就是5个长度）
+            int maxAsciiLength = ta.getInteger(R.styleable.CEditText_cmaxAsciiLength, -1);
+            ta.recycle();
+            if (maxAsciiLength > 0) {
+                setMaxAsciiLength(maxAsciiLength);
+            } else if (maxLength >= 0) {
+                setMaxLength(maxLength);
+            }
+        } catch (Exception ex) {
+            LogUtil.printStackTrace(this.getClass(), ex);
         }
     }
 

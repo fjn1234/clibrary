@@ -14,6 +14,7 @@ import com.hugh.clibrary.R;
 import interfaces.IView;
 import obj.CustomAttrs;
 import utils.ImageUtil;
+import utils.LogUtil;
 import utils.ResourceUtil;
 import utils.ViewUtil;
 
@@ -40,31 +41,35 @@ public class CButton extends Button implements IView.ICustomAttrs, IView.IMappin
     }
 
     private void setCustomAttr(Context context, AttributeSet attrs) {
-        mAttrs = ViewUtil.initCustomAttrs(context, attrs, this);
-        mAttrs.setTextSizePx((int) getTextSize());
-        TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.CButton);
-        selectOnTextColor = ta.getColor(R.styleable.CButton_cselectOnTextColor, defualt);
-        selectOffTextColor = ta.getColor(R.styleable.CButton_cselectOffTextColor, defualt);
-        selectOnText = ta.getString(R.styleable.CButton_cselectOnText);
-        selectOffText = ta.getString(R.styleable.CButton_cselectOffText);
-        enableTextColor = ta.getColor(R.styleable.CButton_cenableTextColor, defualt);
-        disableTextColor = ta.getColor(R.styleable.CButton_cdisableTextColor, defualt);
-        enableText = ta.getString(R.styleable.CButton_cenableText);
-        disableText = ta.getString(R.styleable.CButton_cdisableText);
-        mAttrs.setDrawableLeftResId(ta.getResourceId(R.styleable.CButton_cdrawableLeft, 0));
-        mAttrs.setDrawableRightResId(ta.getResourceId(R.styleable.CButton_cdrawableRight, 0));
-        mAttrs.setDrawableTopResId(ta.getResourceId(R.styleable.CButton_cdrawableTop, 0));
-        mAttrs.setDrawableBottomResId(ta.getResourceId(R.styleable.CButton_cdrawableBottom, 0));
-        mAttrs.setDrawableLeftWidthRatio(ta.getString(R.styleable.CButton_cdrawableLeftWidth));
-        mAttrs.setDrawableLeftHeightRatio(ta.getString(R.styleable.CButton_cdrawableLeftHeight));
-        mAttrs.setDrawableRightWidthRatio(ta.getString(R.styleable.CButton_cdrawableRightWidth));
-        mAttrs.setDrawableRightHeightRatio(ta.getString(R.styleable.CButton_cdrawableRightHeight));
-        mAttrs.setDrawableTopWidthRatio(ta.getString(R.styleable.CButton_cdrawableTopWidth));
-        mAttrs.setDrawableTopHeightRatio(ta.getString(R.styleable.CButton_cdrawableTopHeight));
-        mAttrs.setDrawableBottomWidthRatio(ta.getString(R.styleable.CButton_cdrawableBottomWidth));
-        mAttrs.setDrawableBottomHeightRatio(ta.getString(R.styleable.CButton_cdrawableBottomHeight));
-        mAttrs.setDrawablePaddingRatio(ta.getString(R.styleable.CButton_cdrawablePadding));
-        ta.recycle();
+        try {
+            mAttrs = ViewUtil.initCustomAttrs(context, attrs, this);
+            mAttrs.setTextSizePx((int) getTextSize());
+            TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.CButton);
+            selectOnTextColor = ta.getColor(R.styleable.CButton_cselectOnTextColor, defualt);
+            selectOffTextColor = ta.getColor(R.styleable.CButton_cselectOffTextColor, defualt);
+            selectOnText = ta.getString(R.styleable.CButton_cselectOnText);
+            selectOffText = ta.getString(R.styleable.CButton_cselectOffText);
+            enableTextColor = ta.getColor(R.styleable.CButton_cenableTextColor, defualt);
+            disableTextColor = ta.getColor(R.styleable.CButton_cdisableTextColor, defualt);
+            enableText = ta.getString(R.styleable.CButton_cenableText);
+            disableText = ta.getString(R.styleable.CButton_cdisableText);
+            mAttrs.setDrawableLeftResId(ta.getResourceId(R.styleable.CButton_cdrawableLeft, 0));
+            mAttrs.setDrawableRightResId(ta.getResourceId(R.styleable.CButton_cdrawableRight, 0));
+            mAttrs.setDrawableTopResId(ta.getResourceId(R.styleable.CButton_cdrawableTop, 0));
+            mAttrs.setDrawableBottomResId(ta.getResourceId(R.styleable.CButton_cdrawableBottom, 0));
+            mAttrs.setDrawableLeftWidthRatio(ta.getString(R.styleable.CButton_cdrawableLeftWidth));
+            mAttrs.setDrawableLeftHeightRatio(ta.getString(R.styleable.CButton_cdrawableLeftHeight));
+            mAttrs.setDrawableRightWidthRatio(ta.getString(R.styleable.CButton_cdrawableRightWidth));
+            mAttrs.setDrawableRightHeightRatio(ta.getString(R.styleable.CButton_cdrawableRightHeight));
+            mAttrs.setDrawableTopWidthRatio(ta.getString(R.styleable.CButton_cdrawableTopWidth));
+            mAttrs.setDrawableTopHeightRatio(ta.getString(R.styleable.CButton_cdrawableTopHeight));
+            mAttrs.setDrawableBottomWidthRatio(ta.getString(R.styleable.CButton_cdrawableBottomWidth));
+            mAttrs.setDrawableBottomHeightRatio(ta.getString(R.styleable.CButton_cdrawableBottomHeight));
+            mAttrs.setDrawablePaddingRatio(ta.getString(R.styleable.CButton_cdrawablePadding));
+            ta.recycle();
+        } catch (Exception ex) {
+            LogUtil.printStackTrace(this.getClass(), ex);
+        }
     }
 
     public void loadCustomAttrs() {
@@ -87,7 +92,7 @@ public class CButton extends Button implements IView.ICustomAttrs, IView.IMappin
         loadCustomAttrs();
     }
 
-    public void loadScreenArr(){
+    public void loadScreenArr() {
         ViewUtil.getParentScreenAttr(mAttrs, this);
         loadCustomAttrs();
     }

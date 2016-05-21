@@ -2,115 +2,145 @@ package net;
 
 import android.os.AsyncTask;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedReader;
+import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLEncoder;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
-public class AsyncFileUpload extends AsyncTask<Void, Void, String> {
+import interfaces.INetConnection;
+import utils.LogUtil;
 
-    ResultCallback resultCallback;
-    String url, filePath;
-    Result resultType = Result.None;
+public abstract class AsyncFileUpload extends AsyncTask<Void, Void, Result> {
 
-    public enum Result {
-        FileError, NetError, ServerError, Success, None
+    INetConnection.iFileUploadListener fileUploadListener;
+    String url;
+    Map<String, String> params;
+    Map<String, File> files;
+
+    private AsyncFileUpload() {
     }
 
-    public AsyncFileUpload() {
-    }
-
-    public AsyncFileUpload(String url, String filePath, ResultCallback resultCallback) {
+    public AsyncFileUpload(String url, Map<String, String> params, Map<String, File> files, INetConnection.iFileUploadListener fileUploadListener) {
         this.url = url;
-        this.filePath = filePath;
-        this.resultCallback = resultCallback;
+        this.params = params;
+        this.files = files;
+        this.fileUploadListener = fileUploadListener;
+        if (fileUploadListener != null)
+            fileUploadListener.onStart();
+        execute();
     }
 
     @Override
-    protected String doInBackground(Void... arg0) {
+    protected Result doInBackground(Void... arg0) {
+        return upload();
+    }
+
+    private Result upload() {
         try {
-            return upload();
-        } catch (IOException e) {
-            resultType = Result.NetError;
-            return "";
+            String BOUNDARY = java.util.UUID.randomUUID().toString();
+            String PREFIX = "--", LINEND = "\r\n";
+            String MULTIPART_FROM_DATA = "multipart/form-data";
+            URL uri = new URL(url);
+            HttpURLConnection conn = (HttpURLConnection) uri.openConnection();
+            conn.setReadTimeout(10 * 1000); // 缓存的最长时间
+            conn.setDoInput(true);// 允许输入
+            conn.setDoOutput(true);// 允许输出
+            conn.setUseCaches(false); // 不允许使用缓存
+            conn.setRequestMethod("POST");
+            conn.setRequestProperty("connection", "keep-alive");
+            conn.setRequestProperty("Charset", NetParams.CHARSET);
+            conn.setRequestProperty("Content-Type", MULTIPART_FROM_DATA + ";boundary=" + BOUNDARY);
+
+            // 首先组拼文本类型的参数
+            if (params == null) params = new HashMap<>();
+            setDefaultParams(params);
+            StringBuilder sb = new StringBuilder();
+            LogUtil.loge(AsyncFileUpload.class, "url:" + url);
+            for (Map.Entry<String, String> entry : params.entrySet()) {
+                sb.append(PREFIX);
+                sb.append(BOUNDARY);
+                sb.append(LINEND);
+                sb.append("Content-Disposition: form-data; name=\"" + entry.getKey() + "\"" + LINEND);
+                sb.append("Content-Type: text/plain; charset=" + NetParams.CHARSET + LINEND);
+                sb.append("Content-Transfer-Encoding: 8bit" + LINEND);
+                sb.append(LINEND);
+                sb.append(entry.getValue());
+                sb.append(LINEND);
+            }
+            DataOutputStream outStream = new DataOutputStream(conn.getOutputStream());
+            outStream.write(sb.toString().getBytes());
+            // 发送文件数据
+//            if (files != null) {
+//                for (Map.Entry<String, File> file : files.entrySet()) {
+//                    StringBuilder sb1 = new StringBuilder();
+//                    sb1.append(PREFIX);
+//                    sb1.append(BOUNDARY);
+//                    sb1.append(LINEND);
+//                    sb1.append("Content-Disposition: form-data; name=\"uploadfile\"; filename=\""
+//                            + file.getKey() + "\"" + LINEND);
+//                    sb1.append("Content-Type: application/octet-stream; charset=" + NetParams.CHARSET + LINEND);
+//                    sb1.append(LINEND);
+//                    outStream.write(sb1.toString().getBytes());
+//                    InputStream is = new FileInputStream(file.getValue());
+//                    byte[] buffer = new byte[1024];
+//                    int len = 0;
+//                    while ((len = is.read(buffer)) != -1) {
+//                        outStream.write(buffer, 0, len);
+//                    }
+//                    is.close();
+//                    outStream.write(LINEND.getBytes());
+//                    LogUtil.loge(AsyncFileUpload.class, "file:" + file.getKey() + "=" + file.getValue().getAbsolutePath());
+//                }
+//            }
+            // 请求结束标志
+            outStream.write((PREFIX + BOUNDARY + PREFIX + LINEND).getBytes());
+            outStream.flush();
+            // 得到响应码
+            int res = conn.getResponseCode();
+            InputStream in = conn.getInputStream();
+            StringBuilder sb2 = new StringBuilder();
+            if (res == 200) {
+                int ch;
+                while ((ch = in.read()) != -1) {
+                    sb2.append((char) ch);
+                }
+            }
+            outStream.close();
+            conn.disconnect();
+            String resultStr = sb2.toString();
+            LogUtil.loge(NetConnection.class, resultStr);
+            return getResult(resultStr);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            Result result = new Result();
+            result.responseStatus = NetParams.OPERATE_FAIL;
+            result.resultData = e.getMessage();
+            return result;
         }
     }
 
     @Override
-    protected void onPostExecute(String result) {
-        if (resultType == Result.NetError) {
-            if (resultCallback != null)
-                resultCallback.onNetError();
-        } else if (resultType == Result.Success) {
-            if (resultCallback != null)
-                resultCallback.onSuccess(result, filePath);
-        } else if (resultType == Result.ServerError)
-            if (resultCallback != null)
-                resultCallback.onServerError(result);
+    protected void onPostExecute(Result result) {
+        onResult(result);
+        if (fileUploadListener == null) return;
+        if (result.responseStatus.equals(NetParams.OPERATE_SUCCESS)) {
+            fileUploadListener.onSuccess(result);
+        } else {
+            fileUploadListener.onFail(result);
+        }
         this.cancel(true);
     }
 
-    private String upload() throws IOException {
-        try {
-            File file = new File(filePath);
-            if (!file.exists() || !file.isFile()) {
-                resultType = Result.FileError;
-                return "";
-            }
-            URL urlObj = new URL(url);
-            HttpURLConnection con = (HttpURLConnection) urlObj.openConnection();
-            con.setRequestMethod(NetParams.POST);
-            con.setDoInput(true);
-            con.setDoOutput(true);
-            con.setUseCaches(false);
-            con.setRequestProperty("Connection", NetParams.KEEPALIVE);
-            con.setRequestProperty("Charset", NetParams.CHARSET);
-            String BOUNDARY = "----------" + System.currentTimeMillis();
-            con.setRequestProperty("Content-Type",
-                    "multipart/form-data; boundary=" + BOUNDARY);
-            OutputStream out = con.getOutputStream();
-            FileInputStream fInStream = new FileInputStream(file);
-            BufferedInputStream bufferedInputStream = new BufferedInputStream(
-                    fInStream);
-            byte[] b = new byte[(int) file.length()];
-            bufferedInputStream.read(b, 0, b.length);
-            out.write(b, 0, b.length);
-            out.flush();
-            InputStream is = con.getInputStream();
-            InputStreamReader bReader = new InputStreamReader(is);
-            BufferedReader br = new BufferedReader(bReader);
-            String line;
-            StringBuilder builder = new StringBuilder();
-            while ((line = br.readLine()) != null) {
-                builder.append(line);
-//                if (resultCallback != null)
-//                    resultCallback.onProgress(line.length() * 1.0f / b.length);
-            }
-            bufferedInputStream.close();
-            out.close();
-            br.close();
-            is.close();
-            resultType = Result.Success;
-            return builder.toString();
-        } catch (Exception e) {
-            e.printStackTrace();
-            return NetParams.NET_ERROR;
-        }
-    }
+    protected abstract Result getResult(String response);
 
-    public interface ResultCallback {
-        void onNetError();
+    protected abstract void setDefaultParams(Map<String, String> params);
 
-        void onServerError(String error);
-
-        void onSuccess(String result, String filePath);
-
-        void onProgress(float percent);
-    }
+    protected abstract void onResult(Result result);
 }

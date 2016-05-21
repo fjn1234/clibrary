@@ -2,11 +2,13 @@ package obj;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.ArrayList;
 
+import interfaces.IView;
 import utils.ViewUtil;
 
 public abstract class CRecyclerAdapter<T> extends RecyclerView.Adapter {
@@ -17,8 +19,11 @@ public abstract class CRecyclerAdapter<T> extends RecyclerView.Adapter {
         return list;
     }
 
-    public CRecyclerAdapter(Context context) {
+    private int contentViewId;
+
+    public CRecyclerAdapter(Context context, int contentViewId) {
         this.context = context;
+        this.contentViewId = contentViewId;
     }
 
     private Context context;
@@ -43,7 +48,7 @@ public abstract class CRecyclerAdapter<T> extends RecyclerView.Adapter {
         list.remove(obj);
     }
 
-    public void clear(){
+    public void clear() {
         list.clear();
         notifyDataSetChanged();
     }
@@ -52,7 +57,7 @@ public abstract class CRecyclerAdapter<T> extends RecyclerView.Adapter {
         return list.get(position);
     }
 
-    public int size(){
+    public int size() {
         return list.size();
     }
 
@@ -76,7 +81,9 @@ public abstract class CRecyclerAdapter<T> extends RecyclerView.Adapter {
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        convertView = InitConvertView(parent);
+        View convertView = LayoutInflater.from(context).inflate(contentViewId, null);
+        if (convertView instanceof IView.ICustomAttrs)
+            ((IView.ICustomAttrs) convertView).loadScreenArr();
         ViewUtil.loadSubViewCustomAttrs(convertView);
         return new ViewHolder(convertView);
     }
@@ -91,14 +98,7 @@ public abstract class CRecyclerAdapter<T> extends RecyclerView.Adapter {
         return list.size();
     }
 
-    //定义抽象方法，让实例化的对象必须实现该方法
-    public abstract View InitConvertView(ViewGroup parent);
 
     public abstract void setData(int position, CellView cell);
 
-    private View convertView;
-
-    public View getConvertView() {
-        return convertView;
-    }
 }

@@ -29,14 +29,9 @@ import utils.ViewUtil;
 
 public class CFragment extends Fragment {
 
-    private static final String FRAGMENT_SENDER_RESPONSE_CODE = "fragment_sender_response_code";
-    private static final String FRAGMENT_REPLY_RESPONSE_CODE = "fragment_reply_response_code";
-    private static final String FRAGMENT_REPLY_RESULT_CODE = "fragment_reply_result_code";
+    protected static final String RESULT_CANCEL = "result_cancel";
+    protected static final String RESULT_OK = "result_ok";
     public static final int ACTIVITY_ROOT_ID = 0x7f080000;
-    private boolean clearResultBundle = true;
-    private int responseCode = -1;
-    private static Bundle resultBundle = null;
-
     public enum Result {RESULT_OK, RESULT_CANCEL}
 
     private int contentId = -1;
@@ -48,18 +43,11 @@ public class CFragment extends Fragment {
     private Class resultClass;
     private String resultTag;
 
-    protected boolean isContentIdNull() {
-        return contentId == -1;
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (contentId > 0)
             contentView = LayoutInflater.from(getActivity()).inflate(contentId, null);
-        Bundle bundle = getArguments();
-        if (bundle != null && bundle.containsKey(FRAGMENT_SENDER_RESPONSE_CODE))
-            responseCode = bundle.getInt(FRAGMENT_SENDER_RESPONSE_CODE, -1);
         if (fragmentStartAnim != null)
             contentView.startAnimation(fragmentStartAnim);
         addNotifyUpdate();
@@ -74,17 +62,6 @@ public class CFragment extends Fragment {
     public void onResume() {
         super.onResume();
         sendNotifyUpdate(this.getClass(), NOTIFY_RESUME);
-        int responseCode = -1;
-        if (resultBundle != null && resultBundle.containsKey(FRAGMENT_REPLY_RESPONSE_CODE))
-            responseCode = resultBundle.getInt(FRAGMENT_REPLY_RESPONSE_CODE, -1);
-        if (responseCode > -1) {
-            Result result = Result.valueOf(resultBundle.getString(FRAGMENT_REPLY_RESULT_CODE));
-            onFragmentResult(responseCode, result, resultBundle);
-        }
-        if (clearResultBundle) {
-            clearResultBundle = true;
-            resultBundle = null;
-        }
         isStartingFragment = false;
     }
 
@@ -130,25 +107,6 @@ public class CFragment extends Fragment {
         startActivity(intent);
     }
 
-    public void startFragementForResult(Fragment fragment, int responseCode) {
-        isStartingFragment = true;
-        closeSoftInput();
-        Bundle bundle = fragment.getArguments();
-        if (bundle == null)
-            bundle = new Bundle();
-        bundle.putInt(FRAGMENT_SENDER_RESPONSE_CODE, responseCode);
-        fragment.setArguments(bundle);
-        startFragement(fragment);
-    }
-
-    public void setResult(Result result, Bundle bundle) {
-        if (bundle == null)
-            bundle = new Bundle();
-        bundle.putString(FRAGMENT_REPLY_RESULT_CODE, result.toString());
-        bundle.putInt(FRAGMENT_REPLY_RESPONSE_CODE, responseCode);
-        resultBundle = bundle;
-    }
-
     public void finish() {
         if (isStartingFragment) return;
         closeSoftInput();
@@ -162,9 +120,6 @@ public class CFragment extends Fragment {
         } else {
             getActivity().onBackPressed();
         }
-    }
-
-    protected void onFragmentResult(int responseCode, Result result, Bundle bundle) {
     }
 
     private OnRequestPermissionsResultListener onRequestPermissionsResultListener;
@@ -349,6 +304,10 @@ public class CFragment extends Fragment {
     }
 
     public void sendNotifyResult(Object entity) {
+        sendNotifyUpdate(resultClass, resultTag, entity);
+    }
+
+    public void sendNotifyResult(String resultTag, Object entity) {
         sendNotifyUpdate(resultClass, resultTag, entity);
     }
 

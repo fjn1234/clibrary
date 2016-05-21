@@ -183,11 +183,7 @@ public class GalleryView extends CRecyclerView {
     }
 
     private void initAdapter() {
-        adapter = new CRecyclerAdapter<String>(getContext()) {
-            @Override
-            public View InitConvertView(ViewGroup parent) {
-                return LayoutInflater.from(getContext()).inflate(cellViewId, null);
-            }
+        adapter = new CRecyclerAdapter<String>(getContext(), cellViewId) {
 
             @Override
             public void setData(final int position, CellView cell) {

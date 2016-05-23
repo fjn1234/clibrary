@@ -124,7 +124,7 @@ public class EntityUtil {
         }
     }
 
-    public static <T> CHashMap<Long, T> createEntityHashMap(CHashMap<Long, T> list, Class<T> clazz, String json) {
+    public static <T> CHashMap<String, T> createEntityHashMap(CHashMap<String, T> list, Class<T> clazz, String json) {
         if (list != null) return list;
         List<T> tempList = EntityUtil.createEntityList(json, clazz);
         if (tempList != null) {
@@ -139,7 +139,7 @@ public class EntityUtil {
         return list;
     }
 
-    public static <T> CHashMap<Long, T> createEntityHashMap(String jsonArray, Class<T> clazz) {
+    public static <T> CHashMap<String, T> createEntityHashMap(String jsonArray, Class<T> clazz) {
         try {
             return createEntityHashMap(new JSONArray(jsonArray), clazz);
         } catch (Exception ex) {
@@ -148,9 +148,9 @@ public class EntityUtil {
         return new CHashMap<>();
     }
 
-    public static <T> CHashMap<Long, T> createEntityHashMap(JSONArray jsonArray, Class<T> clazz) {
+    public static <T> CHashMap<String, T> createEntityHashMap(JSONArray jsonArray, Class<T> clazz) {
         int size = jsonArray.length();
-        CHashMap<Long, T> hs = new CHashMap<>(size);
+        CHashMap<String, T> hs = new CHashMap<>(size);
         if (!IEntity.ID.class.isAssignableFrom(clazz)) return hs;
         T e;
         try {

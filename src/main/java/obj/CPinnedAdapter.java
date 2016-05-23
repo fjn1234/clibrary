@@ -6,8 +6,8 @@ import view.CPinnedListView;
 
 public abstract class CPinnedAdapter<T extends CPinnedAdapter.CellPinned> extends CBaseAdapter<T> implements CPinnedListView.PinnedSectionListAdapter {
 
-    public CPinnedAdapter(Context context) {
-        super(context);
+    public CPinnedAdapter(Context context,int convertViewId) {
+        super(context,convertViewId);
     }
 
     @Override

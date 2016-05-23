@@ -6,6 +6,6 @@ package interfaces;
 public class IEntity {
 
     public interface ID{
-        long getId();
+        String getId();
     }
 }

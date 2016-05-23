@@ -21,6 +21,9 @@ public abstract class CRecyclerAdapter<T> extends RecyclerView.Adapter {
 
     private int contentViewId;
 
+    private CRecyclerAdapter() {
+    }
+
     public CRecyclerAdapter(Context context, int contentViewId) {
         this.context = context;
         this.contentViewId = contentViewId;

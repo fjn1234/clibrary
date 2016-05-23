@@ -35,6 +35,7 @@ public class OptionView extends CRecyclerView {
         singleRowCount = ta.getInteger(R.styleable.OptionView_citemPerRow, 3);
         maxHeightByCell = ta.getInteger(R.styleable.OptionView_cmaxHeightByCell, 0);
         singleSelect = ta.getBoolean(R.styleable.OptionView_csingleSelect, false);
+        showIcon = ta.getBoolean(R.styleable.OptionView_cshowIcon, true);
         autoHeight = ta.getBoolean(R.styleable.OptionView_cautoHeight, true);
         int mode = ta.getInteger(R.styleable.OptionView_cmode, 3);
         if (mode == 1) {
@@ -66,8 +67,12 @@ public class OptionView extends CRecyclerView {
     private int cellViewHeight = 0;
     private int maxHeightByCell = 0;
     private boolean singleSelect, autoHeight;
-    private boolean isChanged = false;
+    private boolean isChanged = false, showIcon;
     private OnItemClickListener itemClickListener;
+
+    public void setCellViewId(int cellViewId) {
+        this.cellViewId = cellViewId;
+    }
 
     public void setCellViewLayout(int cellViewId) {
         this.cellViewId = cellViewId;
@@ -136,27 +141,22 @@ public class OptionView extends CRecyclerView {
     }
 
     private void initAdapter() {
-        adapter = new CRecyclerAdapter<OptionEntity>(getContext(),cellViewId) {
+        adapter = new CRecyclerAdapter<OptionEntity>(getContext(), cellViewId) {
 
             @Override
             public void setData(final int position, CellView cell) {
                 try {
                     final OptionEntity entity = adapter.getItem(position);
-                    final CButton btnCheck = (CButton) cell.getView(R.id.btn_check);
-                    final CTextView tvCheck = (CTextView) cell.getView(R.id.tv_check);
-                    if (btnCheck != null)
-                        btnCheck.setSelected(entity.isChoice());
-                    tvCheck.setSelected(entity.isChoice());
-                    tvCheck.setText(entity.getValue());
+                    cell.getView(R.id.lyo_root).setSelected(entity.isChoice());
+                    cell.getView(R.id.tv_check).setSelected(entity.isChoice());
+                    ((CTextView) cell.getView(R.id.tv_check)).setText(entity.getValue());
+                    cell.getView(R.id.btn_check).setVisibility(showIcon ? VISIBLE : INVISIBLE);
                     cell.getView(R.id.lyo_root).setOnClickListener(new OnClickListener() {
                         @Override
                         public void onClick(View v) {
                             if (singleSelect)
                                 clearSelected();
                             entity.setChoice(!entity.isChoice());
-                            if (btnCheck != null)
-                                btnCheck.setSelected(entity.isChoice());
-                            tvCheck.setSelected(entity.isChoice());
                             isChanged = true;
                             if (itemClickListener != null)
                                 itemClickListener.onClick(position, entity);

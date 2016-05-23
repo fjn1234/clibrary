@@ -1,6 +1,7 @@
 package obj;
 
 import android.content.Context;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -24,8 +25,11 @@ public abstract class CBaseAdapter<T> extends BaseAdapter {
         this.list = list;
     }
 
-    public CBaseAdapter(Context context) {
+    private int convertViewId;
+
+    public CBaseAdapter(Context context, int convertViewId) {
         this.context = context;
+        this.convertViewId = convertViewId;
     }
 
     private Context context;
@@ -86,7 +90,7 @@ public abstract class CBaseAdapter<T> extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         CellView cell;
         if (convertView == null) {
-            convertView = InitConvertView(position, convertView, parent);
+            convertView = LayoutInflater.from(context).inflate(convertViewId, null); //InitConvertView(position, convertView, parent);
             ViewUtil.loadSubViewCustomAttrs(convertView);
             cell = new CellView(convertView);
             convertView.setTag(cell);
@@ -95,9 +99,6 @@ public abstract class CBaseAdapter<T> extends BaseAdapter {
         setData(position, convertView, parent, cell);
         return convertView;
     }
-
-    //定义抽象方法，让实例化的对象必须实现该方法
-    public abstract View InitConvertView(int position, View convertView, ViewGroup parent);
 
     public abstract void setData(int position, View convertView, ViewGroup parent, CellView cell);
 }

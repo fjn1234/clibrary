@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <declare-styleable name="CRecyclerView">
+        <attr name="citemPerRow" />
+        <attr name="cmode"/>
         <attr name="cdesignScreenWidth" />
         <attr name="cdesignScreenHeight" />
         <attr name="entityMapping" />

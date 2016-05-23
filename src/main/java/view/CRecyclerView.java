@@ -1,11 +1,15 @@
 package view;
 
 import android.content.Context;
+import android.content.res.TypedArray;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
+
+import com.hugh.clibrary.R;
 
 import interfaces.IView;
 import obj.CustomAttrs;
@@ -37,15 +41,25 @@ public class CRecyclerView extends RecyclerView implements IView.ICustomAttrs {
     }
 
     private void setCustomAttr(Context context, AttributeSet attrs) {
+        TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.CRecyclerView);
         mAttrs = ViewUtil.initCustomAttrs(context, attrs, this);
-
+        int itemPerRow = ta.getInteger(R.styleable.CRecyclerView_citemPerRow, 3);
+        int mode = ta.getInteger(R.styleable.CRecyclerView_cmode, 3);
+        if (mode == 1) {
+            setLayoutManager(new GridLayoutManager(getContext(), itemPerRow));
+        } else if (mode == 2) {
+            setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
+        } else {
+            setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
+        }
+        ta.recycle();
     }
 
     public void loadCustomAttrs() {
         ViewUtil.loadCustomAttrs(this, mAttrs);
     }
 
-    public void loadScreenArr(){
+    public void loadScreenArr() {
         ViewUtil.getParentScreenAttr(mAttrs, this);
         loadCustomAttrs();
     }

@@ -7,7 +7,9 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 
+import interfaces.IView;
 import obj.CApplication;
+import utils.ViewUtil;
 
 /**
  * Created by Hugh on 2016/5/10.
@@ -21,6 +23,8 @@ public abstract class BaseDialog {
 
     protected BaseDialog(final Activity activity, int resId) {
         mVwDialog = LayoutInflater.from(activity).inflate(resId, null);
+        ((IView.ICustomAttrs)mVwDialog).loadScreenArr();
+        ViewUtil.loadSubViewCustomAttrs(mVwDialog);
         mVwDialog.setOnClickListener(closeClickListener);
         this.activity = activity;
     }

@@ -6,6 +6,7 @@
         <attr name="cmaxHeightByCell" format="integer" />
         <attr name="csingleSelect" format="boolean" />
         <attr name="cautoHeight" format="boolean" />
+        <attr name="cshowIcon" format="boolean" />
         <attr name="cmode"/>
         <attr name="cdesignScreenWidth" />
         <attr name="cdesignScreenHeight" />

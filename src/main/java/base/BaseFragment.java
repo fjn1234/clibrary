@@ -62,7 +62,7 @@ public abstract class BaseFragment extends CFragment {
         cancelAction = true;
     }
 
-    protected boolean hasOperateConflict() {
+    public boolean hasOperateConflict() {
         return isLoadingNet() || isStartingActivity() || isCancelAction();
     }
 

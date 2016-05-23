@@ -1,4 +1,4 @@
-package net;
+﻿package net;
 
 import android.os.AsyncTask;
 
@@ -49,6 +49,7 @@ public abstract class AsyncFileUpload extends AsyncTask<Void, Void, Result> {
             URL uri = new URL(url);
             HttpURLConnection conn = (HttpURLConnection) uri.openConnection();
             conn.setReadTimeout(10 * 1000); // 缓存的最长时间
+            conn.setConnectTimeout(120000);
             conn.setDoInput(true);// 允许输入
             conn.setDoOutput(true);// 允许输出
             conn.setUseCaches(false); // 不允许使用缓存
@@ -76,28 +77,30 @@ public abstract class AsyncFileUpload extends AsyncTask<Void, Void, Result> {
             DataOutputStream outStream = new DataOutputStream(conn.getOutputStream());
             outStream.write(sb.toString().getBytes());
             // 发送文件数据
-//            if (files != null) {
-//                for (Map.Entry<String, File> file : files.entrySet()) {
-//                    StringBuilder sb1 = new StringBuilder();
-//                    sb1.append(PREFIX);
-//                    sb1.append(BOUNDARY);
-//                    sb1.append(LINEND);
-//                    sb1.append("Content-Disposition: form-data; name=\"uploadfile\"; filename=\""
-//                            + file.getKey() + "\"" + LINEND);
-//                    sb1.append("Content-Type: application/octet-stream; charset=" + NetParams.CHARSET + LINEND);
-//                    sb1.append(LINEND);
-//                    outStream.write(sb1.toString().getBytes());
-//                    InputStream is = new FileInputStream(file.getValue());
-//                    byte[] buffer = new byte[1024];
-//                    int len = 0;
-//                    while ((len = is.read(buffer)) != -1) {
-//                        outStream.write(buffer, 0, len);
-//                    }
-//                    is.close();
-//                    outStream.write(LINEND.getBytes());
-//                    LogUtil.loge(AsyncFileUpload.class, "file:" + file.getKey() + "=" + file.getValue().getAbsolutePath());
-//                }
-//            }
+            if (files != null) {
+                for (Map.Entry<String, File> file : files.entrySet()) {
+                    StringBuilder sb1 = new StringBuilder();
+                    sb1.append(PREFIX);
+                    sb1.append(BOUNDARY);
+                    sb1.append(LINEND);
+                    sb1.append("Content-Disposition: form-data; name=\"" + file.getKey() + "\"; filename=\""
+                            + file.getValue().getName() + "\"" + LINEND);
+                    sb1.append("Content-Type: application/octet-stream; charset=" + NetParams.CHARSET + LINEND);
+                    sb1.append("Content-Transfer-Encoding: binary" + LINEND);
+                    sb1.append(LINEND);
+                    outStream.write(sb1.toString().getBytes());
+                    FileInputStream fis = new FileInputStream(file.getValue());
+                    byte[] buffer = new byte[8192]; // 8k
+                    int count = 0;
+                    // 读取文件
+                    while ((count = fis.read(buffer)) != -1) {
+                        outStream.write(buffer, 0, count);
+                    }
+                    fis.close();
+                    outStream.write(LINEND.getBytes());
+                    LogUtil.loge(AsyncFileUpload.class, file.getKey() + "=" + file.getValue().getAbsolutePath());
+                }
+            }
             // 请求结束标志
             outStream.write((PREFIX + BOUNDARY + PREFIX + LINEND).getBytes());
             outStream.flush();

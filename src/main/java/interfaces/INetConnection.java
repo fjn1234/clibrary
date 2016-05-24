@@ -11,6 +11,7 @@ import java.net.URLConnection;
  * Created by Hugh on 2015/8/25.
  */
 public class INetConnection {
+
     public interface iSetHeader {
         void setHeader(URLConnection urlConnection);
     }

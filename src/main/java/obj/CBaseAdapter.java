@@ -90,15 +90,17 @@ public abstract class CBaseAdapter<T> extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         CellView cell;
         if (convertView == null) {
-            convertView = LayoutInflater.from(context).inflate(convertViewId, null); //InitConvertView(position, convertView, parent);
+            convertView = LayoutInflater.from(context).inflate(convertViewId, null);
             ViewUtil.loadSubViewCustomAttrs(convertView);
             cell = new CellView(convertView);
             convertView.setTag(cell);
+            initConvertView(convertView,parent,cell);
         } else
             cell = (CellView) convertView.getTag();
         setData(position, convertView, parent, cell);
         return convertView;
     }
 
+    public abstract void initConvertView(View convertView, ViewGroup parent, CellView cell);
     public abstract void setData(int position, View convertView, ViewGroup parent, CellView cell);
 }

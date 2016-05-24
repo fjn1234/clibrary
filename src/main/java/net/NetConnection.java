@@ -30,57 +30,76 @@ import interfaces.INetConnection;
 import utils.LogUtil;
 
 
-public abstract class NetConnection {
+public abstract class NetConnection extends AsyncTask<Void, Void, Result> {
+    private boolean sslMode;
+    private boolean doEncode;
+    private String charset;
+    private String url;
+    private NetParams.HttpMethod method;
+    private INetConnection.iSetHeader headerInterface;
+    private INetConnection.iConnectListener connectListener;
+    private int timeOut;
+    private List<String> kvs;
 
-    public NetConnection(final boolean sslMode, final boolean doEncode, final String charset,
-                         final String url, final NetParams.HttpMethod method, final INetConnection.iSetHeader headerInterface,
-                         final INetConnection.iConnectListener connectListener, final int timeOut, final List<String> kvs) {
-        newInstance(sslMode, doEncode, charset, url, method, headerInterface, connectListener, timeOut, kvs == null ? new ArrayList<String>() : kvs);
+    public NetConnection(boolean sslMode, boolean doEncode, String charset, String url, NetParams.HttpMethod method, INetConnection.iSetHeader headerInterface,
+                         INetConnection.iConnectListener connectListener, int timeOut, List<String> kvs) {
+        init(sslMode, doEncode, charset, url, method, headerInterface, connectListener, timeOut, kvs);
     }
 
-    public NetConnection(final boolean sslMode, final boolean doEncode, final String charset,
-                         final String url, final NetParams.HttpMethod method, final INetConnection.iSetHeader headerInterface,
-                         final INetConnection.iConnectListener connectListener, final int timeOut, final String... kvs) {
+    public NetConnection(boolean sslMode, boolean doEncode, String charset,
+                         String url, NetParams.HttpMethod method, INetConnection.iSetHeader headerInterface,
+                         INetConnection.iConnectListener connectListener, int timeOut, String... kvs) {
         List<String> params = new ArrayList<>();
         if (kvs != null)
             Collections.addAll(params, kvs);
-        newInstance(sslMode, doEncode, charset, url, method, headerInterface, connectListener, timeOut, params);
+        init(sslMode, doEncode, charset, url, method, headerInterface, connectListener, timeOut, params);
     }
 
-    private void newInstance(final boolean sslMode, final boolean doEncode, final String charset,
-                             final String url, final NetParams.HttpMethod method, final INetConnection.iSetHeader headerInterface,
-                             final INetConnection.iConnectListener connectListener, final int timeOut, final List<String> kvs) {
+    private void init(boolean sslMode, boolean doEncode, String charset,
+                      String url, NetParams.HttpMethod method, INetConnection.iSetHeader headerInterface,
+                      INetConnection.iConnectListener connectListener, int timeOut, List<String> kvs) {
+        this.sslMode = sslMode;
+        this.doEncode = doEncode;
+        this.charset = charset;
+        this.url = url;
+        this.method = method;
+        this.headerInterface = headerInterface;
+        this.connectListener = connectListener;
+        this.timeOut = timeOut;
+        this.kvs = kvs;
+    }
+
+    @Override
+    protected Result doInBackground(Void... params) {
+        try {
+            setDefaultParams(kvs);
+            String resultStr = sslMode ?
+                    connectSSL(doEncode, charset, url, method, headerInterface, timeOut, kvs)
+                    : connect(doEncode, charset, url, method, headerInterface, timeOut, kvs);
+            LogUtil.loge(NetConnection.class, resultStr);
+            return getResult(resultStr);
+        } catch (Exception e) {
+            LogUtil.printStackTrace(NetConnection.class, e);
+            return new Result();
+        }
+    }
+
+    protected void onPostExecute(Result result) {
+        onResult(result);
+        if (connectListener == null) return;
+        if (result.responseStatus.equals(NetParams.OPERATE_SUCCESS)) {
+            connectListener.onSuccess(result);
+        } else {
+            connectListener.onFail(result);
+        }
+        connectListener.onFinish();
+    }
+
+    @Override
+    protected void onPreExecute() {
+        super.onPreExecute();
         if (sslMode && !isSSLInit()) throw new RuntimeException("SSL has not init");
         if (connectListener != null) connectListener.onStart();
-        new AsyncTask<Void, Void, Result>() {
-
-            @Override
-            protected Result doInBackground(Void... params) {
-                try {
-                    setDefaultParams(kvs);
-                    String resultStr = sslMode ?
-                            connectSSL(doEncode, charset, url, method, headerInterface, timeOut, kvs)
-                            : connect(doEncode, charset, url, method, headerInterface, timeOut, kvs);
-                    LogUtil.loge(NetConnection.class,resultStr);
-                    return getResult(resultStr);
-                } catch (Exception e) {
-                    LogUtil.printStackTrace(NetConnection.class, e);
-                    return new Result();
-                }
-            }
-
-            protected void onPostExecute(Result result) {
-                onResult(result);
-                if (connectListener == null) return;
-                if (result.responseStatus.equals(NetParams.OPERATE_SUCCESS)) {
-                    connectListener.onSuccess(result);
-                } else {
-                    connectListener.onFail(result);
-                }
-                connectListener.onFinish();
-            }
-
-        }.execute();
     }
 
     protected abstract Result getResult(String response);

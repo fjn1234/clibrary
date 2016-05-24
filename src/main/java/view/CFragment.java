@@ -245,20 +245,9 @@ public class CFragment extends Fragment {
         return isStartingFragment;
     }
 
-    public void setResultClass(Class resultClass) {
+    public void setResultNotify(Class resultClass,String resultTag) {
         this.resultClass = resultClass;
-    }
-
-    public Class getResultClass() {
-        return resultClass;
-    }
-
-    public void setResultTag(String resultTag) {
         this.resultTag = resultTag;
-    }
-
-    public String getResultTag() {
-        return resultTag;
     }
 
     //---------------------------------------------------------------------------------------

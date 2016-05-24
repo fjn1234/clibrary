@@ -1,4 +1,4 @@
-﻿package net;
+package net;
 
 import android.os.AsyncTask;
 
@@ -8,13 +8,15 @@ import java.io.FileInputStream;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.net.URLEncoder;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import interfaces.INetConnection;
 import utils.LogUtil;
+
+/**
+ * Created by Hugh on 2016/5/24.
+ */
 
 public abstract class AsyncFileUpload extends AsyncTask<Void, Void, Result> {
 

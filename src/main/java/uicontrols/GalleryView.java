@@ -263,7 +263,7 @@ public class GalleryView extends CRecyclerView {
             }
 
             @Override
-            public void onSuccess(Bitmap bm) {
+            public void onSuccess(View v, Bitmap bm) {
 
             }
 

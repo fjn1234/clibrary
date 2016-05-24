@@ -7,6 +7,7 @@ import android.graphics.BitmapFactory;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 
 import com.hugh.clibrary.R;
@@ -189,7 +190,7 @@ public class CImageView extends ImageView implements IView.ICustomAttrs, IView.I
         try {
             super.setImageBitmap(adjustBitmap(bm));
             if (loadImageCallback != null) {
-                loadImageCallback.onSuccess(bm);
+                loadImageCallback.onSuccess(this, bm);
             }
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -416,7 +417,7 @@ public class CImageView extends ImageView implements IView.ICustomAttrs, IView.I
     public interface LoadImageCallback {
         void onBefore();
 
-        void onSuccess(Bitmap bm);
+        void onSuccess(View v, Bitmap bm);
 
         void onFail();
     }

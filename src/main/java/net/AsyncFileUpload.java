@@ -20,10 +20,10 @@ import utils.LogUtil;
 
 public abstract class AsyncFileUpload extends AsyncTask<Void, Void, Result> {
 
-    INetConnection.iFileUploadListener fileUploadListener;
-    String url;
-    Map<String, String> params;
-    Map<String, File> files;
+   private INetConnection.iFileUploadListener fileUploadListener;
+   private String url;
+   private Map<String, String> params;
+   private Map<String, File> files;
 
     private AsyncFileUpload() {
     }
@@ -35,7 +35,6 @@ public abstract class AsyncFileUpload extends AsyncTask<Void, Void, Result> {
         this.fileUploadListener = fileUploadListener;
         if (fileUploadListener != null)
             fileUploadListener.onStart();
-        execute();
     }
 
     @Override

@@ -33,8 +33,6 @@ public abstract class AsyncFileUpload extends AsyncTask<Void, Void, Result> {
         this.params = params;
         this.files = files;
         this.fileUploadListener = fileUploadListener;
-        if (fileUploadListener != null)
-            fileUploadListener.onStart();
     }
 
     @Override
@@ -139,7 +137,15 @@ public abstract class AsyncFileUpload extends AsyncTask<Void, Void, Result> {
         } else {
             fileUploadListener.onFail(result);
         }
+        fileUploadListener.onFinish();
         this.cancel(true);
+    }
+
+    @Override
+    protected void onPreExecute() {
+        super.onPreExecute();
+        if (fileUploadListener != null)
+            fileUploadListener.onStart();
     }
 
     protected abstract Result getResult(String response);

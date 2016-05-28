@@ -46,6 +46,10 @@ public abstract class CBaseAdapter<T> extends BaseAdapter {
         list.add(position, obj);
     }
 
+    public void add(List<T> objList) {
+        list.addAll(list.size(), objList);
+    }
+
     public void remove(int position) {
         list.remove(position);
     }
@@ -94,7 +98,7 @@ public abstract class CBaseAdapter<T> extends BaseAdapter {
             ViewUtil.loadSubViewCustomAttrs(convertView);
             cell = new CellView(convertView);
             convertView.setTag(cell);
-            initConvertView(convertView,parent,cell);
+            initConvertView(convertView, parent, cell);
         } else
             cell = (CellView) convertView.getTag();
         setData(position, convertView, parent, cell);
@@ -102,5 +106,6 @@ public abstract class CBaseAdapter<T> extends BaseAdapter {
     }
 
     public abstract void initConvertView(View convertView, ViewGroup parent, CellView cell);
+
     public abstract void setData(int position, View convertView, ViewGroup parent, CellView cell);
 }

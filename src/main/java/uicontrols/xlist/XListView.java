@@ -393,7 +393,25 @@ public class XListView extends CListView implements OnScrollListener {
     private boolean once = true;
     int emptyViewId;
     public String strEmpty;
-    public int pageIndex = 0;
+    public int pageIndex = 1;
+
+    public enum OperationType {
+        Refresh, LoadMore, Nothing
+    }
+
+    public OperationType getOperation() {
+        if (mPullRefreshing == true) return OperationType.Refresh;
+        else if (mPullLoading == true) return OperationType.LoadMore;
+        else return OperationType.Nothing;
+    }
+
+    public void stopOperate() {
+        if (mPullRefreshing == true) stopRefresh();
+        if (mPullLoading == true) {
+            pageIndex++;
+            stopLoadMore();
+        }
+    }
 
     private void initAttribute(Context context, AttributeSet attrs) {
         TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.XListView);

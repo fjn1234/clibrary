@@ -17,16 +17,21 @@ public class MathUtil {
     }
 
     public static int radomInt(int max) {
+        return radomInt(0, max);
+    }
+
+    public static int radomInt(int from, int max) {
         Random ranNum = new Random();
-        return ranNum.nextInt(max);
+        return ranNum.nextInt(max) + from;
     }
 
     static double DEF_PI = 3.14159265359; // PI
     static double DEF_2PI = 6.28318530712; // 2*PI
     static double DEF_PI180 = 0.01745329252; // PI/180.0
     static double DEF_R = 6370693.5; // radius of earth
+
     public static double getShortDistance(double lon1, double lat1, double lon2,
-                                   double lat2) {
+                                          double lat2) {
         double ew1, ns1, ew2, ns2;
         double dx, dy, dew;
         double distance;
@@ -51,6 +56,7 @@ public class MathUtil {
 
     /**
      * 第二种方式，按大圆劣弧求距离
+     *
      * @param lon1
      * @param lat1
      * @param lon2
@@ -60,7 +66,7 @@ public class MathUtil {
      * TODO kazeik@163.com
      */
     public static double getLongDistance(double lon1, double lat1, double lon2,
-                                  double lat2) {
+                                         double lat2) {
         double ew1, ns1, ew2, ns2;
         double distance;
         // 角度转换为弧度

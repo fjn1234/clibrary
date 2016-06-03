@@ -121,6 +121,16 @@ public class GalleryView extends CRecyclerView {
         imgList.add(entity);
     }
 
+    public void remove(PhotoEntity entity) {
+        if (imgList == null) return;
+        imgList.remove(entity);
+    }
+
+    public void remove(int position) {
+        if (imgList == null) return;
+        imgList.remove(position);
+    }
+
     public void clear() {
         imgList = new ArrayList<>();
     }
@@ -176,7 +186,7 @@ public class GalleryView extends CRecyclerView {
         View v = LayoutInflater.from(getContext()).inflate(cellViewId, null).findViewById(R.id.iv_img);
         if (v instanceof IView.ICustomAttrs) {
             IView.ICustomAttrs iCustomAttrs = (IView.ICustomAttrs) v;
-            iCustomAttrs.loadCustomAttrs();
+            iCustomAttrs.loadScreenArr();
             MarginLayoutParams lp = (MarginLayoutParams) v.getLayoutParams();
             cellViewHeight = iCustomAttrs.getCustomAttrs().getHeight() + lp.topMargin + lp.bottomMargin;
         }
@@ -234,7 +244,7 @@ public class GalleryView extends CRecyclerView {
                             });
                         }
                     } else if (position == 0) {
-                        ivBg.setVisibility(View.GONE);
+                        if (ivBg != null) ivBg.setVisibility(View.GONE);
                         ivImg.setImageResource(R.drawable.bg_add);
                         if (addClickListener != null)
                             ivImg.setOnClickListener(new View.OnClickListener() {

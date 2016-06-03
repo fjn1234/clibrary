@@ -58,6 +58,10 @@ public abstract class CBaseAdapter<T> extends BaseAdapter {
         list.remove(obj);
     }
 
+    public void clear() {
+        list.clear();
+    }
+
     @Override
     public int getCount() {
         return list.size();
@@ -108,4 +112,24 @@ public abstract class CBaseAdapter<T> extends BaseAdapter {
     public abstract void initConvertView(View convertView, ViewGroup parent, CellView cell);
 
     public abstract void setData(int position, View convertView, ViewGroup parent, CellView cell);
+
+    protected OnSetDataListener setDataListener;
+
+    public void setOnSetDataListener(OnSetDataListener setDataListener) {
+        this.setDataListener = setDataListener;
+    }
+
+    public interface OnSetDataListener{
+        boolean setData(int position, View convertView, ViewGroup parent, CellView cell);
+    }
+
+    protected InitConvertViewListener initConvertViewListener;
+
+    public void setInitConvertViewListener(InitConvertViewListener initConvertViewListener) {
+        this.initConvertViewListener = initConvertViewListener;
+    }
+
+    public interface InitConvertViewListener{
+        boolean initConvertView(View convertView, ViewGroup parent, CellView cell);
+    }
 }

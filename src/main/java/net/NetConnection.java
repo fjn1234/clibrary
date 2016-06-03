@@ -201,8 +201,7 @@ public abstract class NetConnection extends AsyncTask<Void, Void, Result> {
                         headerInterface.setHeader(uc);
                     break;
             }
-            Log.e("url:", uc.getURL().toString());
-            Log.e("parama:", paramsBuffer.toString());
+            LogUtil.loge(NetConnection.class, uc.getURL().toString() + "?" + paramsBuffer.toString());
             BufferedReader br = new BufferedReader(
                     new InputStreamReader(uc.getInputStream(), charset));
             String line = null;

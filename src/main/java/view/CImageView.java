@@ -162,7 +162,7 @@ public class CImageView extends ImageView implements IView.ICustomAttrs, IView.I
                 bm = ImageUtil.getSquareBitmap(bm, imageAttrs.getZoom(), imageAttrs.getBitmapConfig());
             }
             if (imageAttrs.getAutoScalePx() > 0) {
-                bm = ImageUtil.scaleByAuto(bm, imageAttrs.getAutoScalePx());
+                bm = ImageUtil.scaleSmallByAuto(bm, imageAttrs.getAutoScalePx());
             }
             if (imageAttrs.getCustomWidth() > 0 && imageAttrs.getCustomHeight() > 0) {
                 bm = ImageUtil.getCustomSizeBitmap(bm, imageAttrs.getCustomWidth(), imageAttrs.getCustomHeight(), imageAttrs.getBitmapConfig());

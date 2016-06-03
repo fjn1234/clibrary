@@ -6,6 +6,7 @@ package net;
 public class Result {
 
     public String responseStatus = NetParams.CONNECT_FAIL;
+    public String responseStr;
     public Object resultData;
     public Object entityData;
 

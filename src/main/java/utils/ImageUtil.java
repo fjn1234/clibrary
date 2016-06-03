@@ -84,6 +84,12 @@ public class ImageUtil {
             return scaleByHeight(bitmap, custom);
     }
 
+    public static Bitmap scaleSmallByAuto(Bitmap bitmap, int custom) {
+        int max = Math.max(bitmap.getWidth(), bitmap.getHeight());
+        if (max < custom) return bitmap;
+        return scaleByAuto(bitmap, custom);
+    }
+
     //按屏幕比例缩小
     public static Bitmap scaleSmallByRatios(Bitmap bitmap, int width, int height) {
         float scale = Math.min(width * 1.0f / bitmap.getWidth(), height * 1.0f / bitmap.getHeight());
@@ -412,8 +418,6 @@ public class ImageUtil {
     }
 
 
-
-
     public static Bitmap drawableToBitamp(Drawable drawable) {
         BitmapDrawable bd = (BitmapDrawable) drawable;
         return bd.getBitmap();
@@ -678,11 +682,11 @@ public class ImageUtil {
     }
 
 
-    public static Bitmap decodeBitmap(Context context,Uri uri) {
+    public static Bitmap decodeBitmap(Context context, Uri uri) {
         try {
             return BitmapFactory.decodeStream(context.getContentResolver().openInputStream(uri));
         } catch (Exception ex) {
-         return null;
+            return null;
         }
     }
 }

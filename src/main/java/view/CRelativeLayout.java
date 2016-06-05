@@ -63,4 +63,5 @@ public class CRelativeLayout extends RelativeLayout implements IView.ICustomAttr
             loadScreenArr();
         }
     }
+
 }

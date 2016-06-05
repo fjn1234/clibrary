@@ -12,6 +12,7 @@ import java.util.List;
 
 import interfaces.IView;
 import obj.CustomAttrs;
+import utils.ViewUtil;
 import view.CLinearLayout;
 import view.CTextView;
 
@@ -21,8 +22,6 @@ import view.CTextView;
 public class AutoSizeLinearLayout extends CLinearLayout {
 
     List<View> list = new ArrayList<>();
-
-    private int width;
 
     public AutoSizeLinearLayout(Context context) {
         this(context, null);
@@ -64,16 +63,19 @@ public class AutoSizeLinearLayout extends CLinearLayout {
     private void createSingleLineVariableCell(LinearLayout layout, List<View> tempList) {
         int thisWidth = getCustomAttrs().getWidth();
         int maxWidth = thisWidth;
-        int marginLeft, marginRight, length;
+        int marginLeft, marginRight, length, cellWidth;
         View v;
         interfaces.IView.ICustomAttrs iCustomAttrs;
         for (int i = 0; i < tempList.size(); i++) {
             v = tempList.get(i);
-            iCustomAttrs = (interfaces.IView.ICustomAttrs) tempList.get(i);
+            iCustomAttrs = (interfaces.IView.ICustomAttrs) v;
             iCustomAttrs.loadCustomAttrs();
+            ViewUtil.loadSubViewCustomAttrs(v);
             marginLeft = iCustomAttrs.getCustomAttrs().getMarginLeft();
             marginRight = iCustomAttrs.getCustomAttrs().getMarginRight();
-            length = v.getLayoutParams().width + marginLeft + marginRight;
+            cellWidth = iCustomAttrs.getCustomAttrs().getWidth();
+            cellWidth = cellWidth == 0 && v.getLayoutParams() != null ? v.getLayoutParams().width : cellWidth;
+            length = cellWidth + marginLeft + marginRight;
             if (maxWidth > length) {
                 layout.addView(tempList.get(i));
                 maxWidth -= length;
@@ -86,5 +88,7 @@ public class AutoSizeLinearLayout extends CLinearLayout {
         }
     }
 
-
+    public List<View> getList() {
+        return list;
+    }
 }

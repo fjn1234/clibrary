@@ -93,6 +93,7 @@ public class XListView extends CListView implements OnScrollListener {
     }
 
     private void initWithContext(Context context) {
+        if (isInEditMode()) return;
         mScroller = new Scroller(context, new DecelerateInterpolator());
         // XListView need the scroll event, and it will dispatch the event to
         // user's listener (as a proxy).
@@ -332,7 +333,7 @@ public class XListView extends CListView implements OnScrollListener {
 
     @Override
     public void computeScroll() {
-        if (mScroller.computeScrollOffset()) {
+        if (!isInEditMode() && mScroller.computeScrollOffset()) {
             if (mScrollBack == SCROLLBACK_HEADER) {
                 mHeaderView.setVisiableHeight(mScroller.getCurrY());
             } else {
@@ -414,6 +415,7 @@ public class XListView extends CListView implements OnScrollListener {
     }
 
     private void initAttribute(Context context, AttributeSet attrs) {
+        if (isInEditMode()) return;
         TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.XListView);
         emptyViewId = ta.getResourceId(R.styleable.XListView_emptyViewId, -1);
         strEmpty = ta.getString(R.styleable.XListView_emptyText);
@@ -444,6 +446,7 @@ public class XListView extends CListView implements OnScrollListener {
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         if (once) {
+            if (isInEditMode()) return;
             once = false;
             if (emptyViewId != -1) {
                 View view = LayoutInflater.from(getContext()).inflate(emptyViewId, null);

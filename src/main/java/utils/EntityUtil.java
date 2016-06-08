@@ -233,6 +233,7 @@ public class EntityUtil {
 
     private static Object copyEntity(Object obj, Object newObj, boolean backup) {
         Object backupObj = null;
+        Object value;
         try {
             if (backup) {
                 Class clazz = Class.forName(obj.getClass().getName());
@@ -243,7 +244,9 @@ public class EntityUtil {
             Field[] fields = obj.getClass().getFields();
             for (Field f : fields) {
                 f.setAccessible(true);
-                f.set(obj, newObj.getClass().getField(f.getName()).get(newObj));
+                value = newObj.getClass().getField(f.getName()).get(newObj);
+                if (value != null)
+                    f.set(obj, value);
             }
             return obj;
         } catch (Exception e) {

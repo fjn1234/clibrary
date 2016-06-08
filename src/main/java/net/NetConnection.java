@@ -30,7 +30,7 @@ import interfaces.INetConnection;
 import utils.LogUtil;
 
 
-public abstract class NetConnection extends AsyncTask<Void, Void, Result> {
+public abstract class NetConnection extends AsyncTask<Object, Void, Result> {
     private boolean sslMode;
     private boolean doEncode;
     private String charset;
@@ -70,7 +70,7 @@ public abstract class NetConnection extends AsyncTask<Void, Void, Result> {
     }
 
     @Override
-    protected Result doInBackground(Void... params) {
+    protected Result doInBackground(Object... params) {
         try {
             setDefaultParams(kvs);
             String resultStr = sslMode ?

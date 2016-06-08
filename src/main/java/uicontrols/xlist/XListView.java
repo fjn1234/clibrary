@@ -395,22 +395,20 @@ public class XListView extends CListView implements OnScrollListener {
     int emptyViewId;
     public String strEmpty;
     public int pageIndex = 1;
-
-    public enum OperationType {
-        Refresh, LoadMore, Nothing
-    }
-
-    public OperationType getOperation() {
-        if (mPullRefreshing == true) return OperationType.Refresh;
-        else if (mPullLoading == true) return OperationType.LoadMore;
-        else return OperationType.Nothing;
-    }
+    public int pageSize = 10;
 
     public void stopOperate() {
         if (mPullRefreshing == true) stopRefresh();
-        if (mPullLoading == true) {
+        if (mPullLoading == true) stopLoadMore();
+    }
+
+    public void togglePullLoad(int size) {
+        if (size < pageSize) {
+            setPullLoadEnable(false);
+        }
+        else {
             pageIndex++;
-            stopLoadMore();
+            setPullLoadEnable(true);
         }
     }
 

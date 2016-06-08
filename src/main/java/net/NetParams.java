@@ -16,5 +16,5 @@ public class NetParams {
 	public static final String CHARSET = "utf-8";
 	public static final String POST = "POST";
 	public static final String KEEPALIVE = "Keep-Alive";
-	public static final int TIME_OUT = 30 * 1000; // 超时时间
+	public static final int TIME_OUT = 10 * 1000; // 超时时间
 }

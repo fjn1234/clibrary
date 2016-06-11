@@ -279,9 +279,9 @@ public class CImageView extends ImageView implements IView.ICustomAttrs, IView.I
             if (imageAttrs.getAutoUpdateSpace() > -1) {
                 long cacheDate = file.lastModified() / 60000;
                 long currentDate = (new Date()).getTime() / 60000;
-                printLog("cacheDate:" + cacheDate);
-                printLog("currentDate:" + currentDate);
-                printLog("space minute:" + (currentDate - cacheDate));
+//                printLog("cacheDate:" + cacheDate);
+//                printLog("currentDate:" + currentDate);
+//                printLog("space minute:" + (currentDate - cacheDate));
                 if (currentDate - cacheDate >= imageAttrs.getAutoUpdateSpace()) {
                     loadFromNet();
                     printLog("load from update");
@@ -578,8 +578,7 @@ public class CImageView extends ImageView implements IView.ICustomAttrs, IView.I
     }
 
     protected void printLog(String log) {
-        if (false)
-            Log.e(this.getClass().getSimpleName(), log);
+//        Log.e(this.getClass().getSimpleName(), log);
     }
 
 

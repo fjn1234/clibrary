@@ -54,7 +54,7 @@ public class EntityUtil {
                         String strClass = f.getGenericType().toString().split(",")[1].trim();
                         Class t = Class.forName(strClass.substring(0, strClass.length() - 1));
                         f.set(entity, EntityUtil.createEntityHashMap(json.getJSONArray(k), t));
-                    } else if (CBaseEntity.class.isAssignableFrom(f.getType())) {
+                    } else if (CBaseEntity.class.isAssignableFrom(f.getType()) && !json.isNull(k)) {
                         f.set(entity, EntityUtil.createEntity(json.getJSONObject(k), f.getType()));
                     }
                 }

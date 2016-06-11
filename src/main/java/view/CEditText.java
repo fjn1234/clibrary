@@ -68,7 +68,7 @@ public class CEditText extends EditText implements IView.ICustomAttrs, IView.IMa
             mAttrs.setDrawableBottomWidthRatio(ta.getString(R.styleable.CEditText_cdrawableBottomWidth));
             mAttrs.setDrawableBottomHeightRatio(ta.getString(R.styleable.CEditText_cdrawableBottomHeight));
             mAttrs.setDrawablePaddingRatio(ta.getString(R.styleable.CEditText_cdrawablePadding));
-            disableEmoji = ta.getBoolean(R.styleable.CEditText_cdisableEmoji, true);
+            disableEmoji = ta.getBoolean(R.styleable.CEditText_cdisableEmoji, false);
             maxLength = ta.getInteger(R.styleable.CEditText_cmaxLength, -1);   //不限制的中文和英文或者其他特殊符号总数不能超过的字节（例如：“优秘123”就是7个长度）
             maxNotAsciiLength = ta.getInteger(R.styleable.CEditText_cmaxAsciiElseLength, -1); //中文和英文或者其他特殊符号总数不能超过的字节（例如：“优秘123”就是5个长度）
             int maxAsciiLength = ta.getInteger(R.styleable.CEditText_cmaxAsciiLength, -1);

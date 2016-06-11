@@ -32,6 +32,7 @@ public class CFragment extends Fragment {
     protected static final String RESULT_CANCEL = "result_cancel";
     protected static final String RESULT_OK = "result_ok";
     public static final int ACTIVITY_ROOT_ID = 0x7f080000;
+
     public enum Result {RESULT_OK, RESULT_CANCEL}
 
     private int contentId = -1;
@@ -61,7 +62,6 @@ public class CFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        sendNotifyUpdate(this.getClass(), NOTIFY_RESUME);
         isStartingFragment = false;
     }
 
@@ -245,9 +245,13 @@ public class CFragment extends Fragment {
         return isStartingFragment;
     }
 
-    public void setResultNotify(Class resultClass,String resultTag) {
+    public void setResultNotify(Class resultClass, String resultTag) {
         this.resultClass = resultClass;
         this.resultTag = resultTag;
+    }
+
+    public void setResultNotify(String resultTag) {
+        setResultNotify(this.getClass(), resultTag);
     }
 
     //---------------------------------------------------------------------------------------
@@ -261,6 +265,20 @@ public class CFragment extends Fragment {
     };
 
     protected void onNotifyUpdate(NotifyUpdateEntity notifyUpdateEntity) {
+    }
+
+    public void sendNotifyUpdateThis(String notifyTag, Object entity) {
+        sendNotifyUpdateThis(notifyTag, entity, 0);
+    }
+
+    public void sendNotifyUpdateThis(String notifyTag) {
+        sendNotifyUpdateThis(notifyTag, null, 0);
+    }
+
+    public void sendNotifyUpdateThis(String notifyTag, Object entity, long delay) {
+        Message message = notifyUpdateHandler.obtainMessage();
+        message.obj = new NotifyUpdateEntity(notifyTag, entity);
+        notifyUpdateHandler.sendMessageDelayed(message, delay);
     }
 
     private static HashMap<String, HashMap<Integer, Handler>> notifyUpdateMap = new HashMap<>(20, 10);

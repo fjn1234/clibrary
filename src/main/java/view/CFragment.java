@@ -76,10 +76,10 @@ public class CFragment extends Fragment {
         for (int i = 0; i < fm.getBackStackEntryCount(); i++) {
             fm.popBackStack();
         }
-        startFragementAndFinish(fragment);
+        startFragmentAndFinish(fragment);
     }
 
-    public void startFragement(final Fragment fragment) {
+    public void startFragment(final Fragment fragment) {
         isStartingFragment = true;
         closeSoftInput();
         if (getFragmentManager() == null) return;
@@ -91,7 +91,7 @@ public class CFragment extends Fragment {
         transaction.commitAllowingStateLoss();
     }
 
-    public void startFragementAndFinish(Fragment fragment) {
+    public void startFragmentAndFinish(Fragment fragment) {
         isStartingFragment = true;
         closeSoftInput();
         if (getFragmentManager() == null) return;

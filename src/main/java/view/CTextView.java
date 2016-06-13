@@ -20,7 +20,7 @@ import utils.ViewUtil;
 
 public class CTextView extends TextView implements IView.ICustomAttrs, IView.IMapping {
     private CustomAttrs mAttrs = new CustomAttrs();
-    private boolean initCustomAttrs = true;
+    private boolean initCustomAttrs = true, isHtmlText;
     private int selectOnTextColor = 0, selectOffTextColor = 0;
     private String selectOnText, selectOffText;
     private int defualt = Integer.MAX_VALUE;
@@ -52,6 +52,7 @@ public class CTextView extends TextView implements IView.ICustomAttrs, IView.IMa
         selectOffTextColor = ta.getColor(R.styleable.CTextView_tv_selectOffTextColor, defualt);
         selectOnText = ta.getString(R.styleable.CTextView_tv_selectOnText);
         selectOffText = ta.getString(R.styleable.CTextView_tv_selectOffText);
+        isHtmlText = ta.getBoolean(R.styleable.CTextView_tv_isHtmlText, false);//抗锯齿
         mAttrs.setDrawableLeftResId(ta.getResourceId(R.styleable.CTextView_cdrawableLeft, 0));
         mAttrs.setDrawableRightResId(ta.getResourceId(R.styleable.CTextView_cdrawableRight, 0));
         mAttrs.setDrawableTopResId(ta.getResourceId(R.styleable.CTextView_cdrawableTop, 0));
@@ -114,7 +115,10 @@ public class CTextView extends TextView implements IView.ICustomAttrs, IView.IMa
 
     @Override
     public void setMappingValue(String v) {
-        setText(v);
+        if (isHtmlText)
+            setHtmlText(v);
+        else
+            setText(v);
     }
 
     @Override

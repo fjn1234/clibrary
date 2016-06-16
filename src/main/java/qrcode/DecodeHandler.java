@@ -70,7 +70,6 @@ final class DecodeHandler extends Handler {
     private void decode(byte[] data, int width, int height) {
         long start = System.currentTimeMillis();
         Result rawResult = null;
-        System.out.println(width+"|||||"+height);
         byte[] rotatedData = new byte[data.length];
         for (int y = 0; y < height; y++) {
             for (int x = 0; x < width; x++)

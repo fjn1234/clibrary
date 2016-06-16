@@ -103,7 +103,6 @@ final class CameraConfigurationManager {
 		if (previewSizeValueString == null) {
 			previewSizeValueString = parameters.get("preview-size-value");
 		}
-		System.out.println(previewSizeValueString);
 		Point cameraResolution = null;
 
 		if (previewSizeValueString != null) {
@@ -120,8 +119,6 @@ final class CameraConfigurationManager {
 			cameraResolution = new Point((screenResolution.x >> 3) << 3,
 					(screenResolution.y >> 3) << 3);
 		}
-		System.out.println("-----"+screenResolution.x+"----"+screenResolution.y);
-		System.out.println("-----"+cameraResolution.x+"----"+cameraResolution.y);
 		return cameraResolution;
 	}
 

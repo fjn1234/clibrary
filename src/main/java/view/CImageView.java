@@ -395,6 +395,7 @@ public class CImageView extends ImageView implements IView.ICustomAttrs, IView.I
                 }
             }
         }
+        setImageBitmap(null);
         return bitmap;
     }
 

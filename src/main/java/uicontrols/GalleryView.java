@@ -83,6 +83,8 @@ public class GalleryView extends CRecyclerView {
         Disk, Url
     }
 
+
+
     public void setUriType(UriType uriType) {
         this.uriType = uriType;
     }
@@ -205,6 +207,7 @@ public class GalleryView extends CRecyclerView {
                     boolean add = true;
                     if (imgList.size() >= maxLimit || !addMode) {
                         entity = imgList.get(position);
+
                         add = false;
                     } else {
                         if (position > 0) {
@@ -264,7 +267,7 @@ public class GalleryView extends CRecyclerView {
 
     private void setBg(final CImageView ivBg, final CImageView ivImg) {
         ivBg.setVisibility(VISIBLE);
-        ivImg.setVisibility(GONE);
+        ivImg.setVisibility(VISIBLE);
         ivImg.setLoadImageCallback(new CImageView.LoadImageCallback() {
             @Override
             public void onBefore() {

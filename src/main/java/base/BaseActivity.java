@@ -80,7 +80,7 @@ public abstract class BaseActivity extends Activity {
         if (getFragmentManager() == null) return;
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
         transaction.add(BaseFragment.ACTIVITY_ROOT_ID + 0, fragment);
-        transaction.commit();
+        transaction.commitAllowingStateLoss();
     }
 
     protected abstract Fragment setFragment();

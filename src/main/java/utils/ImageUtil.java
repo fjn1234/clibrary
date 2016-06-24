@@ -49,6 +49,8 @@ import obj.CApplication;
 
 public class ImageUtil {
 
+
+
     public static int getRadiusHeight(int width, int height, int customWidth) {
         float radius = (customWidth * 1.0f) / (width * 1.0f);
         int customHeight = (int) (height * radius);
@@ -277,6 +279,8 @@ public class ImageUtil {
 
     public static Bitmap getSquareBitmap(Bitmap bitmap, float zoom, Config config) {
         int width = Math.min(bitmap.getWidth(), bitmap.getHeight());
+        int high=Math.max(bitmap.getWidth(), bitmap.getHeight());
+        int ca=(high-width)/2;
         Bitmap output = Bitmap.createBitmap(width, width, config);
         Canvas canvas = new Canvas(output);
         final Paint paint = new Paint();
@@ -289,6 +293,16 @@ public class ImageUtil {
         paint.setAntiAlias(true);
         canvas.drawARGB(0, 0, 0, 0);
         canvas.drawBitmap(bitmap, rect, rect, paint);
+        return output;
+    }
+    public static Bitmap getCentreBitmap(Bitmap bitmap, float zoom, Config config) {
+        int width = Math.min(bitmap.getWidth(), bitmap.getHeight());
+        int high=Math.max(bitmap.getWidth(), bitmap.getHeight());
+        int ca=(high-width)/2;
+        Bitmap output = Bitmap.createBitmap(bitmap,0,ca,width,width);
+        int radius = (int) (width * zoom);
+        int to = width / 2 - radius / 2;
+        output=Bitmap.createBitmap(output,to,to,radius,radius);
         return output;
     }
 

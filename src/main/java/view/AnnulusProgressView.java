@@ -195,6 +195,7 @@ public class AnnulusProgressView extends CView implements View.OnClickListener {
 
     //计算进度条的旋转角度
     private float getSweep(float degrees) {
+        //逆时针角度
         if (sweepAngle < 0) {
             float sweep = startAngle + sweepAngle;
             if (sweep > 0) {
@@ -212,8 +213,14 @@ public class AnnulusProgressView extends CView implements View.OnClickListener {
                     return -startAngle + degrees2;
                 }
             }
+        } else { //顺时针角度
+            if (degrees > startAngle)
+                return degrees - startAngle;
+            else if (degrees < startAngle + sweepAngle - 360) {
+                return 360 - startAngle + degrees;
+            } else
+                return Float.MAX_VALUE;
         }
-        return degrees;
     }
 
     //判断是否在有效的触摸空间

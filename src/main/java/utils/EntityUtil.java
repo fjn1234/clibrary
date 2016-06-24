@@ -47,20 +47,29 @@ public class EntityUtil {
                     } else if (f.getType().equals(boolean.class) || f.getType().equals(Boolean.class)) {
                         f.set(entity, json.optBoolean(k));
                     } else if (List.class.isAssignableFrom(f.getType()) && !json.isNull(k)) {
-                        String strClass = f.getGenericType().toString().split("<")[1];
-                        Class t = Class.forName(strClass.substring(0, strClass.length() - 1));
-                        f.set(entity, EntityUtil.createEntityList(json.getJSONArray(k), t));
+                        try {
+                            String strClass = f.getGenericType().toString().split("<")[1];
+                            Class t = Class.forName(strClass.substring(0, strClass.length() - 1));
+                            f.set(entity, EntityUtil.createEntityList(json.getJSONArray(k), t));
+                        } catch (Exception ex) {
+                        }
                     } else if (HashMap.class.isAssignableFrom(f.getType()) && !json.isNull(k)) {
-                        String strClass = f.getGenericType().toString().split(",")[1].trim();
-                        Class t = Class.forName(strClass.substring(0, strClass.length() - 1));
-                        f.set(entity, EntityUtil.createEntityHashMap(json.getJSONArray(k), t));
+                        try {
+                            String strClass = f.getGenericType().toString().split(",")[1].trim();
+                            Class t = Class.forName(strClass.substring(0, strClass.length() - 1));
+                            f.set(entity, EntityUtil.createEntityHashMap(json.getJSONArray(k), t));
+                        } catch (Exception ex) {
+                        }
                     } else if (CBaseEntity.class.isAssignableFrom(f.getType()) && !json.isNull(k)) {
-                        f.set(entity, EntityUtil.createEntity(json.getJSONObject(k), f.getType()));
+                        try {
+                            f.set(entity, EntityUtil.createEntity(json.getJSONObject(k), f.getType()));
+                        } catch (Exception ex) {
+                        }
                     }
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            LogUtil.printStackTrace(EntityUtil.class, e);
         }
         return entity;
     }

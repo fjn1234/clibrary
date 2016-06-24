@@ -258,7 +258,6 @@ public final class CameraManager {
 			height = width;
 			framingRect = new Rect(leftOffset, topOffset, leftOffset + width,
 					topOffset + height);
-			System.out.println(framingRect.width());
 		}
 		return framingRect;
 	}

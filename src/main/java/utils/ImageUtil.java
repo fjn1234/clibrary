@@ -312,6 +312,17 @@ public class ImageUtil {
         }
     }
 
+    public static Bitmap getCentreBitmap(Bitmap bitmap, float zoom) {
+        int width = Math.min(bitmap.getWidth(), bitmap.getHeight());
+        int high=Math.max(bitmap.getWidth(), bitmap.getHeight());
+        int ca=(high-width)/2;
+        Bitmap output = Bitmap.createBitmap(bitmap,0,ca,width,width);
+        int radius = (int) (width * zoom);
+        int to = width / 2 - radius / 2;
+        output=Bitmap.createBitmap(output,to,to,radius,radius);
+        return output;
+    }
+
     public static Bitmap getRoundedCornerBitmap(Bitmap bitmap, float corner, float zoom, Config config) {
         int width = Math.min(bitmap.getWidth(), bitmap.getHeight());
         Bitmap output = Bitmap.createBitmap(width, width, config);

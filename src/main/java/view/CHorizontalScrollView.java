@@ -60,6 +60,29 @@ public class CHorizontalScrollView extends HorizontalScrollView implements IView
         }
     }
 
+
+
+    @Override
+    protected void onScrollChanged(int l, int t, int oldl, int oldt) {
+        super.onScrollChanged(l, t, oldl, oldt);
+        onScrollChangedListener.onScrollChanged(l,t,oldl,oldt);
+    }
+
+    private OnScrollChangedListener onScrollChangedListener=new OnScrollChangedListener() {
+        @Override
+        public void onScrollChanged(int l, int t, int oldl, int oldt) {
+
+        }
+    };
+
+    public void setOnScrollChangedListener(OnScrollChangedListener onScrollChangedListener) {
+        this.onScrollChangedListener = onScrollChangedListener;
+    }
+
+    public interface OnScrollChangedListener{
+        void onScrollChanged(int l, int t, int oldl, int oldt);
+    }
+
     //--------------------------------------------------------------------
 //
 //    private InterceptTouchListener interceptTouchListener;

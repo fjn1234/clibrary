@@ -306,6 +306,26 @@ public class ImageUtil {
         return output;
     }
 
+    public static Bitmap getCenterSquareBitmap(Bitmap bitmap, float zoom, Bitmap.Config config) {
+        if (bitmap.getWidth() < bitmap.getHeight()) {
+            int bWidth = bitmap.getWidth(), bHeight = bitmap.getHeight();
+            int width = (int) (bitmap.getWidth() * zoom);
+            Bitmap output = Bitmap.createBitmap(width, width, config);
+            Canvas canvas = new Canvas(output);
+            final Paint paint = new Paint();
+            int left = (bWidth - width) / 2;
+            int top = bHeight / 2 - width / 2;
+            final Rect rect = new Rect(0, 0, width, width);
+            final Rect rects = new Rect(left, top, left + width, top + width);
+            paint.setAntiAlias(true);
+            canvas.drawARGB(0, 0, 0, 0);
+            canvas.drawBitmap(bitmap, rects, rect, paint);
+            return output;
+        } else {
+            return null;
+        }
+    }
+
     public static Bitmap getRoundedCornerBitmap(Bitmap bitmap, float corner, float zoom, Config config) {
         int width = Math.min(bitmap.getWidth(), bitmap.getHeight());
         Bitmap output = Bitmap.createBitmap(width, width, config);

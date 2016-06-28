@@ -9,6 +9,7 @@
         <attr name="apv_touchArea" format="float"/>
         <attr name="apv_dotRadius" format="float"/>
         <attr name="apv_showDot" format="boolean"/>
+        <attr name="apv_enable" format="boolean"/>
         <attr name="apv_strokeColor" format="reference"/>
         <attr name="apv_strokeProgressColor" format="reference"/>
         <attr name="apv_dotColor" format="reference"/>

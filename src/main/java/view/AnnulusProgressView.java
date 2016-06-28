@@ -48,6 +48,7 @@ public class AnnulusProgressView extends CView implements View.OnClickListener {
             strokeProgressColor = ta.getColor(R.styleable.AnnulusProgressView_apv_strokeProgressColor, Color.GREEN);
             dotColor = ta.getColor(R.styleable.AnnulusProgressView_apv_dotColor, Color.RED);
             showDot = ta.getBoolean(R.styleable.AnnulusProgressView_apv_showDot, true);
+            enable = ta.getBoolean(R.styleable.AnnulusProgressView_apv_enable, true);
             ta.recycle();
         }
         setOnClickListener(this);
@@ -94,7 +95,7 @@ public class AnnulusProgressView extends CView implements View.OnClickListener {
     private RectF oval;
     Paint paint1, paint2, paintDot;
     private float percent;
-    private boolean showDot;
+    private boolean showDot,enable;
     private boolean once = true;
 
     @Override
@@ -240,7 +241,7 @@ public class AnnulusProgressView extends CView implements View.OnClickListener {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        if (!isEnabled()) return super.onTouchEvent(event);
+        if (!enable) return super.onTouchEvent(event);
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 clickX = getAdjustX(event.getX());

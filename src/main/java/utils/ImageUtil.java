@@ -326,14 +326,10 @@ public class ImageUtil {
         }
     }
 
-    public static Bitmap getCentreBitmap(Bitmap bitmap, float zoom) {
-        int width = Math.min(bitmap.getWidth(), bitmap.getHeight());
-        int high=Math.max(bitmap.getWidth(), bitmap.getHeight());
-        int ca=(high-width)/2;
-        Bitmap output = Bitmap.createBitmap(bitmap,0,ca,width,width);
-        int radius = (int) (width * zoom);
-        int to = width / 2 - radius / 2;
-        output=Bitmap.createBitmap(output,to,to,radius,radius);
+    public static Bitmap getCentreBitmap(Bitmap bitmap, int cutWidth) {
+        int left = (bitmap.getWidth() - cutWidth) / 2;
+        int top = (bitmap.getHeight() - cutWidth) / 2;
+        Bitmap output = Bitmap.createBitmap(bitmap, left, top, cutWidth, cutWidth);
         return output;
     }
 

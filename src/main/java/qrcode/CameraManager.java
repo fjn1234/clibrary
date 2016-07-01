@@ -281,7 +281,7 @@ public final class CameraManager {
 			rect.bottom=rect.top+w;
 			
 			//因为旋转了90度，left=top，right=bottom，top=left，bottom=right
-			Rect framRect = new Rect(getFramingRect());
+//			Rect framRect = new Rect(getFramingRect());
 		//	Rect rect = new Rect();
 //			rect.left=yCenter-framRect.height()/2;
 //			rect.right=rect.left+framRect.height();

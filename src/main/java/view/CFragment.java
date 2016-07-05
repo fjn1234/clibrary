@@ -254,6 +254,10 @@ public class CFragment extends Fragment {
         setResultNotify(this.getClass(), resultTag);
     }
 
+    public void runOnUiThread(Runnable runnable){
+        getActivity().runOnUiThread(runnable);
+    }
+
     //---------------------------------------------------------------------------------------
     public final static String NOTIFY_CREATE = "notify_create";
     public final static String NOTIFY_RESUME = "notify_resume";

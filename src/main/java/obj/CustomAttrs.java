@@ -68,7 +68,8 @@ public class CustomAttrs {
             cornerRatio, textSizeRatio, drawableLeftWidthRatio, drawableLeftHeightRatio, drawableRightWidthRatio, drawableRightHeightRatio,
             drawableTopWidthRatio, drawableTopHeightRatio, drawableBottomWidthRatio, drawableBottomHeightRatio, drawablePaddingRatio;
     private int direction, hideMode, drawableLeftResId, drawableRightResId, drawableTopResId, drawableBottomResId;
-    private int marginLeftPx, marginRightPx, marginTopPx, marginBottomPx, paddingLeftPx, paddingRightPx, paddingTopPx, paddingBottomPx,maxWidthPx,textSizePx;
+    private int marginLeftPx, marginRightPx, marginTopPx, marginBottomPx, paddingLeftPx, paddingRightPx, paddingTopPx, paddingBottomPx, maxWidthPx,
+            strokeWidth,textSizePx, strokeColor = Integer.MAX_VALUE, solidColor = Integer.MAX_VALUE;
     private Drawable onClickBackground;
     private boolean toSquare = false;
     private String entityMapping = "", getMapping = "", setMapping = "", selectMapping = "", visibleMapping = "";
@@ -610,6 +611,30 @@ public class CustomAttrs {
 
     public void setOnClickBackground(Drawable onClickBackground) {
         this.onClickBackground = onClickBackground;
+    }
+
+    public void setStrokeColor(int strokeColor) {
+        this.strokeColor = strokeColor;
+    }
+
+    public int getStrokeColor() {
+        return strokeColor;
+    }
+
+    public void setSolidColor(int solidColor) {
+        this.solidColor = solidColor;
+    }
+
+    public int getSolidColor() {
+        return solidColor;
+    }
+
+    public void setStrokeWidth(int strokeWidth) {
+        this.strokeWidth = strokeWidth;
+    }
+
+    public int getStrokeWidth() {
+        return strokeWidth;
     }
 
     //----------------------------------------------------------------

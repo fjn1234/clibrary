@@ -7,27 +7,40 @@ import io.CFile;
 
 public class WavMediaRecord implements IMediaRecord {
 
-	private static WavRecordFunc mRecord;
+    private MediaPlayerHelper mediaPlayerHelper;
+    private String filePath;
+    private WavRecordFunc mRecord;
 
-	@Override
-	public void stop() {
-		if (mRecord != null) {
-			mRecord.stopRecordAndFile();
-		}
-	}
+    public WavMediaRecord() {
+        mRecord = WavRecordFunc.getInstance();
+        mediaPlayerHelper = new MediaPlayerHelper();
+    }
 
-	@Override
-	public void start(String file) {
-		if (TextUtils.isEmpty(file)) {
-			return;
-		}
-		if (mRecord != null)
-			mRecord.stopRecordAndFile();
-		mRecord = WavRecordFunc.getInstance();
-		WavFileFunc.setWavFilePath(file);
-		CFile soundFile = new CFile(file);
-		soundFile.createNewFileAndDirectory();
-		mRecord.startRecordAndFile();
-	}
+
+    @Override
+    public void stop() {
+        mRecord.stopRecordAndFile();
+    }
+
+    @Override
+    public void play() {
+        if (TextUtils.isEmpty(filePath)) return;
+        mediaPlayerHelper.play(filePath);
+    }
+
+    @Override
+    public void stopPlay() {
+        mediaPlayerHelper.stop();
+    }
+
+    @Override
+    public void start(String file) {
+        if (TextUtils.isEmpty(file)) return;
+        mRecord.stopRecordAndFile();
+        stopPlay();
+        WavFileFunc.setWavFilePath(file);
+        filePath = file;
+        mRecord.startRecordAndFile();
+    }
 
 }

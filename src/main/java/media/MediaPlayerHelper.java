@@ -4,13 +4,13 @@ import android.media.MediaPlayer;
 
 import java.io.IOException;
 
-public class MediaPlayerHandler {
+public class MediaPlayerHelper {
 	private static MediaPlayer mediaPlayer;
 	private OnStopCallback onStopCallback;
 	private OnPreparedCallback onPreparedCallback;
 	private OnGotDurationCallback onGotDurationCallback;
 
-	public MediaPlayerHandler() {
+	public MediaPlayerHelper() {
 	}
 
 	public void getDuration(String filePath) {

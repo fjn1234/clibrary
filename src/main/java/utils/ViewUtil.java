@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
+import android.graphics.Color;
 import android.graphics.Point;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
@@ -220,6 +221,9 @@ public class ViewUtil {
             mAttrs.setSelectMapping(ta.getString(R.styleable.CustomAttrs_selectMapping));
             mAttrs.setVisibleMapping(ta.getString(R.styleable.CustomAttrs_visibleMapping));
             mAttrs.setHideMode(ta.getInt(R.styleable.CustomAttrs_hideMode, -1));
+            mAttrs.setStrokeColor(ta.getColor(R.styleable.CustomAttrs_strokeColor, Integer.MAX_VALUE));
+            mAttrs.setSolidColor(ta.getColor(R.styleable.CustomAttrs_solidColor, Color.TRANSPARENT));
+            mAttrs.setStrokeWidth(ta.getInteger(R.styleable.CustomAttrs_strokeWidth, 2));
             ta.recycle();
         } catch (Exception ex) {
             LogUtil.printStackTrace(CustomAttrs.class, ex);
@@ -312,6 +316,20 @@ public class ViewUtil {
             setCorner(v, attrs);
         if (attrs.getTextSize() > 0)
             setTextSize(v, attrs);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN
+                && attrs.getStrokeColor() < Integer.MAX_VALUE) {
+            Drawable drawable = v.getBackground();
+            GradientDrawable gradientDrawable = null;
+            if (drawable != null && GradientDrawable.class.isAssignableFrom(drawable.getClass()))
+                gradientDrawable = (GradientDrawable) drawable;
+            else if (drawable == null)
+                gradientDrawable = new GradientDrawable();
+            if (gradientDrawable != null) {
+                gradientDrawable.setColor(attrs.getSolidColor());
+                gradientDrawable.setStroke(attrs.getStrokeWidth(), attrs.getStrokeColor(),0,0);
+                v.setBackground(gradientDrawable);
+            }
+        }
 //        else setTextSizeDefault(v);
     }
 

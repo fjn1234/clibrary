@@ -3,6 +3,9 @@
     <declare-styleable name="CButton">
         <attr name="cdesignScreenWidth" />
         <attr name="cdesignScreenHeight" />
+        <attr name="strokeColor" />
+        <attr name="solidColor" />
+        <attr name="strokeWidth" />
         <attr name="cselectOnTextColor" format="reference"></attr>
         <attr name="cselectOffTextColor" format="reference"></attr>
         <attr name="cselectOnText" format="reference"></attr>

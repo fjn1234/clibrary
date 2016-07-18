@@ -79,6 +79,7 @@ public final class SystemUtil {
         return b;
     }
 
+
     public static Point getScreenSize(Context context) {
         WindowManager manager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
         Point point = new Point();

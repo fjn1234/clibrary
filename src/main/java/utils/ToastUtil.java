@@ -1,6 +1,8 @@
 package utils;
 
 import android.content.Context;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.support.design.widget.Snackbar;
 import android.view.View;
 import android.widget.Toast;
@@ -29,7 +31,7 @@ public class ToastUtil {
 
 
     public static void makeShortSnackbar(View container, String msg) {
-        Snackbar.make(container, msg, Snackbar.LENGTH_SHORT).show();
+        Snackbar.make(container, msg, Snackbar.LENGTH_SHORT).setActionTextColor(Color.WHITE).show();
     }
 
 

@@ -313,6 +313,7 @@ public class XListView extends CListView implements OnScrollListener {
                         mPullRefreshing = true;
                         mHeaderView.setState(XListViewHeader.STATE_REFRESHING);
                         if (mListViewListener != null) {
+                            pageIndex=1;
                             mListViewListener.onRefresh();
                         }
                     }

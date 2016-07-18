@@ -10,6 +10,7 @@ import interfaces.IMapping;
 import interfaces.IObject;
 import sqlite.SqliteMapping;
 import utils.EntityUtil;
+import utils.JsonUtil;
 import view.ViewMapping;
 
 public class CBaseEntity implements Serializable, IMapping.ISQLiteMapping, IMapping.IObjectMapping {
@@ -41,6 +42,22 @@ public class CBaseEntity implements Serializable, IMapping.ISQLiteMapping, IMapp
     public void fill(Object obj) {
         if (obj == null || !obj.getClass().equals(this.getClass())) return;
         EntityUtil.copyEntity(this, obj);
+    }
+
+    public JSONObject getJSON(boolean outNull) {
+        return JsonUtil.objectToJson(this, outNull);
+    }
+
+    public JSONObject getJSON() {
+        return getJSON(false);
+    }
+
+    public String toJSONString(boolean outNull) {
+        return getJSON(outNull).toString();
+    }
+
+    public String toJSONString() {
+        return getJSON().toString();
     }
 
     @Override

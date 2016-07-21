@@ -1,7 +1,9 @@
 package utils;
 
+import android.Manifest;
 import android.app.ActivityManager;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -11,9 +13,11 @@ import android.graphics.Point;
 import android.hardware.Camera;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.Build;
+import android.support.v4.app.ActivityCompat;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.WindowManager;
@@ -35,6 +39,7 @@ import obj.CApplication;
  * 2015-03-26
  */
 public final class SystemUtil {
+
     public static String getCurrentLocale(Context context) {
         return context.getResources().getConfiguration().locale.getCountry();
     }
@@ -221,6 +226,19 @@ public final class SystemUtil {
         if (packInfo != null)
             versionName = packInfo.versionName;
         return versionName;
+    }
+
+    // 拨打电话
+    public static void call(String number) {
+        if (TextUtils.isEmpty(number)) return;
+        Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + number));
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        CApplication.getAppContext().startActivity(intent);
+        if (ActivityCompat.checkSelfPermission(CApplication.getAppContext(), Manifest.permission.CALL_PHONE) == PackageManager.PERMISSION_GRANTED) {
+
+        } else {
+            System.out.println("call permission is define");
+        }
     }
 
 }

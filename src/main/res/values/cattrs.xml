@@ -3,6 +3,9 @@
     <attr name="citemPerRow" format="integer" />
     <attr name="ccellViewId" format="reference" />
     <attr name="emptyViewId" format="reference" />
+    <attr name="strokeWidth" format="integer" />
+    <attr name="strokeColor" format="reference" />
+    <attr name="solidColor" format="reference" />
     <attr name="cmode">
         <flag name="grid" value="0x00000001" />
         <flag name="vertical" value="0x00000002" />
@@ -82,6 +85,9 @@
         <attr name="selectMapping" />
         <attr name="visibleMapping" />
         <attr name="hideMode" />
+        <attr name="strokeColor" />
+        <attr name="solidColor" />
+        <attr name="strokeWidth" />
         <attr name="cwidth" />
         <attr name="cheight" />
         <attr name="cmarginLeft" />

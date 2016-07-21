@@ -7,8 +7,11 @@
         <attr name="tv_selectOnText" format="reference"></attr>
         <attr name="tv_selectOffText" format="reference"></attr>
         <attr name="tv_antiAlias" format="boolean"></attr>
-        <attr name="tv_flags" format="boolean"></attr>
+        <attr name="tv_underline" format="boolean"></attr>
         <attr name="tv_isHtmlText" format="boolean"></attr>
+        <attr name="strokeColor" />
+        <attr name="solidColor" />
+        <attr name="strokeWidth" />
         <attr name="cdrawableLeft"/>
         <attr name="cdrawableRight"/>
         <attr name="cdrawableTop"/>

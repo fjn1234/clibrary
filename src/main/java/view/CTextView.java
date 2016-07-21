@@ -44,10 +44,12 @@ public class CTextView extends TextView implements IView.ICustomAttrs, IView.IMa
         mAttrs = ViewUtil.initCustomAttrs(context, attrs, this);
         mAttrs.setTextSizePx((int) getTextSize());
         TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.CTextView);
-        getPaint().setFakeBoldText(ta.getBoolean(R.styleable.CTextView_tv_fakeBlod, false));
-        if (ta.getBoolean(R.styleable.CTextView_tv_flags, false))
-            getPaint().setFlags(Paint.UNDERLINE_TEXT_FLAG); //下划线
-        getPaint().setAntiAlias(ta.getBoolean(R.styleable.CTextView_tv_antiAlias, true));//抗锯齿
+//        getPaint().setFakeBoldText(ta.getBoolean(R.styleable.CTextView_tv_fakeBlod, false));
+//        if (ta.getBoolean(R.styleable.CTextView_tv_flags, false))
+//            getPaint().setFlags(Paint.UNDERLINE_TEXT_FLAG); //下划线
+//        if (ta.getBoolean(R.styleable.CTextView_tv_flags, false))
+//            getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG); //删除线
+//        getPaint().setAntiAlias(ta.getBoolean(R.styleable.CTextView_tv_antiAlias, true));//抗锯齿
         selectOnTextColor = ta.getColor(R.styleable.CTextView_tv_selectOnTextColor, defualt);
         selectOffTextColor = ta.getColor(R.styleable.CTextView_tv_selectOffTextColor, defualt);
         selectOnText = ta.getString(R.styleable.CTextView_tv_selectOnText);

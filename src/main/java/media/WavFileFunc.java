@@ -5,6 +5,8 @@ import android.os.Environment;
 
 import java.io.File;
 
+import io.CFile;
+
 public class WavFileFunc {
 	public final static int AUDIO_INPUT = MediaRecorder.AudioSource.MIC;
 	public final static int AUDIO_SAMPLE_RATE =11025; // 44.1KHz
@@ -22,6 +24,8 @@ public class WavFileFunc {
 //	}
 
 	public static void setWavFilePath(String wavFilePath) {
+		CFile soundFile = new CFile(wavFilePath);
+		soundFile.createNewFileAndDirectory();
 		WavFileFunc.wavFilePath = wavFilePath;
 	}
 
